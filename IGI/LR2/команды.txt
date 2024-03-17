@@ -1,0 +1,2 @@
+docker run -d -p 80:80 --name training-container docker/getting-started
+docker build -t my-image:1.0 .

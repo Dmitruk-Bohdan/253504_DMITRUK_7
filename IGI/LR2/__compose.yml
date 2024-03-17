@@ -1,0 +1,75 @@
+services:
+  backend:
+    build: backend # Билд докерфайлом расположенным по указанному пути 
+
+    restart: always # Параметр restart в файле docker-compose.yml определяет поведение контейнера
+                    # при его автоматическом перезапуске Docker Engine в случае сбоя или остановки
+    secrets:
+      - db-password # Конфиденциальные данные, такие как пароли, ключи API или сертификаты
+                    # Могут быть сохранены в безопасном хранилище и использоваться внутри контейнеров без раскрытия содержимого
+
+    environment:      # Используется для определения переменных окружения, которые будут переданы в контейнер при его запуске
+      MYSQL_HOST: db 
+
+    networks:
+      - react-spring  # Указывает к каким сетям будет подключен контейнер
+      - spring-mysql  # Подключенные к сетям контейнеры  могут общаться друг с другом посредством имен хостов,
+                      # без необходимости использования IP-адресов.
+
+    depends_on:                       # Секция depends_on используется для указания зависимостей между сервисами (контейнерами)
+      db:                             # Она позволяет определить порядок запуска контейнеров и ожидать
+        condition: service_healthy    # Пока определенный сервис станет доступным, прежде чем запустить другие сервисы
+  db:
+    image: mariadb:10.6.4-focal
+    
+    environment:
+      - MYSQL_DATABASE=example
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db-password
+    restart: always
+    
+    healthcheck:                                                          # Периодический процесс или инструмент загружает и выполняет проверки,
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"]  # в соответствии с настройками из секции healthcheck
+      interval: 3s                                                        # Секция представляет собой механизм для проверки работоспособности 
+      retries: 5                                                          # и доступности приложения или сервиса
+      start_period: 30s
+
+    secrets:
+      - db-password
+
+    volumes:
+      - db-data:/var/lib/mysql
+
+    networks:
+      - spring-mysql
+  frontend:
+    build:
+      context: frontend     # Путь к докерфайлу
+      target: development   # Указывает на то, что во время сборки контейнера "frontend"
+                            # будут применяться настройки, специфичные для разработки.
+    ports:
+      - 3000:3000
+
+    volumes:                        #хранилища, позволяющие обменитьваться данными между контейнерами 
+      - ./frontend/src:/code/src
+      - /project/node_modules
+
+    networks:
+      - react-spring
+
+    depends_on:
+      - backend
+
+    expose:
+      - 3306
+      - 33060
+      
+volumes:
+  db-data: {}
+
+secrets:
+  db-password:
+    file: db/password.txt
+
+networks:
+  react-spring: {}
+  spring-mysql: {}
