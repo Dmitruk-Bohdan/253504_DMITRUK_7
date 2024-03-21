@@ -1,3 +1,0 @@
-docker pull phpmyadmin
-docker pull mysql
-docker pull postgres
