@@ -14,13 +14,13 @@ def calculate_row(x : float, eps : float):
     result = 0
     prev_result = 2147483647
     loop_counter = 0 
-    while(abs(result - prev_result) > eps):
+    while abs(result - prev_result) > eps:
         prev_result = result
         result += m.pow(-1, loop_counter) * m.pow(x, 2 * loop_counter) / (m.factorial(2 * loop_counter))
         loop_counter += 1
         if loop_counter > 500:
             raise Exception("Iterations c")
-    return(result, loop_counter)
+    return result, loop_counter
 
 def executable_function():
     """
