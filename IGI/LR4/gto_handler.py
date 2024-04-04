@@ -3,7 +3,7 @@ from typing import Dict
 import csv
 import random
 
-class GTO_handler:
+class GTOHandler:
     """
     The GTO_handler class is designed to handle and manipulate data of examinees participating in a physical fitness test.
     It provides methods for saving and loading data to/from CSV and pickle files, as well as retrieving statistics and sorting the data.
@@ -158,7 +158,7 @@ class GTO_handler:
             rand_jump = round(random.uniform(100.0, 200.0), 2)
             examinees[names[i]] = (rand_run, rand_jump)
 
-        handler = GTO_handler(examinees)    
+        handler = GTOHandler(examinees)    
 
         handler.save_to_csv()
 
