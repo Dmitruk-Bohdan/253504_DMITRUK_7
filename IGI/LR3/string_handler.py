@@ -1,21 +1,24 @@
 import time
 
-#This program allows you to
-#Calculates amount of lowcase letters and digits in passed string
-
 def timer(func):
+    """
+    Decorator function to measure the execution time of a function
+    Input: function
+    Output: result of the function
+    """
     def wrapper(*args, **kwargs):
         start = time.time()
         result = func(*args, **kwargs)
-        print(f"Executions time: {time.time() - start}")
+        print(f"Execution time: {time.time() - start}")
         return result
     return wrapper
 
-def parse_string(str : str):
+
+def parse_string(str):
     """
-    Calculates amount of lowcase letters and digits in passed string
-    Input(string)
-    Output(u_int lowercase_letters_count, u_int digits_count)
+    Function to calculate the count of lowercase letters and digits in the given string
+    Input: string
+    Output: count of lowercase letters, count of digits
     """
     lowercase_letters_count = 0
     digits_count = 0
@@ -25,8 +28,9 @@ def parse_string(str : str):
 
     return lowercase_letters_count, digits_count
 
+
 @timer
-def executable_function(a):
+def executable_function():
     """
     User interface function
     Performs data input and output
