@@ -60,7 +60,7 @@ class TextHandler:
         return sorted(re.findall(r"\b\w*w\b", string), lambda x: len(x))[0]
     
     def print_words_by_length(string : str):
-        print()
+        print(re.findall(r"\b\w+\b", string), lambda x: len(x))
 
     def remove_punctuation_and_spaces(text):
         punctuation_and_spaces = string.punctuation + " "
