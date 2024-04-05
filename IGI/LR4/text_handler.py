@@ -24,7 +24,7 @@ class TextHandler:
             return zip_file.getinfo(file_path.split('/')[-1])
 
 
-    def get_stat_as_file():
+    def save_stat_as_file():
         pass
 
     def get_sentences_count(string : str):
@@ -47,12 +47,20 @@ class TextHandler:
     def get_emoticon_count(string : str):
         return len([re.findall(r"[;:]-*[()[]]+")])
 
-    def get_low_case_and_numbers_words():
-        words = re.findall(r"(\w+)", string)
-        return re.findall(r"(?:^|\s)(\w*[[a-z][0-9]]\w*)(?:$|\s|[!?.,(...)])")
+    def get_low_case_and_numbers_words(string : str):
+        return re.findall(r"(\b\w*[[a-z][0-9]]\w*\b)", string)
 
-    def is_ip():
-        pass
+    def is_ip(string : str):
+        return re.match(r"\d{3}.\d{3}.\d{3}.\d{3}", string)
+    
+    def get_words_less_than_n(string : str, n : int):
+        return len(re.findall(r"\b\w{1,5}\b"))
+    
+    def get_shortest_w_word(string : str):
+        return sorted(re.findall(r"\b\w*w\b", string), lambda x: len(x))[0]
+    
+    def print_words_by_length(string : str):
+        print()
 
     def remove_punctuation_and_spaces(text):
         punctuation_and_spaces = string.punctuation + " "
