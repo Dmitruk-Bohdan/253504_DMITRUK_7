@@ -253,7 +253,7 @@ class Hexagon(GeometricFigure):
     
 def demonstrate():
 
-    key = str(input("Do you wanna create shapes by yourself?\nEnter 0 for NO\nEnter any other symblo for YES"))
+    key = str(input("Do you wanna create shapes by yourself?\nEnter 0 for NO\nEnter any other symblo for YES\n"))
     
     if key == "0":
         rectangle = Rectangle(5, 3, "blue")
@@ -269,40 +269,47 @@ def demonstrate():
             print(figure.get_info())
     
     else:
-        shape_name = input("What shape do you  wanna create?\nChoose one of theese: rectangle, circle, rhombus, square, triangle, hexagon\nOr enter 'end' to finish")
         figures = []
         
         while True:
+            shape_name = input("What shape do you  wanna create?\nChoose one of theese: rectangle, circle, rhombus, square, triangle, hexagon\nOr enter 'end' to finish\n")
+
             match shape_name:
                 case "rectangle":
                     rectangle = Rectangle()
                     rectangle.create_interactively()
+                    figures.append(rectangle)
 
                 case "circle":
                     circle = Circle()
                     circle.create_interactively()
+                    figures.append(circle)
 
                 case "rhombus":
                     rhombus = Rhombus()
-                    Rhombus.create_interactively()
+                    rhombus.create_interactively()
+                    figures.append(rhombus)
 
                 case "square":
                     square = Square()
                     square.create_interactively()
+                    figures.append(square)
 
                 case "triangle":
                     triangle = Triangle()
                     triangle.create_interactively()
+                    figures.append(triangle)
 
                 case "hexagon":
                     hexagon = Hexagon()
                     hexagon.create_interactively()
+                    figures.append(hexagon)
 
                 case "end":
                     break
 
                 case _:
-                    print("Incorrect input\nPlease? try again\n")
+                    print("\nIncorrect input\nPlease, try again\n")
         
         for figure in figures:
             print(figure.get_info())
