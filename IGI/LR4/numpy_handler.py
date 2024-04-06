@@ -1,4 +1,5 @@
 import numpy as np
+from pandas import DataFrame
 
 class NumpyHandler:
     """
@@ -17,6 +18,19 @@ class NumpyHandler:
         self.m = m
         self.A = np.random.randint(0, 10, size=(n, m))
     
+    def demonstate_values():
+        
+        print("Demostration of 'values method':")
+        data = {'Name': ['John', 'Alice', 'Bob'],
+                'Age': [25, 28, 30],
+                'City': ['New York', 'Paris', 'London']}
+
+        df = DataFrame(data)
+
+        values_array = df.values
+
+        print(values_array)
+
     def demonstrate_creation(self):
         """
         Demonstrates array creation using the array() and arange() functions.
@@ -81,6 +95,7 @@ class NumpyHandler:
         """
         demonstrator = NumpyHandler(5, 5)
         demonstrator.demonstrate_creation()
+        demonstrator.demonstate_values()
         demonstrator.demonstrate_indexing()
         demonstrator.demonstrate_operations()
         demonstrator.demonstrate_math_statistics()

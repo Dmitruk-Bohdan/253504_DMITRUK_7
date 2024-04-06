@@ -168,7 +168,7 @@ class GTOHandler:
 
         loaded_handler = handler.boot_from_pickle('Emma-Camila.pickle')
 
-        print("\nGet statistics by name")
+        print("\nGet statistics by name Noah:")
         stats = loaded_handler.get_stats_by_name('Noah')
         print(stats)
 
