@@ -77,4 +77,23 @@ class RowHandler:
         plt.show()
 
     def demonstrate():
-        pass
+        handler = RowHandler()
+
+        x = 1.0
+        eps = 0.0001
+
+        result, iterations = handler.calculate_row(x, eps)
+        print("Result of cos(x) series expansion:", result)
+        print("Number of iterations:", iterations)
+        print()
+
+        mean, median, mode, variance, stdev = handler.get_additional_information()
+        print("Additional information:")
+        print("Mean:", mean)
+        print("Median:", median)
+        print("Mode:", mode)
+        print("Variance:", variance)
+        print("Standard Deviation:", stdev)
+        print()
+
+        handler.print_graph(x, eps)

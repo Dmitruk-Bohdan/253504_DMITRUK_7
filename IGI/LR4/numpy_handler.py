@@ -1,5 +1,5 @@
 import numpy as np
-from pandas import DataFrame
+#from pandas import DataFrame
 
 class NumpyHandler:
     """
@@ -25,16 +25,16 @@ class NumpyHandler:
         B = np.array([1, 2, 3, 4, 5])
         print("Array B:", B)
 
-        print("Demostration of 'values method':")
-        data = {'Name': ['John', 'Alice', 'Bob'],
-                'Age': [25, 28, 30],
-                'City': ['New York', 'Paris', 'London']}
+        # print("Demostration of 'values method':")
+        # data = {'Name': ['John', 'Alice', 'Bob'],
+        #         'Age': [25, 28, 30],
+        #         'City': ['New York', 'Paris', 'London']}
 
-        df = DataFrame(data)
+        # df = DataFrame(data)
 
-        values_array = df.values
+        # values_array = df.values
 
-        print(values_array)
+        # print(values_array)
     
     def demonstrate_indexing(self):
         """
