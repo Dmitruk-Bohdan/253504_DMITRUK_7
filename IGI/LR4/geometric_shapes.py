@@ -103,16 +103,15 @@ class Hexagon(GeometricFigure):
             self._color.color, self._a, self.calculate_area()
         )
     
-def test_func():
-    width = float(input("Enter the width of the rectangle: "))
-    height = float(input("Enter the height of the rectangle: "))
-    color = input("Enter the color of the rectangle: ")
-    
-    rectangle = Rectangle(width, height, color)
-    print(rectangle.get_info())
-    
-    a = float(input("Enter the side length of the hexagon: "))
-    color = input("Enter the color of the hexagon: ")
-    
-    hexagon = Hexagon(a, color)
-    print(hexagon.get_info())
+def demonstrate():
+    rectangle = Rectangle(5, 3, "blue")
+    circle = Circle(4, "red")
+    rhombus = Rhombus(6, 8, "green")
+    square = Square(7, "yellow")
+    triangle = Triangle(10, 5, "orange")
+    hexagon = Hexagon(9, "purple")
+
+    figures = [rectangle, circle, rhombus, square, triangle, hexagon]
+
+    for figure in figures:
+        print(figure.get_info())

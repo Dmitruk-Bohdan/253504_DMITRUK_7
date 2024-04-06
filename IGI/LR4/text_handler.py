@@ -68,3 +68,5 @@ class TextHandler:
             text = text.replace(char, "")
         return text
 
+    def demonstrate():
+        pass

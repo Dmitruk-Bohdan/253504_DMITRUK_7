@@ -1,6 +1,6 @@
 import numpy as np
 
-class NumpyDemonstrator:
+class NumpyHandler:
     """
     A class that demonstrates the capabilities of the NumPy library for working with arrays and mathematical/statistical operations.
     """
@@ -75,15 +75,12 @@ class NumpyDemonstrator:
         variance = np.mean(squared_diff)
         return variance
 
-def demonstrate_numpy():
-    """
-    Demonstrates the capabilities of the NumPyDemonstrator class.
-    """
-    demonstrator = NumpyDemonstrator(5, 5)
-    demonstrator.demonstrate_creation()
-    demonstrator.demonstrate_indexing()
-    demonstrator.demonstrate_operations()
-    demonstrator.demonstrate_math_statistics()
-
-# Run the demonstration
-demonstrate_numpy()
+    def demonstrate():
+        """
+        Demonstrates the capabilities of the NumPyDemonstrator class.
+        """
+        demonstrator = NumpyHandler(5, 5)
+        demonstrator.demonstrate_creation()
+        demonstrator.demonstrate_indexing()
+        demonstrator.demonstrate_operations()
+        demonstrator.demonstrate_math_statistics()

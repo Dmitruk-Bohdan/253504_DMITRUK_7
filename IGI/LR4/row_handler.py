@@ -75,3 +75,6 @@ class RowHandler:
         plt.legend()
 
         plt.show()
+
+    def demonstrate():
+        pass
