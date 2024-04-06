@@ -15,7 +15,7 @@ class TextHandler:
         with open(file_path, 'w') as file:
             file.write(self.text)
 
-    def archive(file_path : str, zip_file_path : str):
+    def archive(self, file_path : str, zip_file_path : str):
 
         with zipfile.ZipFile(zip_file_path, 'w') as zip_file:
             zip_file.write(file_path, arcname=file_path.split('/')[-1])
@@ -25,14 +25,25 @@ class TextHandler:
 
     def save_stat_as_file(self, file_path = "text_handler)log.txt"):
         sentences_count = len(self.get_sentences_count(self.text))
+        print("\nSentences count:\n", sentences_count)
         narrative_sentences, interrogative_sentences, imperative_sentences = self.get_sentences_count_by_kinds(self.text)
+        print("\nNarrative sentences:\n", narrative_sentences)
+        print("\nInterrogative sentences:\n", interrogative_sentences)
+        print("\nImperative sentences:\n", imperative_sentences)
         avg_sentence_length = self.average_sentence_length(self.text)
+        print("\nAverage sentence length:\n", avg_sentence_length)
         avg_word_length = self.average_word_length(self.text)
+        print("\nAverage word length:\n", avg_word_length)
         emoticon_count = self.get_emoticon_count(self.text)
+        print("\nEmoticon count:\n", emoticon_count)
         low_case_and_numbers_words = self.get_low_case_and_numbers_words(self.text)
+        print("\nLow case and numbers words:\n", low_case_and_numbers_words)
         is_ip = self.is_ip(self.text)
-        words_less_than_6_count = self.get_words_less_than_n(self.text, 6)
+        print("\nIs IP:\n", is_ip)
+        words_less_than_6_count = self.get_words_less_than_6(self.text)
+        print("\nWords less than 6 characters count:\n", words_less_than_6_count)
         shortest_w_word = self.get_shortest_w_word(self.text)
+        print("\nShortest 'w' word:\n", shortest_w_word)
         words_by_length = self.print_words_by_length(self.text)
 
         with open(file_path, 'w') as file:
@@ -49,47 +60,50 @@ class TextHandler:
             file.write("Shortest word ending with 'w': {}\n".format(shortest_w_word))
             file.write("Words by length: {}\n".format(words_by_length))
 
-    def get_sentences_count(string : str):
+    def get_sentences_count(self, string : str):
         return re.findall(r"([^.!?]+[.!?])", string)
     
-    def get_sentrnces_count_by_kinds(string : str):
+    def get_sentences_count_by_kinds(self, string : str):
         narrative_sentences = re.findall(r"([^.!?]+\.)", string)
         interrogative_sentences = re.findall(r"([^.!?]+\?)", string)
         imperative_sentences = re.findall(r"([^.!?]+\!)", string)
         return narrative_sentences, interrogative_sentences, imperative_sentences
     
-    def average_sentence_length(string : str):
+    def average_sentence_length(self, string : str):
         sentences = re.split(r"([^.!?]+[.!?])", string)
         return (int)(reduce(lambda x, y : x + y, [len(re.sub(r"[^\w]", "", sentence)) for sentence in sentences]) / len(sentences))
     
-    def average_word_length(string : str):
-        words = re.findall(r"(\w+)", string)
-        return (int)(reduce(lambda x, y : x + y, [len(word) for word in [words]]) / len(words))
+    def average_word_length(aelf, string : str):
+        words = re.findall(r"\b(\w+)\b", string)
+        return (int)(reduce(lambda x, y : x + y, [len(word) for word in words]) / len(words))
     
-    def get_emoticon_count(string : str):
-        return len([re.findall(r"[;:]-*[()[]]+")])
+    def get_emoticon_count(self, string : str):
+        return len(re.findall(r"[;:]-*[\(\)\[\]]+", string))
 
-    def get_low_case_and_numbers_words(string : str):
-        return re.findall(r"(\b\w*[[a-z][0-9]]\w*\b)", string)
+    def get_low_case_and_numbers_words(self, string : str):
+        return re.findall(r"(\b\w*[a-z0-9]\w*\b)", string)
 
-    def is_ip(string : str):
-        return re.match(r"\d{3}.\d{3}.\d{3}.\d{3}", string)
+    def is_ip(self, string : str):
+        pattern = r'^(([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\.){3}([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])$'
+        return bool(re.match(pattern, string))
     
-    def get_words_less_than_n(string : str, n : int):
-        return len(re.findall(r"\b\w{1,5}\b"))
+    def get_words_less_than_6(self, string : str):
+        return len(re.findall(r"\b\w{1,5}\b", string))
     
-    def get_shortest_w_word(string : str):
-        return sorted(re.findall(r"\b\w*w\b", string), lambda x: len(x))[0]
+    def get_shortest_w_word(self, string : str):
+        w_words = sorted(re.findall(r"\b\w*w\b", string), key=lambda x: len(x))
+        return w_words[0] if w_words else None
     
-    def print_words_by_length(string : str):
-        print(re.findall(r"\b\w+\b", string), lambda x: len(x))
+    def print_words_by_length(self, string : str):
+        print (sorted(re.findall(r"\b\w+\b", string), key=lambda x: len(x)))
 
-    def remove_punctuation_and_spaces(text):
+    def remove_punctuation_and_spaces(self, text):
         punctuation_and_spaces = string.punctuation + " "
         for char in punctuation_and_spaces:
             text = text.replace(char, "")
         return text
 
+    @staticmethod
     def demonstrate():
         handler = TextHandler()
 
@@ -112,68 +126,10 @@ class TextHandler:
         print("Text statistics saved to 'statistics.txt' file.")
         print()
 
-        
-        sentences_count = handler.get_sentences_count(handler.text)
-        print("Sentences count:")
-        for sentence in sentences_count:
-            print(sentence)
-        print()
+        print("127.125.0.0")
+        is_ip = handler.is_ip("127.125.0.0")
+        print(f"Is IP address: {is_ip}\n")
 
-        
-        narrative_sentences, interrogative_sentences, imperative_sentences = handler.get_sentences_count_by_kinds(handler.text)
-        print("Narrative sentences:")
-        for sentence in narrative_sentences:
-            print(sentence)
-        print("Interrogative sentences:")
-        for sentence in interrogative_sentences:
-            print(sentence)
-        print("Imperative sentences:")
-        for sentence in imperative_sentences:
-            print(sentence)
-        print()
-
-        
-        avg_sentence_length = handler.average_sentence_length(handler.text)
-        print("Average sentence length:", avg_sentence_length)
-        print()
-
-
-        avg_word_length = handler.average_word_length(handler.text)
-        print("Average word length:", avg_word_length)
-        print()
-
-
-        emoticon_count = handler.get_emoticon_count(handler.text)
-        print("Emoticon count:", emoticon_count)
-        print()
-
-
-        low_case_and_numbers_words = handler.get_low_case_and_numbers_words(handler.text)
-        print("Low case and numbers words:")
-        for word in low_case_and_numbers_words:
-            print(word)
-        print()
-
-
-        is_ip = handler.is_ip(handler.text)
-        print("Is IP address:", is_ip)
-        print()
-
-
-        words_less_than_6_count = handler.get_words_less_than_n(handler.text, 6)
-        print("Words less than 6 characters count:", words_less_than_6_count)
-        print()
-
-
-        shortest_w_word = handler.get_shortest_w_word(handler.text)
-        print("Shortest word ending with 'w':", shortest_w_word)
-        print()
-
-
-        words_by_length = handler.print_words_by_length(handler.text)
-        print("Words by length:")
-        for length, words in words_by_length.items():
-            print(length, "characters:")
-            for word in words:
-                print(word)
-        print()
+        print("127.888.0")
+        is_ip = handler.is_ip("127.888.0")
+        print(f"Is IP address: {is_ip}\n")

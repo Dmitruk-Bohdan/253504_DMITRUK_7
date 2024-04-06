@@ -21,6 +21,7 @@ class RowHandler:
         result = 0
         prev_result = 2147483647
         iterations = 0 
+        self.row_members.clear()
         while abs(result - prev_result) > eps:
             prev_result = result
             self.row_members.append(m.pow(-1, iterations) * m.pow(x, 2 * iterations) / (m.factorial(2 * iterations)))
@@ -49,7 +50,7 @@ class RowHandler:
 
         return mean, median, mode, variance, stdev
 
-    def print_graph(self, x, eps):
+    def print_graph(self, a, b, points_count, eps):
         """
         Prints a graph showing the series expansion and the cos(x) function.
         
@@ -60,14 +61,21 @@ class RowHandler:
         Output:
         - None
         """
-        result, iterations = self.calculate_row(x, eps)
+        step = (b - a) / points_count
+        x_values = []
+        current_value = a
+        while current_value <= b:
+            x_values.append(current_value)
+            current_value += step
 
-        x_values = range(iterations)
-        y_row = self.row_members
-        y_function = [m.cos(val) for val in x_values]
+        y_series = []
+        y_library = []
+        for i in x_values:
+            y_series.append(self.calculate_row(i, eps)[0])
+            y_library.append(m.cos(i))
 
-        plt.plot(x_values, y_row, label='Series expansion')
-        plt.plot(x_values, y_function, label='cos(x) function')
+        plt.plot(x_values, y_series, label='Series expansion')
+        plt.plot(x_values, y_library, label='cos(x) function')
 
         plt.xlabel('Iterations')
         plt.ylabel('Values')
@@ -76,14 +84,16 @@ class RowHandler:
 
         plt.show()
 
+    @staticmethod
     def demonstrate():
         handler = RowHandler()
 
         x = 1.0
-        eps = 0.0001
+        eps = 0.3
 
         result, iterations = handler.calculate_row(x, eps)
         print("Result of cos(x) series expansion:", result)
+        print("Result of mathenatic library cos(x): ", m.cos(x))
         print("Number of iterations:", iterations)
         print()
 
@@ -96,4 +106,4 @@ class RowHandler:
         print("Standard Deviation:", stdev)
         print()
 
-        handler.print_graph(x, eps)
+        handler.print_graph(0, 3, 10, eps)
