@@ -18,8 +18,13 @@ class NumpyHandler:
         self.m = m
         self.A = np.random.randint(0, 10, size=(n, m))
     
-    def demonstate_values():
-        
+    def demonstrate_creation(self):
+        """
+        Demonstrates array creation using the array() and values() functions.
+        """
+        B = np.array([1, 2, 3, 4, 5])
+        print("Array B:", B)
+
         print("Demostration of 'values method':")
         data = {'Name': ['John', 'Alice', 'Bob'],
                 'Age': [25, 28, 30],
@@ -30,15 +35,6 @@ class NumpyHandler:
         values_array = df.values
 
         print(values_array)
-
-    def demonstrate_creation(self):
-        """
-        Demonstrates array creation using the array() and arange() functions.
-        """
-        B = np.array([1, 2, 3, 4, 5])
-        C = np.arange(0, 10, 2)
-        print("Array B:", B)
-        print("Array C:", C)
     
     def demonstrate_indexing(self):
         """
@@ -55,7 +51,7 @@ class NumpyHandler:
         Demonstrates operations with NumPy arrays.
         """
         print("Sum of elements in A:", np.sum(self.A))
-        print("Minimum element in A:", np.min(self.A))
+        print("Minimum element in A: {:.2f}".format(np.min(self.A)))
         print("Maximum element in A:", np.max(self.A))
         print("Transposed matrix A:")
         print(np.transpose(self.A))
@@ -71,8 +67,8 @@ class NumpyHandler:
         print("Variance of elements in the secondary diagonal:")
         diagonal = np.diagonal(self.A[::-1])
         variance = np.var(diagonal)
-        print("Method 1 (using the standard function):", variance)
-        print("Method 2 (using the formula):", self.calculate_variance(diagonal))
+        print("Method 1 (using the standard function): {:.2f}".format(variance))
+        print("Method 2 (using the formula): {:.2f}".format(self.calculate_variance(diagonal)))
     
     def calculate_variance(self, diagonal):
         """
@@ -95,7 +91,6 @@ class NumpyHandler:
         """
         demonstrator = NumpyHandler(5, 5)
         demonstrator.demonstrate_creation()
-        demonstrator.demonstate_values()
         demonstrator.demonstrate_indexing()
         demonstrator.demonstrate_operations()
         demonstrator.demonstrate_math_statistics()
