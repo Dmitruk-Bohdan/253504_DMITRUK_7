@@ -1,7 +1,11 @@
 import numpy as np
-#from pandas import DataFrame
 
-class NumpyHandler:
+class MyMixin:
+    def log(self):
+        print("Mixin function activated")
+
+
+class NumpyHandler(MyMixin):
     """
     A class that demonstrates the capabilities of the NumPy library for working with arrays and mathematical/statistical operations.
     """
@@ -17,6 +21,7 @@ class NumpyHandler:
         self.n = n
         self.m = m
         self.A = np.random.randint(0, 10, size=(n, m))
+        self.log()
     
     def demonstrate_creation(self):
         """
@@ -24,17 +29,6 @@ class NumpyHandler:
         """
         B = np.array([1, 2, 3, 4, 5])
         print("Array B:", B)
-
-        # print("Demostration of 'values method':")
-        # data = {'Name': ['John', 'Alice', 'Bob'],
-        #         'Age': [25, 28, 30],
-        #         'City': ['New York', 'Paris', 'London']}
-
-        # df = DataFrame(data)
-
-        # values_array = df.values
-
-        # print(values_array)
     
     def demonstrate_indexing(self):
         """
