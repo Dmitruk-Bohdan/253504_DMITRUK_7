@@ -1,8 +1,10 @@
 from abc import ABC, abstractmethod
-from PIL import Image, ImageDraw
 import math
-
 from matplotlib import patches, pyplot as plt
+
+class MyMixin:
+    def log(self):
+        print("Mixin function activated")
 
 class GeometricFigure(ABC):
     def __init__(self):
@@ -99,6 +101,8 @@ class Rectangle(GeometricFigure):
                 width = float(input("Enter the width of the rectangle: "))
                 height = float(input("Enter the height of the rectangle: "))
                 color = FigureColor(input("Enter the color of the rectangle: "))
+                
+                
                 if width <= 0 or height <= 0:
                     raise ValueError("Incorrect values of sides")
             except Exception as e:
@@ -110,6 +114,9 @@ class Rectangle(GeometricFigure):
                 self._color = color
                 break
         self.draw()
+        color_ = input()
+        descr = input()
+        self.recolor(color_, descr)
         
     def calculate_area(self):
         """
@@ -586,7 +593,7 @@ class Triangle(GeometricFigure):
             file.write(self.get_info())
 
   
-class Hexagon(GeometricFigure):
+class Hexagon(GeometricFigure, MyMixin):
     """
     A class representing a hexagon, inheriting from the GeometricFigure class.
 
@@ -611,6 +618,7 @@ class Hexagon(GeometricFigure):
         - color (str): The color of the hexagon (default is None).
         """
         super().__init__()
+        self.log()
         self._side = a
         self._color = FigureColor(color)
     

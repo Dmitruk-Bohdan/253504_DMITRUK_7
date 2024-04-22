@@ -1,11 +1,6 @@
 import numpy as np
 
-class MyMixin:
-    def log(self):
-        print("Mixin function activated")
-
-
-class NumpyHandler(MyMixin):
+class NumpyHandler():
     """
     A class that demonstrates the capabilities of the NumPy library for working with arrays and mathematical/statistical operations.
     """
@@ -21,7 +16,6 @@ class NumpyHandler(MyMixin):
         self.n = n
         self.m = m
         self.A = np.random.randint(0, 10, size=(n, m))
-        self.log()
     
     def demonstrate_creation(self):
         """
