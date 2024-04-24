@@ -1,8 +1,10 @@
+import uuid
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.urls import reverse
 
 class Manufacturer(models.Model):
+    #id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=200)
     phone = models.CharField(max_length=20)
@@ -33,7 +35,6 @@ class Product(models.Model):
     suppliers = models.ManyToManyField(Supplier, related_name ='products')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     count = models.IntegerField()
-    price = models.IntegerField()
 
     @property
     def total_price(self):
