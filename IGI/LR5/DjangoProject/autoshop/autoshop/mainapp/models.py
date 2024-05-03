@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.forms import FloatField
+from django.urls import reverse
 
 class Manufacturer(models.Model):
     #id = models.UUIDField(primary_key=True, default=uuid.uuid4)
@@ -15,6 +17,9 @@ class Supplier(models.Model):
     address = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
     manufacturers = models.ManyToManyField(Manufacturer)
+
+    def get_absolute_url(self):
+        return reverse('supplier_detail', args=[str(self.id)])
 
     def __str__(self):
         return self.name
@@ -43,6 +48,9 @@ class Product(models.Model):
     
     display_suppliers.short_description = 'Suppliers'
 
+    def get_absolute_url(self):
+        return reverse('product_detail', args=[str(self.id)])
+
     def __str__(self):
         return self.name
     
@@ -56,6 +64,8 @@ class Sale(models.Model):
     quantity = models.PositiveIntegerField()
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    def get_absolute_url(self):
+        return reverse('sale_detail', args=[str(self.id)])
 
     @property
     def price_per_unit(self):
@@ -73,9 +83,22 @@ class PickupPoint(models.Model):
     address = models.CharField(max_length=200)
     phone_number = models.CharField(max_length=20)
 
+    def get_absolute_url(self):
+        return reverse('pickup_point_detail', args=[str(self.id)])
+
     def __str__(self):
         return self.name
     
 class PromoCode(models.Model):
     code = models.CharField(max_length=10, unique=True)
     users = models.ManyToManyField(User)    
+
+    def get_absolute_url(self):
+        return reverse('promo_code_detail', args=[str(self.id)])
+
+class Vacancy(models.Model):
+    duties = models.JSONField()
+    salary = FloatField()
+
+    def get_absolute_url(self):
+        return reverse('vacancy_detail', args=[str(self.id)])

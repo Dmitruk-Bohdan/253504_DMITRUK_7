@@ -23,7 +23,14 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+]
+
+urlpatterns += [
     path('mainapp/', include('mainapp.urls')),
+]
+
+urlpatterns += [
     path('', RedirectView.as_view(url='/mainapp/', permanent=True)),
 ]
+
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

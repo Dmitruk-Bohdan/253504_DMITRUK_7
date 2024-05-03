@@ -24,7 +24,6 @@ class SupplierAdmin(admin.ModelAdmin):
 
 class SupplierInline(admin.StackedInline):
     model = Supplier.products.through
-    
     extra = 0
     verbose_name = 'Supplier'
     verbose_name_plural = 'Suppliers'

@@ -56,6 +56,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
+        # 'DIRS': ['autoshop/autoshop/mainapp/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
