@@ -5,7 +5,7 @@
 
   <p><strong>Article number:</strong> {{ product.article_number }}</p> <!-- author detail link not yet defined -->
   <p><strong>Price per unit:</strong> {{ product.price_per_unit }}</p>
-  <p><strong>Category:</strong> {{ product.category }}</p>
+  <p><strong>Category:</strong> <a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a> </p> 
   <p><strong>Count:</strong> {{ product.count }}</p>
   <p><strong>Suppliers:</strong>
     {% for supplier in product.suppliers.all %}

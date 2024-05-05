@@ -4,7 +4,6 @@ from django.forms import FloatField
 from django.urls import reverse
 
 class Manufacturer(models.Model):
-    #id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
@@ -28,7 +27,11 @@ class Supplier(models.Model):
     
 class Category(models.Model):
     name = models.CharField(max_length=100)
-
+    description = models.TextField(default="category description", max_length=200)
+    
+    def get_absolute_url(self):
+        return reverse('category_detail', args=[str(self.id)])
+    
     def __str__(self):
         return self.name
     

@@ -23,8 +23,21 @@
             <ul class="sidebar-nav">
               <li><a href="{% url 'index' %}">Home</a></li>
               <li><a href="{% url 'products' %}">All boobs</a></li>
-              <li><a href="{% url 'about'%}">All tities</a></li>
+              <li><a href="{% url 'categories'%}">All tities</a></li>
               <li><a href="{% url 'about'%}">About us</a></li>
+
+              {% if user.is_authenticated %}
+                <li>User: {{ user.get_username }}</li>
+                <li>
+                  <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+                </li>
+              {% else %}
+                <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+              {% endif %}
+              
             </ul>
           {% endblock %}
         </div>

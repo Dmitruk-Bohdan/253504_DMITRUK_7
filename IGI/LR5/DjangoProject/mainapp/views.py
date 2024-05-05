@@ -44,14 +44,34 @@ class ProductsListView(generic.ListView):
     model = Product
     template_name = 'product_list.html'
     context_object_name = 'products'
-    paginate_by = 2
+    paginate_by = 5
     def get_queryset(self):
         return Product.objects.all()
+
+class CategoriesListView(generic.ListView):
+    model = Category
+    template_name = 'category_list.html'
+    context_object_name = 'categories'
+    paginate_by = 5
+    def get_queryset(self):
+        return Category.objects.all()
 
 class ProductDetailView(generic.DetailView):
     model = Product
     template_name = 'product_detail.html'
-    #queryset = model.objects.all()
+    
+class CategoryDetailView(generic.DetailView):
+    model = Category
+    template_name = 'category_detail.html'
+
+    # def get(self, request, pk, *args, **kwargs):
+    #     category = Category.objects.get(pk=pk)
+    #     products = category.products.all
+    #     context = {
+    #         'category' : category,
+    #         'products' : products
+    #     }
+    #     return render(request, 'category_detail.html', context)
 
 class SupplierDetailView(generic.DetailView):
     model = Supplier
