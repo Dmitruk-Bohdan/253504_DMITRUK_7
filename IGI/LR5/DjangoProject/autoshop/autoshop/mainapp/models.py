@@ -8,7 +8,8 @@ class Manufacturer(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
-    
+    paginate_by = 10
+
     def __str__(self):
         return self.name
 
@@ -17,6 +18,7 @@ class Supplier(models.Model):
     address = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
     manufacturers = models.ManyToManyField(Manufacturer)
+    paginate_by = 10
 
     def get_absolute_url(self):
         return reverse('supplier_detail', args=[str(self.id)])
@@ -38,6 +40,7 @@ class Product(models.Model):
     suppliers = models.ManyToManyField(Supplier, related_name ='products')
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     count = models.IntegerField()
+    paginate_by = 10
 
     @property
     def total_price(self):
@@ -52,18 +55,25 @@ class Product(models.Model):
         return reverse('product_detail', args=[str(self.id)])
 
     def __str__(self):
-        return self.name
+        return f'{self.name, self.article_number, self.price_per_unit}'
+    
+    class Meta:
+        ordering = ['name']
+    
     
 class Customer(models.Model):
     name = models.CharField(max_length=100)
     def __str__(self):
         return self.name
+    paginate_by = 10
     
 class Sale(models.Model):
     date = models.DateField()
     quantity = models.PositiveIntegerField()
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
+    customer = models.ForeignKey(Customer, on_delete=models.DO_NOTHING)
+    paginate_by = 10
+
     def get_absolute_url(self):
         return reverse('sale_detail', args=[str(self.id)])
 

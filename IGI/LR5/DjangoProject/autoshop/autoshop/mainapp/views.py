@@ -1,17 +1,11 @@
 from django.shortcuts import render
 from .models import *
-from django.views import generic
+from django.views import View, generic
 
 def index(request):
-    """
-    Функция отображения для домашней страницы сайта.
-    """
-    # Генерация "количеств" некоторых главных объектов
     products = Product.objects.all()
     num_products=products.count()
     sales = Sale.objects.all()
-    # Отрисовка HTML-шаблона index.html с данными внутри
-    # переменной контекста context
     return render(
         request,
         'index.html',
@@ -50,13 +44,28 @@ class ProductsListView(generic.ListView):
     model = Product
     template_name = 'product_list.html'
     context_object_name = 'products'
+    paginate_by = 2
     def get_queryset(self):
         return Product.objects.all()
 
 class ProductDetailView(generic.DetailView):
-    """Generic class-based detail view for a product."""
     model = Product
+    template_name = 'product_detail.html'
+    #queryset = model.objects.all()
 
+class SupplierDetailView(generic.DetailView):
+    model = Supplier
+    template_name = 'supplier_detail.html'
+    context_object_name = 'supplier'
+    paginate_by = 10
+
+class CreateOrderView(View):
+    def get(self, request, pk, *args, **kwargs):
+        product = Product.objects.get(pk=pk)
+        context = {
+            'product': product,
+        }
+        return render(request, 'create_order.html', context)
 
 class ReviewsView():
     pass

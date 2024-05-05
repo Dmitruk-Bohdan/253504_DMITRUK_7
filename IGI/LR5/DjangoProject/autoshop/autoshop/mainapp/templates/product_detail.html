@@ -1,1 +1,23 @@
 {% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Title: {{ product.name }}</h1>
+
+  <p><strong>Article number:</strong> {{ product.article_number }}</p> <!-- author detail link not yet defined -->
+  <p><strong>Price per unit:</strong> {{ product.price_per_unit }}</p>
+  <p><strong>Category:</strong> {{ product.category }}</p>
+  <p><strong>Count:</strong> {{ product.count }}</p>
+  <p><strong>Suppliers:</strong>
+    {% for supplier in product.suppliers.all %}
+      <a href="{{ supplier.get_absolute_url }}">{{ supplier.name }}</a>
+    {% endfor %}
+  </p>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Description:</h4>
+    <p>{{product.description}}</p>
+  </div>
+
+  {% comment %} Кнопка покупки {% endcomment %}
+  <a href="{% url 'create_order' pk=product.id %}" class="button">Place an order</a>
+{% endblock %}
