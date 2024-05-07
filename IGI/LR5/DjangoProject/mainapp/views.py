@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from .models import *
+from .forms import *
+from django.views.generic import *
 from django.views import View, generic
 
 def index(request):
@@ -72,6 +74,15 @@ class CategoryDetailView(generic.DetailView):
     #         'products' : products
     #     }
     #     return render(request, 'category_detail.html', context)
+
+
+    class UserRegistrationView(CreateView):
+
+        form_class = RegistrationForm
+        template_name = 'register.html'
+        success_url = '/login/'
+
+
 
 class SupplierDetailView(generic.DetailView):
     model = Supplier

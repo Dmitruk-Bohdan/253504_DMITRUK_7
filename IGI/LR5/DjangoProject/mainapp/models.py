@@ -1,7 +1,16 @@
+from email.headerregistry import Group
+import re
+from venv import logger
 from django.db import models
 from django.contrib.auth.models import User
 from django.forms import FloatField
 from django.urls import reverse
+from django.core.exceptions import ValidationError
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import Permission
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+
 
 class Manufacturer(models.Model):
     name = models.CharField(max_length=100)
@@ -41,7 +50,7 @@ class Product(models.Model):
     description = models.TextField(max_length=100)
     price_per_unit = models.DecimalField(max_digits=10, decimal_places=2)
     suppliers = models.ManyToManyField(Supplier, related_name ='products')
-    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    category = models.ForeignKey(Category, related_name ='products', on_delete=models.DO_NOTHING)
     count = models.IntegerField()
     paginate_by = 10
 
@@ -115,3 +124,4 @@ class Vacancy(models.Model):
 
     def get_absolute_url(self):
         return reverse('vacancy_detail', args=[str(self.id)])
+    
