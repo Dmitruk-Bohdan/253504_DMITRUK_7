@@ -1,4 +1,4 @@
-from datetime import timezone
+from datetime import datetime, timezone
 from django.shortcuts import redirect, render
 from .models import *
 from .forms import *
@@ -25,7 +25,8 @@ def order_create(request, product_id):
         form = OrderForm(request.POST)
         if form.is_valid():
             order = form.save(commit=False)
-            order.product = product
+            order.product = product 
+            order.date = datetime.now()
             order.save()
             return redirect('order_detail', order_id=order.id)
     else:

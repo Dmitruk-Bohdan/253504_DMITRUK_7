@@ -53,10 +53,7 @@ class Product(models.Model):
     price_per_unit = models.DecimalField(max_digits=10, decimal_places=2)
     suppliers = models.ManyToManyField(Supplier, related_name ='products')
     category = models.ForeignKey(Category, related_name ='products', on_delete=models.DO_NOTHING)
-<<<<<<< HEAD
     pickup_points = models.ManyToManyField(PickupPoint, related_name ='pickup_points')
-=======
->>>>>>> 0acec09b6871441dca20dd0bd1a8120f30836b67
     count = models.IntegerField()
     paginate_by = 10
 
@@ -83,38 +80,17 @@ class Product(models.Model):
     
     class Meta:
         ordering = ['name']
-<<<<<<< HEAD
-=======
     
-class PickupPoint(models.Model):
-    name = models.CharField(max_length=100)
-    address = models.CharField(max_length=200)
-    phone_number = models.CharField(max_length=20)
-
-    def get_absolute_url(self):
-        return reverse('pickup_point_detail', args=[str(self.id)])
-
-    def __str__(self):
-        return self.name
->>>>>>> 0acec09b6871441dca20dd0bd1a8120f30836b67
 
 class Order(models.Model):
     date = models.DateField()
     quantity = models.PositiveIntegerField()
     product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
     customer = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-<<<<<<< HEAD
-    pickup_point = models.ManyToManyField(PickupPoint, related_name ='pickup_point')
-=======
-    pickup_points = models.ManyToManyField(PickupPoint, related_name ='pickup_points')
->>>>>>> 0acec09b6871441dca20dd0bd1a8120f30836b67
+    pickup_point = models.ForeignKey(PickupPoint, on_delete=models.DO_NOTHING, default=None)
+
 
     paginate_by = 10
-
-    def display_pickup_points(self):
-        return ', '.join([ pickup_point.name for pickup_point in self.pickup_points.all()[:3]])
-    
-    display_pickup_points.short_description = 'Pickup point'
 
     def get_absolute_url(self):
         return reverse('sale_detail', args=[str(self.id)])
@@ -128,7 +104,7 @@ class Order(models.Model):
         return self.quantity * self.price_per_unit
 
     def __str__(self):
-        return f"Sale: {self.product.name} - {self.quantity} units"
+        return f"Order: {self.product.name} - {self.quantity} units"
     
     
 class PromoCode(models.Model):
