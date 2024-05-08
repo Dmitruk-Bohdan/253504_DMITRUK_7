@@ -45,12 +45,7 @@ class ProductAdmin(admin.ModelAdmin):
                     ]
     inlines = [SupplierInline]
 
-@admin.register(Customer)
-class CustomerAdmin(admin.ModelAdmin):
-    list_display = ['name']
-    list_filter = ['name']
-
-@admin.register(Sale)
-class SaleAdmin(admin.ModelAdmin):
-    list_display = ['date', 'quantity', 'product', 'customer']
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['date', 'quantity', 'product', 'customer', 'pick_up_point']
     list_filter = ['date', 'quantity']

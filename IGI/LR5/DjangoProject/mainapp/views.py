@@ -1,20 +1,42 @@
-from django.shortcuts import render
+from datetime import timezone
+from django.shortcuts import redirect, render
 from .models import *
+from .forms import *
 from django.views import View, generic
+from django.shortcuts import render, redirect, get_object_or_404
 
 def index(request):
     products = Product.objects.all()
     num_products=products.count()
-    sales = Sale.objects.all()
     return render(
         request,
         'index.html',
-        context={'num_products' : num_products,'products' : products, 'sales': sales},
+        context={'num_products' : num_products,'products' : products},
     )
 
 
 def about(request):
     return render(request, 'about.html')
+
+def order_create(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            order = form.save(commit=False)
+            order.product = product
+            order.save()
+            return redirect('order_detail', order_id=order.id)
+    else:
+        form = OrderForm()
+    
+    context = {
+        'form': form,
+        'product': product,
+    }
+    return render(request, 'order_create.html', context)
+
 
 class NewsView(generic.ListView):
     pass
@@ -64,28 +86,18 @@ class CategoryDetailView(generic.DetailView):
     model = Category
     template_name = 'category_detail.html'
 
-    # def get(self, request, pk, *args, **kwargs):
-    #     category = Category.objects.get(pk=pk)
-    #     products = category.products.all
-    #     context = {
-    #         'category' : category,
-    #         'products' : products
-    #     }
-    #     return render(request, 'category_detail.html', context)
-
 class SupplierDetailView(generic.DetailView):
     model = Supplier
     template_name = 'supplier_detail.html'
     context_object_name = 'supplier'
     paginate_by = 10
-
-class CreateOrderView(View):
-    def get(self, request, pk, *args, **kwargs):
-        product = Product.objects.get(pk=pk)
-        context = {
-            'product': product,
-        }
-        return render(request, 'create_order.html', context)
+    
+def redirect_to_previous(request):
+    next_url = request.META.get('HTTP_REFERER')
+    if next_url:
+        return redirect(next_url)
+    else:
+        return redirect('') 
 
 class ReviewsView():
     pass

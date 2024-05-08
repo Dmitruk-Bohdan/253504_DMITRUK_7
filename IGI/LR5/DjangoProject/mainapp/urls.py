@@ -16,5 +16,6 @@ urlpatterns = [
     re_path(r'^categoty/(?P<pk>\d+)$', views.CategoryDetailView.as_view(), name='category_detail'),
     path('about', views.about, name='about'),
     path('supplier/<int:pk>/', views.SupplierDetailView.as_view(), name='supplier_detail'),
-    path('create_order/<int:pk>/', views.CreateOrderView.as_view(), name='create_order'),
+    path('order_create/<int:product_id>/', views.order_create, name='order_create'),
+    path('redirect-to-previous/', views.redirect_to_previous, name='redirect_to_previous'),
 ]
