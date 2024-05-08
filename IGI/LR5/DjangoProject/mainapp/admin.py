@@ -48,5 +48,9 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
+<<<<<<< HEAD
     list_display = ['date', 'quantity', 'product', 'customer']
+=======
+    list_display = ['date', 'quantity', 'product', 'customer', 'pick_up_point']
+>>>>>>> 0acec09b6871441dca20dd0bd1a8120f30836b67
     list_filter = ['date', 'quantity']

@@ -15,6 +15,7 @@
       {% elif user.is_anonymous %}
         <p>{{ supplier.name }}</p>
       {% endif %}
+<<<<<<< HEAD
     {% endfor %}
   </p>
 
@@ -23,6 +24,8 @@
       {% if user.is_authenticated %}
         <p><a href="{{ pickup_point.get_absolute_url }}">{{ pickup_point.address }} </a></p>
       {% endif %}
+=======
+>>>>>>> 0acec09b6871441dca20dd0bd1a8120f30836b67
     {% endfor %}
   </p>
 
