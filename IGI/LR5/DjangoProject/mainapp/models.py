@@ -3,6 +3,17 @@ from django.contrib.auth.models import User
 from django.forms import FloatField
 from django.urls import reverse
 
+class PickupPoint(models.Model):
+    name = models.CharField(max_length=100)
+    address = models.CharField(max_length=200)
+    phone_number = models.CharField(max_length=20)
+
+    def get_absolute_url(self):
+        return reverse('pickup_point_detail', args=[str(self.id)])
+
+    def __str__(self):
+        return self.name
+
 class Manufacturer(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
@@ -41,7 +52,8 @@ class Product(models.Model):
     description = models.TextField(max_length=100)
     price_per_unit = models.DecimalField(max_digits=10, decimal_places=2)
     suppliers = models.ManyToManyField(Supplier, related_name ='products')
-    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    category = models.ForeignKey(Category, related_name ='products', on_delete=models.DO_NOTHING)
+    pickup_points = models.ManyToManyField(PickupPoint, related_name ='pickup_points')
     count = models.IntegerField()
     paginate_by = 10
 
@@ -54,7 +66,13 @@ class Product(models.Model):
     
     display_suppliers.short_description = 'Suppliers'
 
+    def display_pickup_points(self):
+        return ', '.join([ pickup_point.name for pickup_point in self.pickup_points.all()[:3]])
+    
+    display_pickup_points.short_description = 'Pickup points'
+
     def get_absolute_url(self):
+
         return reverse('product_detail', args=[str(self.id)])
 
     def __str__(self):
@@ -62,19 +80,14 @@ class Product(models.Model):
     
     class Meta:
         ordering = ['name']
-    
-    
-class Customer(models.Model):
-    name = models.CharField(max_length=100)
-    def __str__(self):
-        return self.name
-    paginate_by = 10
-    
-class Sale(models.Model):
+
+class Order(models.Model):
     date = models.DateField()
     quantity = models.PositiveIntegerField()
     product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
-    customer = models.ForeignKey(Customer, on_delete=models.DO_NOTHING)
+    customer = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    pickup_point = models.ManyToManyField(PickupPoint, related_name ='pickup_point')
+
     paginate_by = 10
 
     def get_absolute_url(self):
@@ -91,16 +104,6 @@ class Sale(models.Model):
     def __str__(self):
         return f"Sale: {self.product.name} - {self.quantity} units"
     
-class PickupPoint(models.Model):
-    name = models.CharField(max_length=100)
-    address = models.CharField(max_length=200)
-    phone_number = models.CharField(max_length=20)
-
-    def get_absolute_url(self):
-        return reverse('pickup_point_detail', args=[str(self.id)])
-
-    def __str__(self):
-        return self.name
     
 class PromoCode(models.Model):
     code = models.CharField(max_length=10, unique=True)

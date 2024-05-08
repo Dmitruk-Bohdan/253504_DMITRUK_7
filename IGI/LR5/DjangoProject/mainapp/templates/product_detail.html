@@ -7,9 +7,22 @@
   <p><strong>Price per unit:</strong> {{ product.price_per_unit }}</p>
   <p><strong>Category:</strong> <a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a> </p> 
   <p><strong>Count:</strong> {{ product.count }}</p>
+
   <p><strong>Suppliers:</strong>
     {% for supplier in product.suppliers.all %}
-      <a href="{{ supplier.get_absolute_url }}">{{ supplier.name }}</a>
+      {% if user.is_staff %}
+        <p><a href="{{ supplier.get_absolute_url }}">{{ supplier.name }} </a></p>
+      {% elif user.is_anonymous %}
+        <p>{{ supplier.name }}</p>
+      {% endif %}
+    {% endfor %}
+  </p>
+
+  <p><strong>Pickup points:</strong>
+    {% for pickup_point in product.pickup_points.all %}
+      {% if user.is_authenticated %}
+        <p><a href="{{ pickup_point.get_absolute_url }}">{{ pickup_point.address }} </a></p>
+      {% endif %}
     {% endfor %}
   </p>
 
@@ -18,6 +31,7 @@
     <p>{{product.description}}</p>
   </div>
 
-  {% comment %} Кнопка покупки {% endcomment %}
-  <a href="{% url 'create_order' pk=product.id %}" class="button">Place an order</a>
+  {% if user.is_authenticated %}
+    <a href="{% url 'order_create' product_id=product.id %}" class="button">Place an order</a>
+  {% endif %}
 {% endblock %}
