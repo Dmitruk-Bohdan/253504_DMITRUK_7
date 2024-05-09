@@ -4,6 +4,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.forms import FloatField
 from django.urls import reverse
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 class PickupPoint(models.Model):
     name = models.CharField(max_length=100)
@@ -138,4 +141,26 @@ class Vacancy(models.Model):
         return reverse('vacancy_detail', args=[str(self.id)])
     
 
-# class CustomUser(AbstractUser):
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    date_of_birth = models.DateField(blank=True, null=True)
+    phone_number = models.CharField(max_length=20, blank=True)
+    def get_age(self):
+        if self.date_of_birth:
+            from datetime import date
+            today = date.today()
+            age = today.year - self.date_of_birth.year
+            if today.month < self.date_of_birth.month or (today.month == self.date_of_birth.month and today.day < self.date_of_birth.day):
+                age -= 1
+            return age
+        else:
+            return None
+        
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
