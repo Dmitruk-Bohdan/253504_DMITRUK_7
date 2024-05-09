@@ -6,15 +6,19 @@ from .forms import *
 from django.views import View, generic
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
-def index(request):
-    products = Product.objects.all()
-    num_products=products.count()
-    return render(
-        request,
-        'index.html',
-        context={'num_products' : num_products,'products' : products},
-    )
+
+# def index(request):
+#     products = Product.objects.all()
+#     num_products=products.count()
+#     return render(
+#         request,
+#         'index.html',
+#         context={'num_products' : num_products,'products' : products},
+#     )
 
 
 def about(request):
@@ -27,7 +31,8 @@ def register_view(request):
             user = form.save()
             if 'is_adult' not in request.POST:
                 raise ValidationError('you must be over 18 to sign up')
-            user.profile.phone_number = form.clean_phone_number
+            user.profile.phone_number = form.clean_phone_number()
+            user.profile.save()
             user.email = form.cleaned_data.get('email')
             user.save()
             username = form.cleaned_data.get('username')
@@ -39,6 +44,7 @@ def register_view(request):
         form = RegistrationForm()
     return render(request, 'registration/register.html', {'form': form})
 
+@method_decorator(login_required, name='dispatch')
 def order_create(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     
@@ -77,15 +83,27 @@ class PrivacyPolicyView():
 class VacanciesView():
     pass
 
-class PromocodeView():
-    pass
 
-class SalesView():
-    pass
+class HomePageView(generic.TemplateView):
+    template_name = 'index.html'
 
-class SuppliersView():
-    pass
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        user_timezone = self.request.session.get('django_timezone')
+        
+        current_datetime = datetime.now().astimezone(timezone=user_timezone)
+        context['current_datetime'] = current_datetime.strftime('%d/%m/%Y')
+        
+        data_modified_datetime = timezone.localtime(self.model.objects.latest('modified')).strftime('%d/%m/%Y')
+        context['data_modified_datetime'] = data_modified_datetime
+        
+        data_modified_utc = timezone.localtime(self.model.objects.latest('modified')).strftime('%d/%m/%Y')
+        context['data_modified_utc'] = data_modified_utc
+        
+        return context
 
+@method_decorator(login_required, name='dispatch')
 class OrderListView(generic.ListView):
     model = Order
     template_name = 'order_list.html'
@@ -96,7 +114,8 @@ class OrderListView(generic.ListView):
             return Order.objects.all()
         else:
             return Order.objects.filter(customer=self.request.user.username)
-    
+
+@method_decorator(login_required, name='dispatch')
 class PickupPointListView(generic.ListView):
     model = PickupPoint
     template_name = 'pickup_point_list.html'
@@ -120,13 +139,15 @@ class CategoriesListView(generic.ListView):
     paginate_by = 5
     def get_queryset(self):
         return Category.objects.all()
-    
+
+@method_decorator(login_required, name='dispatch')
 class PromoCodeListView(generic.ListView):
     model = PromoCode
     template_name = 'promocode_list.html'
     context_object_name = 'promocodes'
     paginate_by = 5
 
+@method_decorator(login_required, name='dispatch')
 class PromoCodeDetailView(generic.DetailView):
     model = PromoCode
     template_name = 'promocode_detail.html'
@@ -136,6 +157,7 @@ class ProductDetailView(generic.DetailView):
     model = Product
     template_name = 'product_detail.html'
 
+@method_decorator(login_required, name='dispatch')
 class PickupPointDetailView(generic.DetailView):
     model = PickupPoint
     context_object_name = 'pickup_point'
@@ -145,28 +167,33 @@ class CategoryDetailView(generic.DetailView):
     model = Category
     template_name = 'category_detail.html'
 
+@method_decorator(login_required, name='dispatch')
 class OrderDetailView(generic.DetailView):
     model = Order
     template_name = 'order_detail.html'
 
+@method_decorator(staff_member_required, name='dispatch')
 class SupplierDetailView(generic.DetailView):
     model = Supplier
     template_name = 'supplier_detail.html'
     context_object_name = 'supplier'
     paginate_by = 10
 
+@method_decorator(staff_member_required, name='dispatch')
 class ManufacturerListView(generic.ListView):
     model = Manufacturer
     template_name = 'manufacturer_list.html'
     context_object_name = 'manufacturers'
     paginate_by = 10
 
+@method_decorator(staff_member_required, name='dispatch')
 class SupplierListView(generic.ListView):
     model = Supplier
     template_name = 'supplier_list.html'
     context_object_name = 'suppliers'
     paginate_by = 10
 
+@method_decorator(staff_member_required, name='dispatch')
 class ManufacturerDetailView(generic.DetailView):
     model = Manufacturer
     template_name = 'manufacturer_detail.html'
