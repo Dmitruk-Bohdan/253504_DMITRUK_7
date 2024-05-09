@@ -1,1 +1,18 @@
 {% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Suppliers</h1>
+
+    {% if suppliers %}
+    <ul>
+      {% for supplier in suppliers %}
+      <li>
+        <a href="{{ supplier.get_absolute_url }}">{{ supplier.name }} </a> ({{supplier.phone}})
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no suppliers.</p>
+    {% endif %}
+{% endblock %}

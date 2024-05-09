@@ -16,6 +16,7 @@ urlpatterns = [
     path('pickup_points/', views.PickupPointListView.as_view(), name='pickup_points'),
     path('promocodes/', views.PromoCodeListView.as_view(), name='promocodes'),
     path('manufacturers/', views.ManufacturerListView.as_view(), name='manufacturers'),
+    path('suppliers/', views.SupplierListView.as_view(), name='suppliers'),
     re_path(r'^product/(?P<pk>\d+)$', views.ProductDetailView.as_view(), name='product_detail'),
     re_path(r'^categoty/(?P<pk>\d+)$', views.CategoryDetailView.as_view(), name='category_detail'),
     re_path(r'^order/(?P<pk>\d+)$', views.OrderDetailView.as_view(), name='order_detail'),

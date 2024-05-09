@@ -32,6 +32,7 @@
               {% endif %}
               {% if user.is_staff %}
                 <li><a href="{% url 'manufacturers'%}">Manufacturers</a></li>
+                <li><a href="{% url 'suppliers'%}">Suppliers</a></li>
               {% endif %}
 
               {% if user.is_authenticated %}

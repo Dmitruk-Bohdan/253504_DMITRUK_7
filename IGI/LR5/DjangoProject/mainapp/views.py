@@ -140,6 +140,12 @@ class ManufacturerListView(generic.ListView):
     context_object_name = 'manufacturers'
     paginate_by = 10
 
+class SupplierListView(generic.ListView):
+    model = Supplier
+    template_name = 'supplier_list.html'
+    context_object_name = 'suppliers'
+    paginate_by = 10
+
 class ManufacturerDetailView(generic.DetailView):
     model = Manufacturer
     template_name = 'manufacturer_detail.html'

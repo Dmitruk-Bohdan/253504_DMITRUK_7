@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AbstractUser
 from datetime import datetime, timedelta, timezone
 from django.db import models
 from django.contrib.auth.models import User
@@ -135,3 +136,6 @@ class Vacancy(models.Model):
 
     def get_absolute_url(self):
         return reverse('vacancy_detail', args=[str(self.id)])
+    
+
+# class CustomUser(AbstractUser):
