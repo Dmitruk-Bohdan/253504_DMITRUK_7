@@ -103,13 +103,13 @@ class CategoriesListView(generic.ListView):
 class PromoCodeListView(generic.ListView):
     model = PromoCode
     template_name = 'promocode_list.html'
-    context_object_name = 'promo_codes'
+    context_object_name = 'promocodes'
     paginate_by = 5
 
 class PromoCodeDetailView(generic.DetailView):
     model = PromoCode
     template_name = 'promocode_detail.html'
-    context_object_name = 'promo_code'
+    context_object_name = 'promocode'
 
 class ProductDetailView(generic.DetailView):
     model = Product
@@ -133,6 +133,17 @@ class SupplierDetailView(generic.DetailView):
     template_name = 'supplier_detail.html'
     context_object_name = 'supplier'
     paginate_by = 10
+
+class ManufacturerListView(generic.ListView):
+    model = Manufacturer
+    template_name = 'manufacturer_list.html'
+    context_object_name = 'manufacturers'
+    paginate_by = 10
+
+class ManufacturerDetailView(generic.DetailView):
+    model = Manufacturer
+    template_name = 'manufacturer_detail.html'
+    context_object_name = 'manufacturer'
     
 def redirect_to_previous(request):
     next_url = request.META.get('HTTP_REFERER')
@@ -142,10 +153,4 @@ def redirect_to_previous(request):
         return redirect('') 
 
 class ReviewsView():
-    pass
-
-class PurchaseView():
-    pass
-
-class PickupPointsView():
     pass

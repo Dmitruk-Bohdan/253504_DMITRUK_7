@@ -1,18 +1,18 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>Tities list</h1>
+    <h1>Categories list</h1>
 
     {% if categories %}
     <ul>
       {% for category in categories %}
       <li>
-        <a href="{{ category.get_absolute_url }}"> {{ category.name }} </a> ({{category.description}})
+        <a href="{{ category.get_absolute_url }}"> {{ category.name }} </a>
       </li>
       {% endfor %}
 
     </ul>
     {% else %}
-      <p>There are no bitches in the library.</p>
+      <p>There are no categories.</p>
     {% endif %}
 {% endblock %}

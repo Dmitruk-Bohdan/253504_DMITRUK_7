@@ -8,7 +8,9 @@
 <h2>Manufacturers:</h2>
 <ul>
   {% for manufacturer in supplier.manufacturers.all %}
-    <li>{{ manufacturer.name }}</li>
+    <li>
+      <a href="{{ manufacturer.get_absolute_url }}">{{ manufacturer.name }}</a>
+    </li>
   {% empty %}
     <li>No manufacturers associated</li>
   {% endfor %}

@@ -7,8 +7,7 @@
     <ul>
       {% for promocode in promocodes %}
       <li>
-        <p></p>
-        <a href="{{ promocode.get_absolute_url }}">{{ promo_code.code }} -- {{promo_code.discount}}</a>
+        <a href="{{ promocode.get_absolute_url }}">{{ promocode.code }}</a> -- {{promocode.discount}}
       </li>
       {% endfor %}
 

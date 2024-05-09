@@ -2,13 +2,13 @@
 
 {% block content %}
 <h1>Promo Code Details</h1>
-<h2>{{ promo_code.code }}</h2>
-<p>Discount: {{ promo_code.discount }}</p>
-<p>Expiration Date: {{ promo_code.expiration_date }}</p>
-<p>Max Usage: {{ promo_code.max_usage }}</p>
-<p>Used Count: {{ promo_code.used_count }}</p>
+<h2>{{ promocode.code }}</h2>
+<p>Discount: {{ promocode.discount }}%</p>
+<p>Expiration Date: {{ promocode.expiration_date }}</p>
+<p>Max Usage: {{ promocode.max_usage }}</p>
+<p>Used Count: {{ promocode.used_count }}</p>
 
-{% if promo_code.is_valid %}
+{% if promocode.is_valid %}
     <p>This promo code is valid.</p>
 {% else %}
     <p>This promo code is not valid.</p>

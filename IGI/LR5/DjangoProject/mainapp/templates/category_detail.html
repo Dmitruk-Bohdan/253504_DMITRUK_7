@@ -6,10 +6,14 @@
   <p><strong>Description:</strong> {{ category.description }}</p> 
 
   <div style="margin-left:20px;margin-top:20px">
-    {% comment %} {% for product in products %} {% endcomment %}
+    <p><strong>Products:</strong></p>
+    <ul>
     {% for product in category.products.all %}
-        <p><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></p>
+    <li>
+        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+    </li>
     {% endfor %}
-  </div>
+    </ul>
+</div>
 
 {% endblock %}

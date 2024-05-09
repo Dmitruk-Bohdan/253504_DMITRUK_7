@@ -1,4 +1,4 @@
-from datetime import timezone
+from datetime import datetime, timedelta, timezone
 from django.db import models
 from django.contrib.auth.models import User
 from django.forms import FloatField
@@ -20,6 +20,9 @@ class Manufacturer(models.Model):
     address = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
     paginate_by = 10
+
+    def get_absolute_url(self):
+        return reverse('manufacturer_detail', args=[str(self.id)])
 
     def __str__(self):
         return self.name
@@ -55,6 +58,8 @@ class Product(models.Model):
     suppliers = models.ManyToManyField(Supplier, related_name ='products')
     category = models.ForeignKey(Category, related_name ='products', on_delete=models.DO_NOTHING)
     pickup_points = models.ManyToManyField(PickupPoint, related_name ='pickup_points')
+    # manufacturer = models.ForeignKey(Manufacturer, related_name='products', on_delete=models.DO_NOTHING, null=True)
+    manufacturer = models.ForeignKey(Manufacturer, related_name='products', on_delete=models.SET_NULL, null=True)
     count = models.IntegerField()
     paginate_by = 10
 
@@ -110,19 +115,19 @@ class Order(models.Model):
     
 class PromoCode(models.Model):
     code = models.CharField(max_length=20, unique=True)
-    discount = models.DecimalField(max_digits=5, decimal_places=2)
-    expiration_date = models.DateField()
-    max_usage = models.PositiveIntegerField()
+    discount = models.DecimalField(max_digits=5, decimal_places=2, default=5)
+    expiration_date = models.DateField(default=datetime.now() + timedelta(days=30))
+    max_usage = models.PositiveIntegerField(default=3)
     used_count = models.PositiveIntegerField(default=0)
 
     def is_valid(self):
-        return self.used_count < self.max_usage and self.expiration_date >= timezone.now().date()
+        return self.used_count < self.max_usage and self.expiration_date >= datetime.now().date()
 
     def __str__(self):
         return self.code   
 
     def get_absolute_url(self):
-        return reverse('promo_code_detail', args=[str(self.id)])
+        return reverse('promocode_detail', args=[str(self.id)])
 
 class Vacancy(models.Model):
     duties = models.JSONField()

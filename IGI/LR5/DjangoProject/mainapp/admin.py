@@ -42,6 +42,7 @@ class ProductAdmin(admin.ModelAdmin):
                     'category',
                     'display_suppliers',
                     'display_pickup_points',
+                    'manufacturer',
                     'count'
                     ]
     inlines = [SupplierInline]
