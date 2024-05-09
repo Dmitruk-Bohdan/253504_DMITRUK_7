@@ -1,9 +1,11 @@
 from datetime import datetime, timezone
+from django.forms import ValidationError
 from django.shortcuts import redirect, render
 from .models import *
 from .forms import *
 from django.views import View, generic
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import login, authenticate
 
 def index(request):
     products = Product.objects.all()
@@ -17,6 +19,25 @@ def index(request):
 
 def about(request):
     return render(request, 'about.html')
+
+def register_view(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            if 'is_adult' not in request.POST:
+                raise ValidationError('you must be over 18 to sign up')
+            user.profile.phone_number = form.clean_phone_number
+            user.email = form.cleaned_data.get('email')
+            user.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('index')
+    else:
+        form = RegistrationForm()
+    return render(request, 'registration/register.html', {'form': form})
 
 def order_create(request, product_id):
     product = get_object_or_404(Product, pk=product_id)

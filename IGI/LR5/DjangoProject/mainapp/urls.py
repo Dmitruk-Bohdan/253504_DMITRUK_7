@@ -24,6 +24,7 @@ urlpatterns = [
     re_path(r'^pickup_point/(?P<pk>\d+)$', views.PickupPointDetailView.as_view(), name='pickup_point_detail'),
     re_path(r'^manufacturer/(?P<pk>\d+)$', views.ManufacturerDetailView.as_view(), name='manufacturer_detail'),
     path('about', views.about, name='about'),
+    path('register', views.register_view, name='register'),
     path('supplier/<int:pk>/', views.SupplierDetailView.as_view(), name='supplier_detail'),
     path('order_create/<int:product_id>/', views.order_create, name='order_create'),
     path('redirect-to-previous/', views.redirect_to_previous, name='redirect_to_previous'),

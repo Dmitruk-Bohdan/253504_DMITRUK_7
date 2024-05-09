@@ -142,19 +142,19 @@ class Vacancy(models.Model):
     
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    date_of_birth = models.DateField(blank=True, null=True)
+    user = models.OneToOneField(User, related_name='profile',on_delete=models.CASCADE)
+    # birth_date = models.DateField(blank=True, null=True)
     phone_number = models.CharField(max_length=20, blank=True)
-    def get_age(self):
-        if self.date_of_birth:
-            from datetime import date
-            today = date.today()
-            age = today.year - self.date_of_birth.year
-            if today.month < self.date_of_birth.month or (today.month == self.date_of_birth.month and today.day < self.date_of_birth.day):
-                age -= 1
-            return age
-        else:
-            return None
+    # def get_age(self):
+    #     if self.date_of_birth:
+    #         from datetime import date
+    #         today = date.today()
+    #         age = today.year - self.date_of_birth.year
+    #         if today.month < self.date_of_birth.month or (today.month == self.date_of_birth.month and today.day < self.date_of_birth.day):
+    #             age -= 1
+    #         return age
+    #     else:
+    #         return None
         
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
