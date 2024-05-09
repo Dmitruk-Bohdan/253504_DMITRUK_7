@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Pickup points</h1>
+
+    {% if pickup_points %}
+    <ul>
+      {% for pickup_point in pickup_points %}
+      <li>
+        <a href="{{ pickup_point.get_absolute_url }}">{{ pickup_point.name }}</a> ({{pickup_point.address}})
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no points.</p>
+    {% endif %}
+{% endblock %}

@@ -1,3 +1,4 @@
+from datetime import timezone
 from django.db import models
 from django.contrib.auth.models import User
 from django.forms import FloatField
@@ -86,14 +87,14 @@ class Order(models.Model):
     date = models.DateField()
     quantity = models.PositiveIntegerField()
     product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
-    customer = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    customer = models.CharField(max_length=100)
     pickup_point = models.ForeignKey(PickupPoint, on_delete=models.DO_NOTHING, default=None)
 
 
     paginate_by = 10
 
     def get_absolute_url(self):
-        return reverse('sale_detail', args=[str(self.id)])
+        return reverse('order_detail', args=[str(self.id)])
 
     @property
     def price_per_unit(self):
@@ -108,8 +109,17 @@ class Order(models.Model):
     
     
 class PromoCode(models.Model):
-    code = models.CharField(max_length=10, unique=True)
-    users = models.ManyToManyField(User)    
+    code = models.CharField(max_length=20, unique=True)
+    discount = models.DecimalField(max_digits=5, decimal_places=2)
+    expiration_date = models.DateField()
+    max_usage = models.PositiveIntegerField()
+    used_count = models.PositiveIntegerField(default=0)
+
+    def is_valid(self):
+        return self.used_count < self.max_usage and self.expiration_date >= timezone.now().date()
+
+    def __str__(self):
+        return self.code   
 
     def get_absolute_url(self):
         return reverse('promo_code_detail', args=[str(self.id)])

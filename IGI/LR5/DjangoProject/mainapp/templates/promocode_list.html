@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Promocodes</h1>
+
+    {% if promocodes %}
+    <ul>
+      {% for promocode in promocodes %}
+      <li>
+        <p></p>
+        <a href="{{ promocode.get_absolute_url }}">{{ promo_code.code }} -- {{promo_code.discount}}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no promocodes.</p>
+    {% endif %}
+{% endblock %}
