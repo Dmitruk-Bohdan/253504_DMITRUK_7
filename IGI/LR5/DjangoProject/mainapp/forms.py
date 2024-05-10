@@ -4,6 +4,9 @@ from .models import *
 from django.core.validators import MinValueValidator
 from django.contrib.auth.forms import *
 
+class SearchForm(forms.Form):
+    query = forms.CharField(max_length=100)
+
 class OrderForm(forms.ModelForm):
     quantity = forms.IntegerField(
         widget=forms.NumberInput(attrs={'type': 'number', 'min': '1'}),

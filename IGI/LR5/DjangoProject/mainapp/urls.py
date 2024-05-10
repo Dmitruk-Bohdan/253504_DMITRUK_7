@@ -10,6 +10,8 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('about', views.about, name='about'),
+    path('privacy_policy/', views.index, name='privacy_policy'),
     path('products/', views.ProductsListView.as_view(), name='products'),
     path('categories/', views.CategoriesListView.as_view(), name='categories'),
     path('orders/', views.OrderListView.as_view(), name='orders'),
@@ -17,12 +19,26 @@ urlpatterns = [
     path('promocodes/', views.PromoCodeListView.as_view(), name='promocodes'),
     path('manufacturers/', views.ManufacturerListView.as_view(), name='manufacturers'),
     path('suppliers/', views.SupplierListView.as_view(), name='suppliers'),
+    
+    path('faqs/', views.SupplierListView.as_view(), name='faqs'),
+    path('news_articles/', views.SupplierListView.as_view(), name='news_articles'),
+    path('rewiews/', views.SupplierListView.as_view(), name='rewiews'),
+    path('vacancies/', views.SupplierListView.as_view(), name='vacancies'),
+    path('employees/', views.SupplierListView.as_view(), name='employees'),
+    path('about_us', views.SupplierListView.as_view(), name='about_us'),
+    
     re_path(r'^product/(?P<pk>\d+)$', views.ProductDetailView.as_view(), name='product_detail'),
     re_path(r'^categoty/(?P<pk>\d+)$', views.CategoryDetailView.as_view(), name='category_detail'),
     re_path(r'^order/(?P<pk>\d+)$', views.OrderDetailView.as_view(), name='order_detail'),
     re_path(r'^promocode/(?P<pk>\d+)$', views.PromoCodeDetailView.as_view(), name='promocode_detail'),
     re_path(r'^pickup_point/(?P<pk>\d+)$', views.PickupPointDetailView.as_view(), name='pickup_point_detail'),
     re_path(r'^manufacturer/(?P<pk>\d+)$', views.ManufacturerDetailView.as_view(), name='manufacturer_detail'),
+    
+    re_path(r'^faq/(?P<pk>\d+)$', views.ProductDetailView.as_view(), name='faq_detail'),
+    re_path(r'^news_article/(?P<pk>\d+)$', views.ProductDetailView.as_view(), name='news_article'),
+    re_path(r'^rewiew/(?P<pk>\d+)$', views.ProductDetailView.as_view(), name='rewiew'),
+    re_path(r'^vacancy/(?P<pk>\d+)$', views.ProductDetailView.as_view(), name='vacancy'),
+    
     path('about', views.about, name='about'),
     path('register', views.register_view, name='register'),
     path('supplier/<int:pk>/', views.SupplierDetailView.as_view(), name='supplier_detail'),

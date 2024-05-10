@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Vacancies</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+    
+    {% if vacancies %}
+    <ul>
+      {% for vacancy in vacancies %}
+      <li>
+          <a href="{{ vacancy.get_absolute_url }}">{{ vacancy.product.name }} -- {{order.quantity}}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no orders.</p>
+    {% endif %}
+{% endblock %}

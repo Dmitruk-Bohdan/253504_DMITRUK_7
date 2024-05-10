@@ -131,13 +131,6 @@ class PromoCode(models.Model):
 
     def get_absolute_url(self):
         return reverse('promocode_detail', args=[str(self.id)])
-
-class Vacancy(models.Model):
-    duties = models.JSONField()
-    salary = FloatField()
-
-    def get_absolute_url(self):
-        return reverse('vacancy_detail', args=[str(self.id)])
     
 
 class Profile(models.Model):
@@ -173,6 +166,9 @@ class Vacancy(models.Model):
     location = models.CharField(max_length=100, default='not definded')
     salary = models.DecimalField(max_digits=8, decimal_places=2, default=500)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
+    
+    def get_absolute_url(self):
+        return reverse('vacancy_detail', args=[str(self.id)])
 
     def __str__(self):
         return self.title
@@ -191,15 +187,24 @@ class AboutArticle(Article):
 class NewsArticle(Article):
     photo = models.ImageField(upload_to='images/news_articles/', default='default_image.png')
     
+    def get_absolute_url(self):
+        return reverse('news_article_detail', args=[str(self.id)])
+    
 class FAQ(Article):
     question = models.CharField(max_length=100)
     photo = models.ImageField(upload_to='images/faq/', default='default_image.png')
+    
+    def get_absolute_url(self):
+        return reverse('faq_detail', args=[str(self.id)])
     
 class Review(models.Model):
     name = models.CharField(max_length=100, default='not definded')
     rating = models.PositiveIntegerField(default=0)
     text = models.TextField(null=True, default='not definded')
     date = models.DateField(auto_now_add=True, null=True)
+    
+    def get_absolute_url(self):
+        return reverse('vacancy_detail', args=[str(self.id)])
 
     def __str__(self):
         return self.name

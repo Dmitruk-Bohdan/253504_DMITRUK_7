@@ -3,4 +3,18 @@
     padding: 0;
     list-style: none;
   }
+
+.search-form {
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.search-button {
+    white-space: nowrap;
+}
   

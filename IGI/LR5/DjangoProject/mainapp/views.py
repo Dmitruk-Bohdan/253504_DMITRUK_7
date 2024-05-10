@@ -19,6 +19,11 @@ def index(request):
         context={'type_request' : type(request)},
     )
     
+def about(request):
+    return render(request, 'about.html')
+
+def privacy_policy(request):
+    return render(request, 'privacy_policy.html')
     
 class HomePageView(generic.TemplateView):
     template_name = 'index.html'
@@ -39,9 +44,6 @@ class HomePageView(generic.TemplateView):
         
         return context
 
-
-def about(request):
-    return render(request, 'about.html')
 
 def register_view(request):
     if request.method == 'POST':
@@ -84,22 +86,6 @@ def order_create(request, product_id):
         'product': product,
     }
     return render(request, 'order_create.html', context)
-
-
-class NewsView(generic.ListView):
-    pass
-
-class FAQView():
-    pass
-
-class ContactsView():
-    pass
-
-class PrivacyPolicyView():
-    pass
-
-class VacanciesView():
-    pass
 
 
 @method_decorator(login_required, name='dispatch')
@@ -205,5 +191,4 @@ def redirect_to_previous(request):
     else:
         return redirect('') 
 
-class ReviewsView():
-    pass
+
