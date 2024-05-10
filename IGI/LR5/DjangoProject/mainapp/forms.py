@@ -24,24 +24,20 @@ class RegistrationForm(UserCreationForm):
     # is_adult = forms.BooleanField(label='Confirm that you are over 18 years of age', required=True)
 
     def clean_phone_number(self):
-        try:
-            phone_number = self.cleaned_data['phone_number']
-            phone_number_pattern = re.compile(r'\+375(25|29|33)\d{7}')
-            if not re.fullmatch(phone_number_pattern, str(phone_number)):
-                raise forms.ValidationError('Incorrect phone number format. Please use the format +375(29)XXX-XX-XX-XX')
-        except Exception as ex:
-            print(ex)
+        phone_number = self.cleaned_data['phone_number']
+        phone_number_pattern = re.compile(r'\+375(25|29|33)\d{7}')
+        
+        if not re.fullmatch(phone_number_pattern, phone_number):
+            raise forms.ValidationError('Incorrect phone number format. Please use the format +375(29)XXX-XX-XX-XX')
         return phone_number
 
+
     def clean_birth_date(self):
-        try:
-            birth_date = self.cleaned_data['birth_date']
-            today = datetime.now().date()
-            min_age = today - timedelta(days=365 * 18)
-            if birth_date > min_age:
-                raise forms.ValidationError('You have to be older than 18')
-        except Exception as ex:
-            print(ex)
+        birth_date = self.cleaned_data['birth_date']
+        today = datetime.now().date()
+        min_age = today - timedelta(days=365 * 18)
+        if birth_date > min_age:
+            raise forms.ValidationError('You have to be older than 18')
         return birth_date
     
     class Meta:

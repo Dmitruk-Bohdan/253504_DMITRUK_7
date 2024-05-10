@@ -52,6 +52,8 @@ def register_view(request):
             user = form.save()
             user.profile.phone_number = form.clean_phone_number()
             user.profile.birth_date = form.clean_birth_date()
+            if user.profile.phone_number is None or user.profile.birth_date is None:
+                return render(request, 'registration/register.html', {'form': form})
             user.profile.save()
             user.email = form.cleaned_data.get('email')
             user.save()
