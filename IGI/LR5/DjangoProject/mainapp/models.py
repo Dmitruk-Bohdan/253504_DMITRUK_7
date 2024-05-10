@@ -144,6 +144,10 @@ class Profile(models.Model):
     user = models.OneToOneField(User, related_name='profile',on_delete=models.CASCADE)
     birth_date = models.DateField(blank=True, null=True)
     phone_number = models.CharField(max_length=20, blank=True)
+    photo = models.ImageField(upload_to='images/employees/', default='default_employee.png')
+    job_description = models.TextField(null=True)
+    non_secretive = models.BooleanField(default=False)
+    
     def get_age(self):
         if self.date_of_birth:
             from datetime import date
@@ -155,9 +159,48 @@ class Profile(models.Model):
         else:
             return None
         
-
 @receiver(post_save, sender=User)
 def update_profile_signal(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
     instance.profile.save()
+
+class Vacancy(models.Model):
+    title = models.CharField(max_length=100, default='not definded')
+    description = models.TextField(default='not definded')
+    requirements = models.TextField(default='not definded')
+    responsibilities = models.TextField(default='not definded')
+    location = models.CharField(max_length=100, default='not definded')
+    salary = models.DecimalField(max_digits=8, decimal_places=2, default=500)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return self.title
+    
+class Article(models.Model):
+    title = models.CharField(max_length=100, default='not definded')
+    text = models.TextField(default='not definded')
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    
+    def __str__(self):
+        return self.title
+    
+class AboutArticle(Article):
+    photo = models.ImageField(upload_to='images/about_articles/', default='default_image.png')
+    
+class NewsArticle(Article):
+    photo = models.ImageField(upload_to='images/news_articles/', default='default_image.png')
+    
+class FAQ(Article):
+    question = models.CharField(max_length=100)
+    photo = models.ImageField(upload_to='images/faq/', default='default_image.png')
+    
+class Review(models.Model):
+    name = models.CharField(max_length=100, default='not definded')
+    rating = models.PositiveIntegerField(default=0)
+    text = models.TextField(null=True, default='not definded')
+    date = models.DateField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return self.name
+     
