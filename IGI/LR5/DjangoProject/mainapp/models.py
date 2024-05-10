@@ -62,7 +62,6 @@ class Product(models.Model):
     suppliers = models.ManyToManyField(Supplier, related_name ='products')
     category = models.ForeignKey(Category, related_name ='products', on_delete=models.DO_NOTHING)
     pickup_points = models.ManyToManyField(PickupPoint, related_name ='pickup_points')
-    # manufacturer = models.ForeignKey(Manufacturer, related_name='products', on_delete=models.DO_NOTHING, null=True)
     manufacturer = models.ForeignKey(Manufacturer, related_name='products', on_delete=models.SET_NULL, null=True)
     count = models.IntegerField()
     paginate_by = 10
@@ -143,18 +142,18 @@ class Vacancy(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, related_name='profile',on_delete=models.CASCADE)
-    # birth_date = models.DateField(blank=True, null=True)
+    birth_date = models.DateField(blank=True, null=True)
     phone_number = models.CharField(max_length=20, blank=True)
-    # def get_age(self):
-    #     if self.date_of_birth:
-    #         from datetime import date
-    #         today = date.today()
-    #         age = today.year - self.date_of_birth.year
-    #         if today.month < self.date_of_birth.month or (today.month == self.date_of_birth.month and today.day < self.date_of_birth.day):
-    #             age -= 1
-    #         return age
-    #     else:
-    #         return None
+    def get_age(self):
+        if self.date_of_birth:
+            from datetime import date
+            today = date.today()
+            age = today.year - self.date_of_birth.year
+            if today.month < self.date_of_birth.month or (today.month == self.date_of_birth.month and today.day < self.date_of_birth.day):
+                age -= 1
+            return age
+        else:
+            return None
         
 
 @receiver(post_save, sender=User)

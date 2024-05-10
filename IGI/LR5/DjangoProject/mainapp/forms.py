@@ -17,8 +17,8 @@ class OrderForm(forms.ModelForm):
 
 class RegistrationForm(UserCreationForm):
     phone_number = forms.CharField(label='Phone number ', max_length=17, help_text='Format: +375(29)XXX-XX-XX')
-    # birth_date = forms.DateField(label='Birthdate', help_text='Format: YYYY-MM-DD')
-    is_adult = forms.BooleanField(label='Confirm that you are over 18 years of age', required=True)
+    birth_date = forms.DateField(label='Birthdate', help_text='Format: YYYY-MM-DD')
+    # is_adult = forms.BooleanField(label='Confirm that you are over 18 years of age', required=True)
 
     def clean_phone_number(self):
         try:
@@ -30,16 +30,16 @@ class RegistrationForm(UserCreationForm):
             print(ex)
         return phone_number
 
-    # def clean_birth_date(self):
-    #     try:
-    #         birth_date = self.cleaned_data['birth_date']
-    #         today = datetime.now().date()
-    #         min_age = today - timedelta(days=365 * 18)
-    #         if birth_date > min_age:
-    #             raise forms.ValidationError('You have to be older than 18')
-    #     except Exception as ex:
-    #         print(ex)
-    #     return birth_date
+    def clean_birth_date(self):
+        try:
+            birth_date = self.cleaned_data['birth_date']
+            today = datetime.now().date()
+            min_age = today - timedelta(days=365 * 18)
+            if birth_date > min_age:
+                raise forms.ValidationError('You have to be older than 18')
+        except Exception as ex:
+            print(ex)
+        return birth_date
     
     class Meta:
         model = User

@@ -11,14 +11,33 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 
-# def index(request):
-#     products = Product.objects.all()
-#     num_products=products.count()
-#     return render(
-#         request,
-#         'index.html',
-#         context={'num_products' : num_products,'products' : products},
-#     )
+def index(request):
+    
+    return render(
+        request,
+        'index.html',
+        context={'type_request' : type(request)},
+    )
+    
+    
+class HomePageView(generic.TemplateView):
+    template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        user_timezone = self.request.session.get('django_timezone')
+        
+        current_datetime = datetime.now().astimezone(timezone=user_timezone)
+        context['current_datetime'] = current_datetime.strftime('%d/%m/%Y')
+        
+        data_modified_datetime = timezone.localtime(self.model.objects.latest('modified')).strftime('%d/%m/%Y')
+        context['data_modified_datetime'] = data_modified_datetime
+        
+        data_modified_utc = timezone.localtime(self.model.objects.latest('modified')).strftime('%d/%m/%Y')
+        context['data_modified_utc'] = data_modified_utc
+        
+        return context
 
 
 def about(request):
@@ -29,9 +48,8 @@ def register_view(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            if 'is_adult' not in request.POST:
-                raise ValidationError('you must be over 18 to sign up')
             user.profile.phone_number = form.clean_phone_number()
+            user.profile.birth_date = form.clean_birth_date()
             user.profile.save()
             user.email = form.cleaned_data.get('email')
             user.save()
@@ -83,25 +101,6 @@ class PrivacyPolicyView():
 class VacanciesView():
     pass
 
-
-class HomePageView(generic.TemplateView):
-    template_name = 'index.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        
-        user_timezone = self.request.session.get('django_timezone')
-        
-        current_datetime = datetime.now().astimezone(timezone=user_timezone)
-        context['current_datetime'] = current_datetime.strftime('%d/%m/%Y')
-        
-        data_modified_datetime = timezone.localtime(self.model.objects.latest('modified')).strftime('%d/%m/%Y')
-        context['data_modified_datetime'] = data_modified_datetime
-        
-        data_modified_utc = timezone.localtime(self.model.objects.latest('modified')).strftime('%d/%m/%Y')
-        context['data_modified_utc'] = data_modified_utc
-        
-        return context
 
 @method_decorator(login_required, name='dispatch')
 class OrderListView(generic.ListView):
