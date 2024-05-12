@@ -8,7 +8,7 @@
   <p><strong>Category:</strong> <a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a> </p> 
   
   {% if user.is_staff %}
-  <p><strong>Manufacturer:</strong><a href="{{ product.manufacturer.get_absolute_url }}">{{ manufacturer.name }}</a></p>
+  <p><strong>Manufacturer:</strong><a href="{{ product.manufacturer.get_absolute_url }}"> {{ product.manufacturer.name }}</a></p>
   {% elif user.is_authenticated%}
   <p><strong>Manufacturer:</strong> {{ product.manufacturer.name }}</p>
   {% endif %}

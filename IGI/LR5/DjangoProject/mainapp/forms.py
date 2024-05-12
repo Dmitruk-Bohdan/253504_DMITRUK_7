@@ -52,8 +52,8 @@ class CategorySearchForm(CustomSearchForm):
     
 class ProductSearchForm(CustomSearchForm):
     sort_by = forms.ChoiceField(label='Sort by', required=False, choices=[('name', 'Name'), ('article_number', 'Article'),
-                                ('price_per_unit', 'Price'), ('category', 'Category'),
-                                ('manufacturer', 'Manufacturer')])
+                                ('price_per_unit', 'Price'), ('category__name', 'Category'),
+                                ('manufacturer__name', 'Manufacturer')])
 
 class OrderSearchForm(CustomSearchForm):
     sort_by = forms.ChoiceField(label='Sort by', required=False, choices=[('date', 'Date'), ('quantity', 'Quantity'),

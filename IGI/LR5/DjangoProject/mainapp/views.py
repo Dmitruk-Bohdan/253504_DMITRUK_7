@@ -100,18 +100,53 @@ def order_create(request, product_id):
 class OrderDetailView(generic.DetailView):
     model = Order
     template_name = 'order_detail.html'
-
+        
 @method_decorator(login_required, name='dispatch')
 class OrderListView(generic.ListView):
     model = Order
     template_name = 'order_list.html'
     context_object_name = 'orders'
     paginate_by = 5
+    
     def get_queryset(self):
-        if self.request.user.is_staff:
-            return Order.objects.all()
+        return Order.objects.all()
+
+    def get(self, request, **kwargs):
+        form = OrderSearchForm(request.GET)
+        orders = Order.objects.all()
+        return render(request, 'order_list.html', {'form': form, 'orders' : orders})
+
+    def post(self, request, *args, **kwargs):
+        orders = []
+        form = OrderSearchForm(request.POST)
+        if form.is_valid():
+            search_term = form.cleaned_data.get('search_term')
+            sort_by = form.cleaned_data.get('sort_by')
+            reverse = form.cleaned_data.get('reverse')
+            
+            orders = Order.objects.filter(
+                Q(customer__icontains=search_term) | Q(product__name__icontains=search_term)
+            )
+            
+            if sort_by:
+                order_by_field = sort_by if not reverse else '-' + sort_by
+                orders = orders.order_by(order_by_field)
+            
+            orders = orders.distinct()
+            
+            print(orders)
+
+            if not orders.exists():
+                orders = Order.objects.all()
         else:
-            return Order.objects.filter(customer=self.request.user.username)
+            form = OrderSearchForm()
+            
+        context = {
+                'form': form,
+                'orders': orders if self.request.user.is_staff else orders.filter(customer=self.request.user.username)
+            }    
+        return render(request, 'order_list.html', context)
+
 
 
 
@@ -185,13 +220,14 @@ class ProductsListView(generic.ListView):
             sort_by = form.cleaned_data.get('sort_by')
             reverse = form.cleaned_data.get('reverse')
             products = Product.objects.filter(Q(name__icontains=search_term) 
-                                                    | Q(article_number__icontains=search_term)
-                                                    | Q(description__icontains=search_term)
-                                                    | Q(price_per_unit__icontains=search_term)
-                                                    | Q(description__icontains=search_term)
-                                                    | Q(suppliers__name__icontains=search_term)
-                                                    | Q(manufacturer__name__icontains=search_term)
-                                                    | Q(pickup_points__name__icontains=search_term)).order_by(sort_by if not reverse else '-' + sort_by )
+                                            | Q(article_number__icontains=search_term)
+                                            | Q(description__icontains=search_term)
+                                            | Q(price_per_unit__icontains=search_term)
+                                            | Q(description__icontains=search_term)
+                                            | Q(suppliers__name__icontains=search_term)
+                                            | Q(manufacturer__name__icontains=search_term)
+                                            | Q(pickup_points__name__icontains=search_term)).order_by(sort_by if not reverse else '-' + sort_by ).distinct()
+            print(products)
             if not products.exists():
                 products = Product.objects.all()
                 
@@ -206,13 +242,11 @@ class ProductsListView(generic.ListView):
     
     
 
-class CategoriesListView(generic.ListView):
-    model = Category
-    template_name = 'category_list.html'
-    context_object_name = 'categories'
-    paginate_by = 5
-    def get_queryset(self):
-        return Category.objects.all()
+@method_decorator(login_required, name='dispatch')
+class PromoCodeDetailView(generic.DetailView):
+    model = PromoCode
+    template_name = 'promocode_detail.html'
+    context_object_name = 'promocode'
 
 @method_decorator(login_required, name='dispatch')
 class PromoCodeListView(generic.ListView):
@@ -220,14 +254,34 @@ class PromoCodeListView(generic.ListView):
     template_name = 'promocode_list.html'
     context_object_name = 'promocodes'
     paginate_by = 5
+    
+    def get_queryset(self):
+        return PromoCode.objects.all()
 
-@method_decorator(login_required, name='dispatch')
-class PromoCodeDetailView(generic.DetailView):
-    model = PromoCode
-    template_name = 'promocode_detail.html'
-    context_object_name = 'promocode'
+    def get(self, request, **kwargs):
+        form = PromoCodeSearchForm(request.GET)
+        promocodes = PromoCode.objects.all()
+        return render(request, 'promocode_list.html', {'form': form, 'promocodes' : promocodes})
 
-
+    def post(self, request, *args, **kwargs):
+        promocodes = []
+        form = PromoCodeSearchForm(request.POST)
+        if form.is_valid():
+            search_term = form.cleaned_data.get('search_term')
+            sort_by = form.cleaned_data.get('sort_by')
+            reverse = form.cleaned_data.get('reverse')
+            promocodes = PromoCode.objects.filter(Q(name__icontains=search_term) 
+                                                | Q(description__icontains=search_term)).order_by(sort_by if not reverse else '-' + sort_by )
+            if not promocodes.exists():
+                promocodes = PromoCode.objects.all()
+        else:
+            form = PromoCodeSearchForm()
+            
+        context = {
+                'form': form,
+                'promocodes': promocodes,
+            }    
+        return render(request, 'promocode_list.html', context)
 
 
     
@@ -235,7 +289,39 @@ class CategoryDetailView(generic.DetailView):
     model = Category
     template_name = 'category_detail.html'
 
+class CategoryListView(generic.ListView):
+    model = Category
+    template_name = 'category_list.html'
+    context_object_name = 'categories'
+    paginate_by = 5
+    
+    def get_queryset(self):
+        return Category.objects.all()
 
+    def get(self, request, **kwargs):
+        form = CategorySearchForm(request.GET)
+        categories = Category.objects.all()
+        return render(request, 'category_list.html', {'form': form, 'categories' : categories})
+
+    def post(self, request, *args, **kwargs):
+        categories = []
+        form = CategorySearchForm(request.POST)
+        if form.is_valid():
+            search_term = form.cleaned_data.get('search_term')
+            sort_by = form.cleaned_data.get('sort_by')
+            reverse = form.cleaned_data.get('reverse')
+            categories = Category.objects.filter(Q(name__icontains=search_term) 
+                                                | Q(description__icontains=search_term)).order_by(sort_by if not reverse else '-' + sort_by )
+            if not categories.exists():
+                categories = Category.objects.all()
+        else:
+            form = CategorySearchForm()
+            
+        context = {
+                'form': form,
+                'categories': categories,
+            }    
+        return render(request, 'category_list.html', context)
 
 
 
