@@ -3,16 +3,22 @@
 {% block content %}
     <h1>Pickup points</h1>
 
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Search</button>
+    </form>
+
     {% if pickup_points %}
     <ul>
       {% for pickup_point in pickup_points %}
       <li>
-        <a href="{{ pickup_point.get_absolute_url }}">{{ pickup_point.name }}</a> ({{pickup_point.address}})
+        <a href="{{ pickup_point.get_absolute_url }}">{{ pickup_point.name }} </a> ({{pickup_point.phone}})
       </li>
       {% endfor %}
 
     </ul>
     {% else %}
-      <p>There are no points.</p>
+      <p>There are no pickup points.</p>
     {% endif %}
 {% endblock %}

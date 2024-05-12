@@ -3,6 +3,12 @@
 {% block content %}
     <h1>Suppliers</h1>
 
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Search</button>
+    </form>
+
     {% if suppliers %}
     <ul>
       {% for supplier in suppliers %}
@@ -13,6 +19,6 @@
 
     </ul>
     {% else %}
-      <p>There are no suppliers.</p>
+      <p>There are no manufacturers.</p>
     {% endif %}
 {% endblock %}

@@ -198,10 +198,10 @@ class FAQ(Article):
         return reverse('faq_detail', args=[str(self.id)])
     
 class Review(models.Model):
-    name = models.CharField(max_length=100, default='not definded')
+    title = models.CharField(max_length=100, default='not definded')
     rating = models.PositiveIntegerField(default=0)
     text = models.TextField(null=True, default='not definded')
-    date = models.DateField(auto_now_add=True, null=True)
+    created_at = models.DateField(auto_now_add=True, null=True)
     
     def get_absolute_url(self):
         return reverse('vacancy_detail', args=[str(self.id)])

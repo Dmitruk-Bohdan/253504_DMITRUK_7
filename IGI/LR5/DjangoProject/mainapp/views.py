@@ -9,7 +9,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-
+from django.db.models import Q
 
 def index(request):
     
@@ -24,6 +24,13 @@ def about(request):
 
 def privacy_policy(request):
     return render(request, 'privacy_policy.html')
+
+def redirect_to_previous(request):
+    next_url = request.META.get('HTTP_REFERER')
+    if next_url:
+        return redirect(next_url)
+    else:
+        return redirect('') 
     
 class HomePageView(generic.TemplateView):
     template_name = 'index.html'
@@ -89,6 +96,10 @@ def order_create(request, product_id):
     }
     return render(request, 'order_create.html', context)
 
+@method_decorator(login_required, name='dispatch')
+class OrderDetailView(generic.DetailView):
+    model = Order
+    template_name = 'order_detail.html'
 
 @method_decorator(login_required, name='dispatch')
 class OrderListView(generic.ListView):
@@ -102,22 +113,98 @@ class OrderListView(generic.ListView):
         else:
             return Order.objects.filter(customer=self.request.user.username)
 
+
+
 @method_decorator(login_required, name='dispatch')
+class PickupPointDetailView(generic.DetailView):
+    model = PickupPoint
+    context_object_name = 'pickup_point'
+    template_name = 'pickup_point_detail.html'
+
+@method_decorator(staff_member_required, name='dispatch')
 class PickupPointListView(generic.ListView):
     model = PickupPoint
     template_name = 'pickup_point_list.html'
     context_object_name = 'pickup_points'
     paginate_by = 5
+    
     def get_queryset(self):
         return PickupPoint.objects.all()
 
+    def get(self, request, **kwargs):
+        form = NameAddressForm(request.GET)
+        pickup_points = PickupPoint.objects.all()
+        return render(request, 'pickup_point_list.html', {'form': form, 'pickup_points' : pickup_points})
+
+    def post(self, request, *args, **kwargs):
+        pickup_points = []
+        form = NameAddressForm(request.POST)
+        if form.is_valid():
+            search_term = form.cleaned_data.get('search_term')
+            sort_by = form.cleaned_data.get('sort_by')
+            reverse = form.cleaned_data.get('reverse')
+            pickup_points = PickupPoint.objects.filter(Q(name__icontains=search_term) 
+                                                    | Q(address__icontains=search_term)
+                                                    | Q(phone_number__icontains=search_term)).order_by(sort_by if not reverse else '-' + sort_by )
+            if not pickup_points.exists():
+                pickup_points = PickupPoint.objects.all()
+        else:
+            form = NameAddressForm()
+            
+        context = {
+                'form': form,
+                'pickup_points': pickup_points,
+            }    
+        return render(request, 'pickup_point_list.html', context)
+
+
+
+class ProductDetailView(generic.DetailView):
+    model = Product
+    template_name = 'product_detail.html'
+    
 class ProductsListView(generic.ListView):
     model = Product
     template_name = 'product_list.html'
     context_object_name = 'products'
     paginate_by = 5
+    
     def get_queryset(self):
         return Product.objects.all()
+
+    def get(self, request, **kwargs):
+        form = ProductSearchForm(request.GET)
+        products = Product.objects.all()
+        return render(request, 'product_list.html', {'form': form, 'products' : products})
+
+    def post(self, request, *args, **kwargs):
+        products = []
+        form = ProductSearchForm(request.POST)
+        if form.is_valid():
+            search_term = form.cleaned_data.get('search_term')
+            sort_by = form.cleaned_data.get('sort_by')
+            reverse = form.cleaned_data.get('reverse')
+            products = Product.objects.filter(Q(name__icontains=search_term) 
+                                                    | Q(article_number__icontains=search_term)
+                                                    | Q(description__icontains=search_term)
+                                                    | Q(price_per_unit__icontains=search_term)
+                                                    | Q(description__icontains=search_term)
+                                                    | Q(suppliers__name__icontains=search_term)
+                                                    | Q(manufacturer__name__icontains=search_term)
+                                                    | Q(pickup_points__name__icontains=search_term)).order_by(sort_by if not reverse else '-' + sort_by )
+            if not products.exists():
+                products = Product.objects.all()
+                
+        else:
+            form = ProductSearchForm()
+            
+        context = {
+                'form': form,
+                'products': products,
+            }    
+        return render(request, 'product_list.html', context)
+    
+    
 
 class CategoriesListView(generic.ListView):
     model = Category
@@ -140,24 +227,61 @@ class PromoCodeDetailView(generic.DetailView):
     template_name = 'promocode_detail.html'
     context_object_name = 'promocode'
 
-class ProductDetailView(generic.DetailView):
-    model = Product
-    template_name = 'product_detail.html'
 
-@method_decorator(login_required, name='dispatch')
-class PickupPointDetailView(generic.DetailView):
-    model = PickupPoint
-    context_object_name = 'pickup_point'
-    template_name = 'pickup_point_detail.html'
+
+
     
 class CategoryDetailView(generic.DetailView):
     model = Category
     template_name = 'category_detail.html'
 
-@method_decorator(login_required, name='dispatch')
-class OrderDetailView(generic.DetailView):
-    model = Order
-    template_name = 'order_detail.html'
+
+
+
+
+@method_decorator(staff_member_required, name='dispatch')
+class ManufacturerDetailView(generic.DetailView):
+    model = Manufacturer
+    template_name = 'manufacturer_detail.html'
+    context_object_name = 'manufacturer'
+
+@method_decorator(staff_member_required, name='dispatch')
+class ManufacturerListView(generic.ListView):
+    model = Manufacturer
+    template_name = 'manufacturer_list.html'
+    context_object_name = 'manufacturers'
+    paginate_by = 5
+    
+    def get_queryset(self):
+        return Manufacturer.objects.all()
+
+    def get(self, request, **kwargs):
+        form = NameAddressForm(request.GET)
+        manufacturers = Manufacturer.objects.all()
+        return render(request, 'manufacturer_list.html', {'form': form, 'manufacturers' : manufacturers})
+
+    def post(self, request, *args, **kwargs):
+        manufacturers = []
+        form = NameAddressForm(request.POST)
+        if form.is_valid():
+            search_term = form.cleaned_data.get('search_term')
+            sort_by = form.cleaned_data.get('sort_by')
+            reverse = form.cleaned_data.get('reverse')
+            manufacturers = Manufacturer.objects.filter(Q(name__icontains=search_term) 
+                                                    | Q(address__icontains=search_term)
+                                                    | Q(phone__icontains=search_term)).order_by(sort_by if not reverse else '-' + sort_by )
+            if not manufacturers.exists():
+                manufacturers = Manufacturer.objects.all()
+        else:
+            form = NameAddressForm()
+            
+        context = {
+                'form': form,
+                'manufacturers': manufacturers,
+            }    
+        return render(request, 'manufacturer_list.html', context)
+        
+
 
 @method_decorator(staff_member_required, name='dispatch')
 class SupplierDetailView(generic.DetailView):
@@ -167,30 +291,42 @@ class SupplierDetailView(generic.DetailView):
     paginate_by = 10
 
 @method_decorator(staff_member_required, name='dispatch')
-class ManufacturerListView(generic.ListView):
-    model = Manufacturer
-    template_name = 'manufacturer_list.html'
-    context_object_name = 'manufacturers'
-    paginate_by = 10
-
-@method_decorator(staff_member_required, name='dispatch')
 class SupplierListView(generic.ListView):
     model = Supplier
     template_name = 'supplier_list.html'
     context_object_name = 'suppliers'
-    paginate_by = 10
-
-@method_decorator(staff_member_required, name='dispatch')
-class ManufacturerDetailView(generic.DetailView):
-    model = Manufacturer
-    template_name = 'manufacturer_detail.html'
-    context_object_name = 'manufacturer'
+    paginate_by = 5
     
-def redirect_to_previous(request):
-    next_url = request.META.get('HTTP_REFERER')
-    if next_url:
-        return redirect(next_url)
-    else:
-        return redirect('') 
+    def get_queryset(self):
+        return Supplier.objects.all()
+
+    def get(self, request, **kwargs):
+        form = NameAddressForm(request.GET)
+        suppliers = Supplier.objects.all()
+        return render(request, 'supplier_list.html', {'form': form, 'suppliers' : suppliers})
+
+    def post(self, request, *args, **kwargs):
+        suppliers = []
+        form = NameAddressForm(request.POST)
+        if form.is_valid():
+            search_term = form.cleaned_data.get('search_term')
+            sort_by = form.cleaned_data.get('sort_by')
+            reverse = form.cleaned_data.get('reverse')
+            suppliers = Supplier.objects.filter(Q(name__icontains=search_term) 
+                                                    | Q(address__icontains=search_term)
+                                                    | Q(phone__icontains=search_term)).order_by(sort_by if not reverse else '-' + sort_by )
+            if not suppliers.exists():
+                suppliers = Supplier.objects.all()
+        else:
+            form = NameAddressForm()
+            
+        context = {
+                'form': form,
+                'suppliers': suppliers,
+            }    
+        return render(request, 'supplier_list.html', context)
+
+    
+
 
 

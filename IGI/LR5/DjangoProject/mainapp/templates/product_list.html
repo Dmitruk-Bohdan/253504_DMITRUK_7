@@ -1,18 +1,24 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>Boobs List</h1>
+    <h1>Products</h1>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Search</button>
+    </form>
 
     {% if products %}
     <ul>
       {% for product in products %}
       <li>
-        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a> ({{product.description}})
+        <a href="{{ product.get_absolute_url }}">{{ product.name }} </a> ({{product.price_per_unit}})
       </li>
       {% endfor %}
 
     </ul>
     {% else %}
-      <p>There are no bitches in the library.</p>
+      <p>There are no products.</p>
     {% endif %}
 {% endblock %}

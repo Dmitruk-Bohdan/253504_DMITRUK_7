@@ -4,9 +4,6 @@ from .models import *
 from django.core.validators import MinValueValidator
 from django.contrib.auth.forms import *
 
-class SearchForm(forms.Form):
-    query = forms.CharField(max_length=100)
-
 class OrderForm(forms.ModelForm):
     quantity = forms.IntegerField(
         widget=forms.NumberInput(attrs={'type': 'number', 'min': '1'}),
@@ -21,7 +18,6 @@ class OrderForm(forms.ModelForm):
 class RegistrationForm(UserCreationForm):
     phone_number = forms.CharField(label='Phone number ', max_length=17, help_text='Format: +375(29)XXX-XX-XX')
     birth_date = forms.DateField(label='Birthdate', help_text='Format: YYYY-MM-DD')
-    # is_adult = forms.BooleanField(label='Confirm that you are over 18 years of age', required=True)
 
     def clean_phone_number(self):
         phone_number = self.cleaned_data['phone_number']
@@ -43,3 +39,46 @@ class RegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2',)
+      
+class CustomSearchForm(forms.Form):
+    search_term = forms.CharField(label='Search term', max_length=100, required=False)
+    reverse = forms.BooleanField(label='Reverse filtration', required=False)
+    
+class NameAddressForm(CustomSearchForm):
+    sort_by = forms.ChoiceField(label='Sort by', required=False, choices=[('name', 'Name'), ('address', 'Address')])
+
+class CategorySearchForm(CustomSearchForm):
+    sort_by = forms.ChoiceField(label='Sort by', required=False, choices=[('name', 'Name')])
+    
+class ProductSearchForm(CustomSearchForm):
+    sort_by = forms.ChoiceField(label='Sort by', required=False, choices=[('name', 'Name'), ('article_number', 'Article'),
+                                ('price_per_unit', 'Price'), ('category', 'Category'),
+                                ('manufacturer', 'Manufacturer')])
+
+class OrderSearchForm(CustomSearchForm):
+    sort_by = forms.ChoiceField(label='Sort by', required=False, choices=[('date', 'Date'), ('quantity', 'Quantity'),
+                                                          ('customer', 'Customer'), ('pickup_point', 'Pickup point')])
+
+class PromoCodeSearchForm(CustomSearchForm):
+    sort_by = forms.ChoiceField(label='Sort by', required=False, choices=[('code', 'Code'), ('discount', 'Discount'),
+                                                            ('expiration_date', 'Expiration'), ('max_usage', 'Max usage'),
+                                                            ('used_counts', 'Used counts')])
+
+class EmployeeSearchForm(CustomSearchForm):
+    sort_by = forms.ChoiceField(label='Sort by', required=False, choices=[('first_name', 'First name'), ('last_name', 'Last name'),
+                                                          ('birth_date', 'Age')])
+
+class VacancySearchForm(CustomSearchForm):
+    sort_by = forms.ChoiceField(label='Sort by', required=False, choices=[('title', 'Title'), ('salary', 'Salary'),
+                                                          ('created_at', 'Publishing date')])
+
+class NewsArticleSearchForm(CustomSearchForm):
+    sort_by = forms.ChoiceField(label='Sort by', required=False, choices=[('title', 'Title'), ('created_at', 'Publishing date')])
+
+class FAQSearchForm(CustomSearchForm):
+    sort_by = forms.ChoiceField(label='Sort by', required=False, choices=[('title', 'Title'), ('question', 'Question'),
+                                                          ('created_at', 'Publishing date')])
+
+class ReviewSearchForm(CustomSearchForm):
+    sort_by = forms.ChoiceField(label='Sort by', required=False, choices=[('title', 'Title'), ('created_at', 'Publishing date'),
+                                                          ('rating', 'Rating')])

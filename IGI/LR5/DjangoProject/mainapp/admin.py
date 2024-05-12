@@ -86,8 +86,8 @@ class AboutArticleAdmin(admin.ModelAdmin):
     
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ['name', 'rating', 'text', 'date']
-    list_filter = ['name', 'rating']
+    list_display = ['title', 'rating', 'text', 'created_at']
+    list_filter = ['title', 'rating', 'created_at']
     
 @admin.register(Vacancy)
 class VacancyAdmin(admin.ModelAdmin):
