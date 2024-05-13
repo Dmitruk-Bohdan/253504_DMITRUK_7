@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>News</h1>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Search</button>
+    </form>
+
+    {% if news_articles %}
+    <ul>
+      {% for news_article in news_articles %}
+      <li>
+        <a href="{{ news_article.get_absolute_url }}"> {{ news_article.title }} ({{news_article.created_at}})</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no employees.</p>
+    {% endif %}
+{% endblock %}

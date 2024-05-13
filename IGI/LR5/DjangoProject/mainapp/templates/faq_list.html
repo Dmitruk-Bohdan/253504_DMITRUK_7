@@ -1,18 +1,24 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1></h1>
+    <h1>Frequently asked questions</h1>
 
-    {% if  %}
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Search</button>
+    </form>
+
+    {% if faqs %}
     <ul>
-      {% for  in categories %}
+      {% for faq in faqs %}
       <li>
-        <a href="{{ category.get_absolute_url }}"> {{ category.name }} </a>
+        <a href="{{ faq.get_absolute_url }}"> {{ faq.title }} </a>
       </li>
       {% endfor %}
 
     </ul>
     {% else %}
-      <p>There are no categories.</p>
+      <p>There are no questions.</p>
     {% endif %}
 {% endblock %}

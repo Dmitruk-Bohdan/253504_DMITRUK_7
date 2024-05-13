@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Reviews</h1>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Search</button>
+    </form>
+
+    {% if reviews %}
+    <ul>
+      {% for review in reviews %}
+      <li>
+        <a href="{{ review.get_absolute_url }}">{{ review.code }}</a> -- {{review.discount}}
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no reviews.</p>
+    {% endif %}
+{% endblock %}

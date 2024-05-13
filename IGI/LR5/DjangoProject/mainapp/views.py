@@ -270,8 +270,8 @@ class PromoCodeListView(generic.ListView):
             search_term = form.cleaned_data.get('search_term')
             sort_by = form.cleaned_data.get('sort_by')
             reverse = form.cleaned_data.get('reverse')
-            promocodes = PromoCode.objects.filter(Q(name__icontains=search_term) 
-                                                | Q(description__icontains=search_term)).order_by(sort_by if not reverse else '-' + sort_by )
+            promocodes = PromoCode.objects.filter(Q(code__icontains=search_term) 
+                                                | Q(discount__icontains=search_term)).order_by(sort_by if not reverse else '-' + sort_by )
             if not promocodes.exists():
                 promocodes = PromoCode.objects.all()
         else:
@@ -412,7 +412,230 @@ class SupplierListView(generic.ListView):
             }    
         return render(request, 'supplier_list.html', context)
 
-    
+
+
+@method_decorator(login_required, name='dispatch')
+class FAQDetailView(generic.DetailView):
+    model = FAQ
+    template_name = 'faq_detail.html'
+    context_object_name = 'faq'
+
+@method_decorator(login_required, name='dispatch')
+class FAQListView(generic.DetailView):
+    model = FAQ
+    template_name = 'faq_list.html'
+    context_object_name = 'faqs'
+    paginate_by = 5
+
+    def get_queryset(self):
+        return FAQ.objects.all()
+
+    def get(self, request, **kwargs):
+        form = FAQSearchForm(request.GET)
+        faqs = FAQ.objects.all()
+        return render(request, 'faq_list.html', {'form': form, 'faqs' : faqs})
+
+    def post(self, request, *args, **kwargs):
+        faqs = []
+        form = FAQSearchForm(request.POST)
+        if form.is_valid():
+            search_term = form.cleaned_data.get('search_term')
+            sort_by = form.cleaned_data.get('sort_by')
+            reverse = form.cleaned_data.get('reverse')
+            faqs = FAQ.objects.filter(Q(title__icontains=search_term) 
+                                    | Q(created_at__icontains=search_term)
+                                    | Q(question__icontains=search_term)).order_by(sort_by if not reverse else '-' + sort_by )
+            if not faqs.exists():
+                faqs = FAQ.objects.all()
+        else:
+            form = FAQSearchForm()
+            
+        context = {
+                'form': form,
+                'faqs': faqs,
+            }    
+        return render(request, 'faq_list.html', context)
 
 
 
+@method_decorator(login_required, name='dispatch')
+class ReviewDetailView(generic.DetailView):
+    model = Review
+    template_name = 'rewiew_detail.html'
+    context_object_name = 'review'
+
+@method_decorator(login_required, name='dispatch')
+class ReviewListView(generic.DetailView):
+    model = Review
+    template_name = 'rewiew_list.html'
+    context_object_name = 'reviews'
+    paginate_by = 5
+
+    def get_queryset(self):
+        return Review.objects.all()
+
+    def get(self, request, **kwargs):
+        form = ReviewSearchForm(request.GET)
+        reviews = Review.objects.all()
+        return render(request, 'review_list.html', {'form': form, 'reviews' : reviews})
+
+    def post(self, request, *args, **kwargs):
+        reviews = []
+        form = ReviewSearchForm(request.POST)
+        if form.is_valid():
+            search_term = form.cleaned_data.get('search_term')
+            sort_by = form.cleaned_data.get('sort_by')
+            reverse = form.cleaned_data.get('reverse')
+            reviews = Review.objects.filter(Q(title__icontains=search_term) 
+                                        | Q(text__icontains=search_term)).order_by(sort_by if not reverse else '-' + sort_by )
+            if not reviews.exists():
+                reviews = Review.objects.all()
+        else:
+            form = ReviewSearchForm()
+            
+        context = {
+                'form': form,
+                'reviews': reviews,
+            }    
+        return render(request, 'review_list.html', context)
+
+
+
+
+
+@method_decorator(login_required, name='dispatch')
+class NewsArticleDetailView(generic.DetailView):
+    model = NewsArticle
+    template_name = 'news_article_detail.html'
+    context_object_name = 'news_article'
+
+@method_decorator(login_required, name='dispatch')
+class NewsArticleListView(generic.DetailView):
+    model = NewsArticle
+    template_name = 'news_article_detail.html'
+    context_object_name = 'news_articles'
+    paginate_by = 5
+
+    def get_queryset(self):
+        return NewsArticle.objects.all()
+
+    def get(self, request, **kwargs):
+        form = NewsArticleSearchForm(request.GET)
+        news_articles = NewsArticle.objects.all()
+        return render(request, 'news_article_list.html', {'form': form, 'news_articles' : news_articles})
+
+    def post(self, request, *args, **kwargs):
+        news_articles = []
+        form = NewsArticleSearchForm(request.POST)
+        if form.is_valid():
+            search_term = form.cleaned_data.get('search_term')
+            sort_by = form.cleaned_data.get('sort_by')
+            reverse = form.cleaned_data.get('reverse')
+            news_articles = NewsArticle.objects.filter(Q(title__icontains=search_term) 
+                                                    | Q(text__icontains=search_term)).order_by(sort_by if not reverse else '-' + sort_by )
+            if not news_articles.exists():
+                news_articles = NewsArticle.objects.all()
+        else:
+            form = NewsArticleSearchForm()
+            
+        context = {
+                'form': form,
+                'news_articles': news_articles,
+            }    
+        return render(request, 'news_article_list.html', context)
+
+
+
+
+@method_decorator(login_required, name='dispatch')
+class AboutArticleListView(generic.DetailView):
+    model = AboutArticle
+    template_name = 'about_article_list.html'
+    context_object_name = 'about_articles'
+    pagitane_by = 5
+
+
+
+@method_decorator(login_required, name='dispatch')
+class VacancyDetailView(generic.DetailView):
+    model = Vacancy
+    template_name = 'vacancy_detail.html'
+    context_object_name = 'vacancy'
+
+@method_decorator(login_required, name='dispatch')
+class VacancyListView(generic.DetailView):
+    model = Vacancy
+    template_name = 'vacancy_list.html'
+    context_object_name = 'vacancies'
+
+    def get_queryset(self):
+        return Vacancy.objects.all()
+
+    def get(self, request, **kwargs):
+        form = VacancySearchForm(request.GET)
+        vacancies = Vacancy.objects.all()
+        return render(request, 'vacancy_list.html', {'form': form, 'vacancies' : vacancies})
+
+    def post(self, request, *args, **kwargs):
+        vacancies = []
+        form = VacancySearchForm(request.POST)
+        if form.is_valid():
+            search_term = form.cleaned_data.get('search_term')
+            sort_by = form.cleaned_data.get('sort_by')
+            reverse = form.cleaned_data.get('reverse')
+            vacancies = Vacancy.objects.filter(Q(title__icontains=search_term) 
+                                                | Q(description__icontains=search_term)
+                                                | Q(responsibilities__icontains=search_term)
+                                                | Q(location__icontains=search_term)
+                                                | Q(requrements__icontains=search_term)).order_by(sort_by if not reverse else '-' + sort_by )
+            if not vacancies.exists():
+                vacancies = Vacancy.objects.all()
+        else:
+            form = VacancySearchForm()
+            
+        context = {
+                'form': form,
+                'vacancies': vacancies,
+            }    
+        return render(request, 'vacancy_list.html', context)
+
+
+
+@method_decorator(login_required, name='dispatch')
+class VacancyListView(generic.DetailView):
+    model = User
+    template_name = 'employee_list.html'
+    context_object_name = 'employees'
+
+    def get_queryset(self):
+        return User.objects.all()
+
+    def get(self, request, **kwargs):
+        form = EmployeeSearchForm(request.GET)
+        employees = User.objects.all()
+        return render(request, 'vemployee_list.html', {'form': form, 'employees' : employees})
+
+    def post(self, request, *args, **kwargs):
+        employees = []
+        form = EmployeeSearchForm(request.POST)
+        if form.is_valid():
+            search_term = form.cleaned_data.get('search_term')
+            sort_by = form.cleaned_data.get('sort_by')
+            reverse = form.cleaned_data.get('reverse')
+            employees = User.objects.filter(Q(title__icontains=search_term) 
+                                                | Q(username__icontains=search_term)
+                                                | Q(email__icontains=search_term)
+                                                | Q(first_name__icontains=search_term)
+                                                | Q(last_name__icontains=search_term)
+                                                | Q(profile__phone_number__icontains=search_term)
+                                                | Q(profile__job_description__icontains=search_term)).order_by(sort_by if not reverse else '-' + sort_by ).distinct()
+            if not employees.exists():
+                employees = User.objects.all()
+        else:
+            form = EmployeeSearchForm()
+            
+        context = {
+                'form': form,
+                'employees': employees if self.request.user.is_superuser else employees.filter(Q(profile__non_secret = True))
+            }    
+        return render(request, 'employees_list.html', context)
