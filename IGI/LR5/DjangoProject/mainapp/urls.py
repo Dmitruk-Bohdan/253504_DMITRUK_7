@@ -43,6 +43,9 @@ urlpatterns = [
     path('register', views.register_view, name='register'),
     path('supplier/<int:pk>/', views.SupplierDetailView.as_view(), name='supplier_detail'),
     path('order_create/<int:product_id>/', views.order_create, name='order_create'),
-    path('review_create/', views.order_create, name='review_create'),
+    path('pickup_point_create/', views.PickupPointCreateView.as_view(), name='pickup_point_create'),
+    path('pickup_point_update/<int:pk>/', views.PickupPointUpdateView.as_view(), name='pickup_point_update'),
+    path('pickup_point/<int:pk>/delete/', views.PickupPointDeleteView.as_view(), name='pickup_point_delete'),
+    path('review_create/', views.ReviewCreateView.as_view(), name='review_create'),
     path('redirect-to-previous/', views.redirect_to_previous, name='redirect_to_previous'),
 ]

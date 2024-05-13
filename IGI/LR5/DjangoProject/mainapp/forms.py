@@ -39,6 +39,57 @@ class RegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2',)
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['title', 'rating', 'text']
+        
+
+    def clean_rating(self):
+        rating = self.cleaned_data.get('rating')
+        if rating < 1 or rating > 5:
+            raise forms.ValidationError('Рейтинг должен быть от 1 до 5')
+        return rating
+    
+class PickupPointCreateForm(forms.ModelForm):
+    class Meta:
+        model = PickupPoint
+        fields = ['name', 'address', 'phone_number']
+
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data.get('phone_number')
+        phone_number_pattern = re.compile(r'^\+\d{12}$')
+        
+        if not re.fullmatch(phone_number_pattern, phone_number):
+            raise forms.ValidationError('Incorrect phone number format. Please use the format +XXX(XX)XXX-XX-XX-XX')
+        return phone_number
+    
+class PickupPointUpdateForm(forms.ModelForm):
+    class Meta:
+        model = PickupPoint
+        fields = ['name', 'address', 'phone_number']
+
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data.get('phone_number')
+        phone_number_pattern = re.compile(r'^\+\d{12}$')
+        
+        if not re.fullmatch(phone_number_pattern, phone_number):
+            raise forms.ValidationError('Incorrect phone number format. Please use the format +XXX(XX)XXX-XX-XX-XX')
+        return phone_number
+    
+    def __init__(self, *args, **kwargs):
+        initial_data = kwargs.get('initial', {})
+        instance = kwargs.get('instance')
+        
+        if instance:
+            initial_data['name'] = instance.name
+            initial_data['address'] = instance.address
+            initial_data['phone_number'] = instance.phone_number
+        
+        kwargs['initial'] = initial_data
+        super().__init__(*args, **kwargs)
+
       
 class CustomSearchForm(forms.Form):
     search_term = forms.CharField(label='Search term', max_length=100, required=False)

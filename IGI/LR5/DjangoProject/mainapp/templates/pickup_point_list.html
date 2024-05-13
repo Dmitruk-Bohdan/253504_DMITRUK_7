@@ -9,6 +9,17 @@
       <button type="submit">Search</button>
     </form>
 
+    {% if user.is_authenticated %}
+    <div style="margin-top:3%;margin-bottom:3%">
+      <form action="{% url 'pickup_point_create' %}" method="get">
+        {% csrf_token %}
+        <button type="submit">Create pickup point</button>
+      </form>
+    </div>
+    {% endif %}
+
+ 
+
     {% if pickup_points %}
     <ul>
       {% for pickup_point in pickup_points %}

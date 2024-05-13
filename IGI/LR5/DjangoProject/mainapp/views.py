@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 from django.forms import ValidationError
 from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 from .models import *
 from .forms import *
 from django.views import View, generic
@@ -31,25 +32,6 @@ def redirect_to_previous(request):
         return redirect(next_url)
     else:
         return redirect('') 
-    
-class HomePageView(generic.TemplateView):
-    template_name = 'index.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        
-        user_timezone = self.request.session.get('django_timezone')
-        
-        current_datetime = datetime.now().astimezone(timezone=user_timezone)
-        context['current_datetime'] = current_datetime.strftime('%d/%m/%Y')
-        
-        data_modified_datetime = timezone.localtime(self.model.objects.latest('modified')).strftime('%d/%m/%Y')
-        context['data_modified_datetime'] = data_modified_datetime
-        
-        data_modified_utc = timezone.localtime(self.model.objects.latest('modified')).strftime('%d/%m/%Y')
-        context['data_modified_utc'] = data_modified_utc
-        
-        return context
 
 
 def register_view(request):
@@ -97,25 +79,56 @@ def order_create(request, product_id):
     return render(request, 'order_create.html', context)
 
 @method_decorator(login_required, name='dispatch')
-def review_create(request, product_id):
-    if request.method == 'POST':
-        form = OrderForm(request.POST)
+class ReviewCreateView(generic.View):
+    def post(self, request, *args, **kwargs):
+        form = ReviewForm(request.POST)
         if form.is_valid():
-            order = form.save(commit=False)
-            order.customer = request.user.username
-            order.product = product 
-            order.date = datetime.now()
-            order.pickup_point = form.cleaned_data['pickup_points']
-            order.save()
-            return redirect('order_detail', pk=order.id)
-    else:
-        form = OrderForm()
+            review = form.save(commit=False)
+            review.save()
+            return redirect('reviews')
+        
+    def get(self, request, *args, **kwargs):
+        form = ReviewForm(request.GET)
+        return render(
+                request, 
+                'review_create.html',
+                {'form': form})
     
-    context = {
-        'form': form,
-        'product': product,
-    }
-    return render(request, 'order_create.html', context)
+@method_decorator(staff_member_required, name='dispatch')
+class PickupPointCreateView(generic.View):
+    def post(self, request, *args, **kwargs):
+        form = PickupPointCreateForm(request.POST)
+        if form.is_valid():
+            pickup_point = form.save(commit=False)
+            pickup_point.save()
+            return redirect('pickup_points')
+        else:
+            return render(request, 'pickup_point_create.html', {'form': form})
+        
+    def get(self, request, *args, **kwargs):
+        form = PickupPointCreateForm(request.GET)
+        return render(
+                request, 
+                'pickup_point_create.html',
+                {'form': form})
+
+@method_decorator(staff_member_required, name='dispatch')
+class PickupPointUpdateView(generic.UpdateView):
+    model = PickupPoint
+    form_class = PickupPointUpdateForm
+    template_name = 'pickup_point_update.html'
+
+    def get_object(self):
+        return get_object_or_404(PickupPoint, pk=self.kwargs['pk'])
+
+    def get_success_url(self):
+        return reverse('pickup_point_detail', args=[str(self.object.id)])
+    
+@method_decorator(staff_member_required, name='dispatch')
+class PickupPointDeleteView(generic.DeleteView):
+    model = PickupPoint
+    success_url = reverse_lazy('pickup_points')
+                
 
 @method_decorator(login_required, name='dispatch')
 class OrderDetailView(generic.DetailView):

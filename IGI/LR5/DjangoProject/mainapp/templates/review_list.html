@@ -9,7 +9,10 @@
       <button type="submit">Search</button>
     </form>
     <div style="margin-top:3%;margin-bottom:3%">
-      <button onclick="window.location.href='{% url 'review_create' %}'">Create review</button>
+      <form action="{% url 'review_create' %}" method="get">
+        {% csrf_token %}
+        <button type="submit">Create review</button>
+      </form>
     </div>
     {% if reviews %}
     <ul>
