@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from .models import Profile
+from django.core.exceptions import ObjectDoesNotExist
 
 admin.site.register(Profile)
 
@@ -13,11 +14,6 @@ class SupplierInline(admin.StackedInline):
     verbose_name = 'Supplier'
     verbose_name_plural = 'Suppliers'
     
-class ProfileInline(admin.StackedInline):
-    model = Profile
-    can_delete = False
-    verbose_name = 'Profile'
-    verbose_name_plural = 'Profiles'
     
 @admin.register(PickupPoint)
 class PickupPointAdmin(admin.ModelAdmin):
@@ -57,8 +53,30 @@ class ProductAdmin(admin.ModelAdmin):
                     'count',
                     ]
     inlines = [SupplierInline]
+
+
+class ProfileInline(admin.StackedInline):
+    model = Profile
+    can_delete = False
+    verbose_name = 'Profile'
+    verbose_name_plural = 'Profiles'
+    fields = ['birth_date', 'phone_number', 'photo', 'job_description', 'non_secretive']
+
+    def save_model(self, request, obj, form, change):
+        try:
+            profile = Profile.objects.get(user=obj)
+            profile.birth_date = obj.profile.birth_date
+            profile.phone_number = obj.profile.phone_number
+            profile.photo = obj.profile.photo
+            profile.job_description = obj.profile.job_description
+            profile.non_secretive = obj.profile.non_secretive
+            profile.save()
+        except ObjectDoesNotExist:
+            super().save_model(request, obj, form, change)
     
 class CustomUserAdmin(UserAdmin):
+    # model = User
+    list_display = ['username', 'email', 'first_name', 'last_name']
     inlines = (ProfileInline,)
 
 admin.site.unregister(User)

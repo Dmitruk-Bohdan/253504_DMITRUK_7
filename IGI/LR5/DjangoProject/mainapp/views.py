@@ -602,7 +602,7 @@ class VacancyListView(generic.DetailView):
 
 
 @method_decorator(login_required, name='dispatch')
-class VacancyListView(generic.DetailView):
+class EmployeeListView(generic.DetailView):
     model = User
     template_name = 'employee_list.html'
     context_object_name = 'employees'
@@ -612,8 +612,11 @@ class VacancyListView(generic.DetailView):
 
     def get(self, request, **kwargs):
         form = EmployeeSearchForm(request.GET)
-        employees = User.objects.all()
-        return render(request, 'vemployee_list.html', {'form': form, 'employees' : employees})
+        if self.request.user.is_staff:
+            employees = User.objects.all()
+        else:
+            employees = User.objects.filter(profile__non_secretive=True)
+        return render(request, 'employee_list.html', {'form': form, 'employees' : employees})
 
     def post(self, request, *args, **kwargs):
         employees = []
@@ -622,8 +625,7 @@ class VacancyListView(generic.DetailView):
             search_term = form.cleaned_data.get('search_term')
             sort_by = form.cleaned_data.get('sort_by')
             reverse = form.cleaned_data.get('reverse')
-            employees = User.objects.filter(Q(title__icontains=search_term) 
-                                                | Q(username__icontains=search_term)
+            employees = User.objects.filter(      Q(username__icontains=search_term)
                                                 | Q(email__icontains=search_term)
                                                 | Q(first_name__icontains=search_term)
                                                 | Q(last_name__icontains=search_term)
@@ -636,6 +638,6 @@ class VacancyListView(generic.DetailView):
             
         context = {
                 'form': form,
-                'employees': employees if self.request.user.is_superuser else employees.filter(Q(profile__non_secret = True))
+                'employees': employees if self.request.user.is_staff else employees.filter(Q(profile__non_secretive = True))
             }    
-        return render(request, 'employees_list.html', context)
+        return render(request, 'employee_list.html', context)

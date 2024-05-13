@@ -20,12 +20,12 @@ urlpatterns = [
     path('manufacturers/', views.ManufacturerListView.as_view(), name='manufacturers'),
     path('suppliers/', views.SupplierListView.as_view(), name='suppliers'),
     
-    path('faqs/', views.SupplierListView.as_view(), name='faqs'),
-    path('news_articles/', views.SupplierListView.as_view(), name='news_articles'),
-    path('rewiews/', views.SupplierListView.as_view(), name='rewiews'),
-    path('vacancies/', views.SupplierListView.as_view(), name='vacancies'),
-    path('employees/', views.SupplierListView.as_view(), name='employees'),
-    path('about_us', views.SupplierListView.as_view(), name='about_us'),
+    path('faqs/', views.FAQListView.as_view(), name='faqs'),
+    path('news_articles/', views.NewsArticleListView.as_view(), name='news_articles'),
+    path('reviews/', views.ReviewListView.as_view(), name='reviews'),
+    path('vacancies/', views.VacancyListView.as_view(), name='vacancies'),
+    path('employees/', views.EmployeeListView.as_view(), name='employees'),
+    path('about_us', views.AboutArticleListView.as_view(), name='about_us'),
     
     re_path(r'^product/(?P<pk>\d+)$', views.ProductDetailView.as_view(), name='product_detail'),
     re_path(r'^categoty/(?P<pk>\d+)$', views.CategoryDetailView.as_view(), name='category_detail'),
