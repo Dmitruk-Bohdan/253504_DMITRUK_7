@@ -1,19 +1,14 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>: {{  }}</h1>
+  <h2>{{ news_article.title }}</h2>
 
-  <p><strong>:</strong> {{ }}</p> 
+  <img src="{{ news_article.photo.url }}" alt="Photo" style="max-width: 40%;">
 
-  <div style="margin-left:20px;margin-top:20px">
-    <p><strong>:</strong></p>
-    <ul>
-    {% for  in  %}
-    <li>
-        <a href="{{ .get_absolute_url }}">{{  }}</a>
-    </li>
-    {% endfor %}
-    </ul>
-</div>
+  <div style="margin:5%">
+   <p>{{news_article.text}}</p>
+  </div>
+
+  <p><strong>{{news_article.created_at}}</strong></p>
 
 {% endblock %}

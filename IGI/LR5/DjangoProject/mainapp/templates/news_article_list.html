@@ -11,9 +11,11 @@
 
     {% if news_articles %}
     <ul>
-      {% for news_article in news_articles %}
-      <li>
-        <a href="{{ news_article.get_absolute_url }}"> {{ news_article.title }} ({{news_article.created_at}})</a>
+      {% for article in news_articles %}
+      <li style="margin-bottom: 5%;">
+        <h4>{{ article.title }}</h4>
+        <p>{{ article.text|truncatechars:100 }}</p>
+        <a href="{{ article.get_absolute_url}}">Read Source</a>
       </li>
       {% endfor %}
 

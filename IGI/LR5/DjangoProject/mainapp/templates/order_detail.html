@@ -7,7 +7,7 @@
   <p><strong>Quantity: {{ order.quantity }}</strong></p>
   <p><strong>Date: {{ order.date }}</strong></p>
   <p><strong>Customer: {{ order.customer }}</strong></p>
-  <p><strong>Product: </strong><a href="{{ order.pickup_point.get_absolute_url }}">{{ order.pickup_point.address }} </a></p>
+  <p><strong>Pickup point: </strong><a href="{{ order.pickup_point.get_absolute_url }}">{{ order.pickup_point.address }} </a></p>
   <p><strong>Total Price: {{ order.total_price }}</strong></p>
   
 {% endblock %}

@@ -13,13 +13,17 @@
     <ul>
       {% for employee in employees %}
       <li>
-        <img src="{{ employee.profile.photo.url }}" alt="Photo" style="max-width: 20%;">
-        <p><a href="{{ employee.get_absolute_url }}"> {{ employee.first_name }} {{ employee.last_name }} </a></p> 
-        <p><strong>Email: </strong> {{employee.email}}</p> 
-        {% if user.is_staff %} 
-        <p><strong>Username: </strong><a href="{{ employee.get_absolute_url }}">{{employee.username}}</a></p>
-        {% endif %}
-        </p>    
+        <div style="margin-top:5%;margin-bottom:5%;">
+          <img src="{{ employee.profile.photo.url }}" alt="Photo" style="max-width: 20%;">
+          <p><a href="{{ employee.get_absolute_url }}"> {{ employee.first_name }} {{ employee.last_name }} </a></p>
+          <p><strong>Email: </strong> {{employee.profile.job_description}}</p>  
+          <p><strong>Email: </strong> {{employee.email}}</p> 
+          <p><strong>Phone: </strong> {{employee.profile.phone_number}}</p> 
+          {% if user.is_staff %} 
+          <p><strong>Username: </strong><a href="{{ employee.get_absolute_url }}">{{employee.username}}</a></p>
+          {% endif %}
+          </p>    
+        </div>
        </li>
       {% endfor %}
 

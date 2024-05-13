@@ -13,9 +13,20 @@
     <!-- Добавление дополнительного статического CSS файла -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <script>
+      // Функция для получения текущей таймзоны пользователя
+      function getUserTimezone() {
+        return timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      }
+  
+      function displayUserTimezone() {
+        var timezone = getUserTimezone();
+        var timezoneElement = document.getElementById("user-timezone");
+        timezoneElement.textContent = timezone;}
+    </script>
   </head>
 
-  <body>
+  <body onload="displayUserTimezone()">
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-2">
@@ -78,4 +89,7 @@
       </div>
     </div>
   </body>
+  <footer id="footer">
+    <p id="user-timezone"></p>
+  </footer>
 </html>

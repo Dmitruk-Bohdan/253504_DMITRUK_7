@@ -97,6 +97,27 @@ def order_create(request, product_id):
     return render(request, 'order_create.html', context)
 
 @method_decorator(login_required, name='dispatch')
+def review_create(request, product_id):
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            order = form.save(commit=False)
+            order.customer = request.user.username
+            order.product = product 
+            order.date = datetime.now()
+            order.pickup_point = form.cleaned_data['pickup_points']
+            order.save()
+            return redirect('order_detail', pk=order.id)
+    else:
+        form = OrderForm()
+    
+    context = {
+        'form': form,
+        'product': product,
+    }
+    return render(request, 'order_create.html', context)
+
+@method_decorator(login_required, name='dispatch')
 class OrderDetailView(generic.DetailView):
     model = Order
     template_name = 'order_detail.html'
@@ -554,6 +575,10 @@ class AboutArticleListView(generic.DetailView):
     context_object_name = 'about_articles'
     pagitane_by = 5
 
+    def get(self, request, **kwargs):
+        about_articles = AboutArticle.objects.all()
+        return render(request, 'about_us.html', {'about_articles' : about_articles})
+
 
 
 @method_decorator(login_required, name='dispatch')
@@ -641,3 +666,4 @@ class EmployeeListView(generic.DetailView):
                 'employees': employees if self.request.user.is_staff else employees.filter(Q(profile__non_secretive = True))
             }    
         return render(request, 'employee_list.html', context)
+

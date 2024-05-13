@@ -89,17 +89,17 @@ class OrderAdmin(admin.ModelAdmin):
     
 @admin.register(FAQ)
 class FAQAdmin(admin.ModelAdmin):
-    list_display = ['title', 'question', 'text', 'created_at', 'photo']
+    list_display = ['title', 'question', 'created_at', 'photo']
     list_filter = ['title', 'created_at']
     
 @admin.register(NewsArticle)
 class NewsArticleAdmin(admin.ModelAdmin):
-    list_display = ['title', 'text', 'created_at', 'photo']
+    list_display = ['title', 'created_at', 'photo']
     list_filter = ['title', 'created_at']
     
 @admin.register(AboutArticle)
 class AboutArticleAdmin(admin.ModelAdmin):
-    list_display = ['title', 'text', 'created_at', 'photo']
+    list_display = ['title', 'created_at', 'photo']
     list_filter = ['title', 'created_at']
     
 @admin.register(Review)

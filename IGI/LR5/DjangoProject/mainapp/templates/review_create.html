@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Product: {{ product.name }}</h1>
+  <p><strong>Unit price: {{ product.price_per_unit}}</strong>
+    <p><strong>Total price: <span id="totalPrice">{{ product.price_per_unit }}</span></strong></p>
+  <form method="POST">
+    {% csrf_token %}
+    
+    {{ form.as_p }}
+    
+    <button type="submit">Confirm</button>
+  </form>
+
+{% endblock %}

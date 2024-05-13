@@ -3,22 +3,23 @@
 {% block content %}
     <h1>About us</h1>
 
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Search</button>
-    </form>
 
     {% if about_articles %}
-    <ul>
-      {% for about_article in about_articles %}
-      <li>
-        <a href="{{ about_article.get_absolute_url }}"> {{ about_article.title }} ({{about_article.created_at}})</a>
-      </li>
-      {% endfor %}
 
-    </ul>
+    {% for about_article in about_articles %}
+    <div style="margin:5%">
+        <h4>{{ about_article.title }}</h4>
+
+        <img src="{{ about_article.photo.url }}" alt="Photo" style="max-width: 40%;">
+      
+        <div style="margin-top:5%">
+        <p>{{about_article.text}}</p>
+      </div>
+    </div>
+    {% endfor %}
+        <p><strong>{{about_article.created_at}}</strong></p>
+      </div>
     {% else %}
-      <p>There are no abotus.</p>
+      <p>There are no info.</p>
     {% endif %}
 {% endblock %}
