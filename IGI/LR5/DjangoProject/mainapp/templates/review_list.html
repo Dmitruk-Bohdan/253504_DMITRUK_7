@@ -13,7 +13,7 @@
     <ul>
       {% for review in reviews %}
       <li>
-        <a href="{{ review.get_absolute_url }}">{{ review.code }}</a> -- {{review.discount}}
+        <a href="{{ review.get_absolute_url }}">{{ review.title }}</a> -- {{review.rating}}
       </li>
       {% endfor %}
 

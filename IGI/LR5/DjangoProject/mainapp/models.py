@@ -204,8 +204,8 @@ class Review(models.Model):
     created_at = models.DateField(auto_now_add=True, null=True)
     
     def get_absolute_url(self):
-        return reverse('vacancy_detail', args=[str(self.id)])
+        return reverse('review_detail', args=[str(self.id)])
 
     def __str__(self):
-        return self.name
+        return self.title
      

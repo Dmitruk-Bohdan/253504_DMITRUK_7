@@ -461,13 +461,13 @@ class FAQListView(generic.DetailView):
 @method_decorator(login_required, name='dispatch')
 class ReviewDetailView(generic.DetailView):
     model = Review
-    template_name = 'rewiew_detail.html'
+    template_name = 'review_detail.html'
     context_object_name = 'review'
 
 @method_decorator(login_required, name='dispatch')
 class ReviewListView(generic.DetailView):
     model = Review
-    template_name = 'rewiew_list.html'
+    template_name = 'review_list.html'
     context_object_name = 'reviews'
     paginate_by = 5
 
@@ -587,7 +587,7 @@ class VacancyListView(generic.DetailView):
                                                 | Q(description__icontains=search_term)
                                                 | Q(responsibilities__icontains=search_term)
                                                 | Q(location__icontains=search_term)
-                                                | Q(requrements__icontains=search_term)).order_by(sort_by if not reverse else '-' + sort_by )
+                                                | Q(requirements__icontains=search_term)).order_by(sort_by if not reverse else '-' + sort_by )
             if not vacancies.exists():
                 vacancies = Vacancy.objects.all()
         else:

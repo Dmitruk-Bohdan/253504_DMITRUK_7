@@ -13,7 +13,7 @@
     <ul>
       {% for vacancy in vacancies %}
       <li>
-          <a href="{{ vacancy.get_absolute_url }}">{{ vacancy.product.name }} -- {{order.quantity}}</a>
+          <a href="{{ vacancy.get_absolute_url }}">{{ vacancy.title }}</a> -- {{vacancy.salary}}$ a year
       </li>
       {% endfor %}
 

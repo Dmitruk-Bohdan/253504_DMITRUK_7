@@ -1,19 +1,12 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>: {{  }}</h1>
+  <h1>Question: {{ faq.title }}</h1>
 
-  <p><strong>:</strong> {{ }}</p> 
+  <p><strong>Question:</strong> {{ faq.question }}</p> 
+  <p><strong>Answer:</strong> {{ faq.text }}</p> 
+  <p><strong>{{ faq.created_at }}</strong></p> 
 
-  <div style="margin-left:20px;margin-top:20px">
-    <p><strong>:</strong></p>
-    <ul>
-    {% for  in  %}
-    <li>
-        <a href="{{ .get_absolute_url }}">{{  }}</a>
-    </li>
-    {% endfor %}
-    </ul>
 </div>
 
 {% endblock %}

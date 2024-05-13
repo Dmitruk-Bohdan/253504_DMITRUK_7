@@ -34,10 +34,10 @@ urlpatterns = [
     re_path(r'^pickup_point/(?P<pk>\d+)$', views.PickupPointDetailView.as_view(), name='pickup_point_detail'),
     re_path(r'^manufacturer/(?P<pk>\d+)$', views.ManufacturerDetailView.as_view(), name='manufacturer_detail'),
     
-    re_path(r'^faq/(?P<pk>\d+)$', views.ProductDetailView.as_view(), name='faq_detail'),
-    re_path(r'^news_article/(?P<pk>\d+)$', views.ProductDetailView.as_view(), name='news_article'),
-    re_path(r'^rewiew/(?P<pk>\d+)$', views.ProductDetailView.as_view(), name='rewiew'),
-    re_path(r'^vacancy/(?P<pk>\d+)$', views.ProductDetailView.as_view(), name='vacancy'),
+    re_path(r'^faq/(?P<pk>\d+)$', views.FAQDetailView.as_view(), name='faq_detail'),
+    re_path(r'^news_article/(?P<pk>\d+)$', views.NewsArticleDetailView.as_view(), name='news_article_detail'),
+    re_path(r'^review/(?P<pk>\d+)$', views.ReviewDetailView.as_view(), name='review_detail'),
+    re_path(r'^vacancy/(?P<pk>\d+)$', views.VacancyDetailView.as_view(), name='vacancy_detail'),
     
     path('about', views.about, name='about'),
     path('register', views.register_view, name='register'),
