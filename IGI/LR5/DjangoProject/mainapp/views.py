@@ -151,6 +151,7 @@ class ReviewCreateView(generic.View):
         if form.is_valid():
             review = form.save(commit=False)
             review.save()
+            logger.info(f"Review {form.cleaned_data['title']} created successfully by {request.user.username}")
             return redirect('reviews')
         
     def get(self, request, *args, **kwargs):
@@ -167,6 +168,7 @@ class PickupPointCreateView(generic.View):
         if form.is_valid():
             pickup_point = form.save(commit=False)
             pickup_point.save()
+            logger.info(f"Pickup point {form.cleaned_data['name']} created successfully by {request.user.username}")
             return redirect('pickup_points')
         else:
             return render(request, 'pickup_point_create.html', {'form': form})
@@ -188,12 +190,17 @@ class PickupPointUpdateView(generic.UpdateView):
         return get_object_or_404(PickupPoint, pk=self.kwargs['pk'])
 
     def get_success_url(self):
+        logger.info(f"Pickup point {self.object.name} is updated successfully by {self.request.user.username}")
         return reverse('pickup_point_detail', args=[str(self.object.id)])
     
 @method_decorator(staff_member_required, name='dispatch')
 class PickupPointDeleteView(generic.DeleteView):
     model = PickupPoint
     success_url = reverse_lazy('pickup_points')
+
+    def get_success_url(self):
+        logger.info(f"Pickup point {self.object.name} is removed successfully by {self.request.user.username}")
+        return super().get_success_url()
                 
 
 @method_decorator(login_required, name='dispatch')

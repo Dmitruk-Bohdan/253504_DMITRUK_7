@@ -24,7 +24,7 @@
     <ul>
       {% for pickup_point in pickup_points %}
       <li>
-        <a href="{{ pickup_point.get_absolute_url }}">{{ pickup_point.name }} </a> ({{pickup_point.phone}})
+        <a href="{{ pickup_point.get_absolute_url }}">{{ pickup_point.name }} </a> ({{pickup_point.phone_number}})
       </li>
       {% endfor %}
 
