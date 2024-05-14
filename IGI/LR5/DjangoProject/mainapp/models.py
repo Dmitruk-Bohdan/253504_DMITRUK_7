@@ -98,7 +98,6 @@ class Order(models.Model):
     customer = models.CharField(max_length=100)
     pickup_point = models.ForeignKey(PickupPoint, on_delete=models.DO_NOTHING, default=None)
 
-
     paginate_by = 10
 
     def get_absolute_url(self):
@@ -141,16 +140,17 @@ class Profile(models.Model):
     job_description = models.TextField(null=True)
     non_secretive = models.BooleanField(default=False)
     
-    def get_age(self):
-        if self.date_of_birth:
+    @property
+    def age(self):
+        if self.birth_date:
             from datetime import date
             today = date.today()
-            age = today.year - self.date_of_birth.year
-            if today.month < self.date_of_birth.month or (today.month == self.date_of_birth.month and today.day < self.date_of_birth.day):
+            age = today.year - self.birth_date.year
+            if today.month < self.birth_date.month or (today.month == self.birth_date.month and today.day < self.birth_date.day):
                 age -= 1
             return age
         else:
-            return None
+            return 0
         
 @receiver(post_save, sender=User)
 def update_profile_signal(sender, instance, created, **kwargs):

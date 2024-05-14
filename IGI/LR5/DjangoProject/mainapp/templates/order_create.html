@@ -11,6 +11,9 @@
     
     <button type="submit">Confirm</button>
   </form>
+  {% if message %}
+    <p><strong>{{ message}}</strong>
+  {% endif %}
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {

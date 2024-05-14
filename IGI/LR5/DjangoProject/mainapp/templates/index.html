@@ -10,7 +10,18 @@
 
 <h1>Welcome to our Auto Parts Store!</h1>
 
-<p>Current date: {{ type_request }}</p>
-
+<p><strong>Sales mode: </strong>{{ sales_mode }}</p>
+<p><strong>Sales median: </strong>{{ sales_median }}</p>
+<p><strong>Sales mean: </strong>{{ sales_mean }}</p>
+<p><strong>Client ages mean: </strong>{{ client_ages_mean }}</p>
+<p><strong>Client ages median: </strong>{{ client_ages_median }}</p>
+<p><strong>Most popular product: </strong>{{ most_popular_product}}</p>
+<p><strong>Most profitable product: </strong>{{ most_profitable_product}}</p>
+<p><strong>User timezone: </strong>{{ user_timesone }}</p>
+<p><strong>Current datetime: </strong>{{ current_datetime }}</p>
+<p><strong>User LDMD: </strong>{{ user_ldmd }}</p>
+<p><strong>UTC LDMD: </strong>{{ UTC_ldmd }}</p>
+<p><strong>Calendar: </strong></p>
+<pre>{{ calendar }}</pre>
 
 {% endblock %}

@@ -1,4 +1,7 @@
-from datetime import datetime, timezone
+import calendar
+from collections import Counter, defaultdict
+from datetime import date, datetime, timezone
+import locale
 from django.forms import ValidationError
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
@@ -10,15 +13,62 @@ from django.contrib.auth import login, authenticate
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.db.models import Q
+from django.db.models import Q, Max, Sum, Count
+from statistics import mean
+import logging
+
+logger = logging.getLogger('db_logger')
 
 def index(request):
-    
+    latest_date = Article.objects.aggregate(latest_date=Max('created_at'))['latest_date']
+    latest_article = Article.objects.get(created_at=latest_date)
+
+    orders = Order.objects.all()
+
+    sales = []
+    for order in orders:
+        sales.append(order.total_price)
+
+    sales_mode = get_mode(sales)
+    sales_median = get_median(sales)
+    sales_mean = mean(sales)
+
+    client_ages = []
+    for user in User.objects.all():
+        client_ages.append(user.profile.age)
+
+    client_ages_mean = mean(client_ages)
+    client_ages_median = get_median(client_ages)
+
+    most_popular_product = get_most_popular_product(orders)
+    most_profitable_product = get_most_profitable_product(orders)
+
+    user_timesone = 'timezone👍'
+    current_datetime = datetime.now()
+    last_db_manipulation_date = 'last_db_manipulation_date👍'
+    user_ldmd = 'user_last_db_manipulation_date👍'
+    UTC_ldmd = 'UTC_last_db_manipulation_date👍'
+    calendar = get_calendar(current_datetime)
+
     return render(
         request,
         'index.html',
-        context={'type_request' : type(request)},
+        context={'type_request' : type(request), 
+                 'sales_mode' : sales_mode,
+                 'sales_median' : sales_median,
+                 'sales_mean' : sales_mean,
+                 'client_ages_mean' : client_ages_mean,
+                 'client_ages_median' : client_ages_median,
+                 'most_popular_product' : most_popular_product,
+                 'most_profitable_product' : most_profitable_product,
+                 'user_timesone' : user_timesone,
+                 'current_datetime' : current_datetime,
+                 'user_ldmd' : user_ldmd,
+                 'UTC_ldmd' : UTC_ldmd,
+                 'calendar' : calendar},
     )
+
+
     
 def about(request):
     return render(request, 'about.html')
@@ -43,9 +93,15 @@ def register_view(request):
             user.profile.birth_date = form.clean_birth_date()
             if user.profile.phone_number is None or user.profile.birth_date is None:
                 return render(request, 'registration/register.html', {'form': form})
+            
             user.profile.save()
+            logger.info(f"User {user.username} profile signed up successfully")
+
             user.email = form.cleaned_data.get('email')
+
             user.save()
+            logger.info(f"User {user.username} created successfully")
+
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
@@ -56,10 +112,10 @@ def register_view(request):
     return render(request, 'registration/register.html', {'form': form})
 
 @method_decorator(login_required, name='dispatch')
-def order_create(request, product_id):
-    product = get_object_or_404(Product, pk=product_id)
+class OrderCreateView(generic.View):
     
-    if request.method == 'POST':
+    def post(self, request, product_id, *args, **kwargs):
+        product = get_object_or_404(Product, pk=product_id)
         form = OrderForm(request.POST)
         if form.is_valid():
             order = form.save(commit=False)
@@ -67,16 +123,26 @@ def order_create(request, product_id):
             order.product = product 
             order.date = datetime.now()
             order.pickup_point = form.cleaned_data['pickup_points']
+
+            amount = form.cleaned_data['quantity']
+            if amount > product.count:
+                message = f"Sorry, but we have only {product.count} units of {product.name}."
+                return render(request, 'order_create.html', {'form': form, 'product': product, 'message': message})
+            
             order.save()
+            product.count -= amount
+            product.save()
+            logger.info(f"Order {order.__str__()} created successfully by {order.customer}")
             return redirect('order_detail', pk=order.id)
-    else:
-        form = OrderForm()
-    
-    context = {
-        'form': form,
-        'product': product,
-    }
-    return render(request, 'order_create.html', context)
+        else:
+            form = OrderForm()
+        
+        context = {
+            'form': form,
+            'product': product,
+        }
+        return render(request, 'order_create.html', context)   
+        
 
 @method_decorator(login_required, name='dispatch')
 class ReviewCreateView(generic.View):
@@ -147,7 +213,7 @@ class OrderListView(generic.ListView):
 
     def get(self, request, **kwargs):
         form = OrderSearchForm(request.GET)
-        orders = Order.objects.all()
+        orders = Order.objects.all() if self.request.user.is_staff else Order.objects.all().filter(customer=self.request.user.username)
         return render(request, 'order_list.html', {'form': form, 'orders' : orders})
 
     def post(self, request, *args, **kwargs):
@@ -651,7 +717,7 @@ class EmployeeListView(generic.DetailView):
     def get(self, request, **kwargs):
         form = EmployeeSearchForm(request.GET)
         if self.request.user.is_staff:
-            employees = User.objects.all()
+            employees = User.objects.filter(is_staff=True)
         else:
             employees = User.objects.filter(profile__non_secretive=True)
         return render(request, 'employee_list.html', {'form': form, 'employees' : employees})
@@ -679,4 +745,62 @@ class EmployeeListView(generic.DetailView):
                 'employees': employees if self.request.user.is_staff else employees.filter(Q(profile__non_secretive = True))
             }    
         return render(request, 'employee_list.html', context)
+
+
+def get_median(sales):
+    sorted_sales = sorted(sales)
+    sales_quantity = len(sales)
+
+    if sales_quantity % 2 == 0:
+        return (sorted_sales[sales_quantity//2 - 1] + sorted_sales[sales_quantity//2]) / 2
+    else:
+        return sorted_sales[sales_quantity//2]
+    
+def get_mode(sales):
+    counter = Counter(sales)
+    return counter.most_common(1)[0][0]
+
+def get_calendar(some_date):
+    
+    cal = calendar.Calendar()
+    month_calendar = cal.monthdatescalendar(some_date.year, some_date.month)
+
+    month_name = some_date.strftime("%B")
+    year = some_date.year
+
+    calendar_string = f"{month_name} {year}\n"
+    calendar_string += " Mo  Tu  We  Th  Fr  Sa  Su\n"
+
+    for week in month_calendar:
+        for day in week:
+            if day == some_date.day:
+                calendar_string += f"[{day.strftime('%d'):2s}] "
+            else:
+                calendar_string += f" {day.strftime('%d'):2s} "
+        calendar_string += '\n'
+
+    print(calendar_string)
+
+    return calendar_string
+
+def get_most_popular_product(orders):
+    products = []
+    for order in orders:
+        products.append(order.product)
+    
+    counter = Counter(products)
+    hottest = counter.most_common(1)[0][0]
+    return hottest.name
+
+
+def get_most_profitable_product(orders):
+    product_totals = defaultdict(float)
+
+    for order in orders:
+        product = order.product
+        total_price = float(order.total_price)
+        product_totals[product.name] += total_price
+
+    most_profitable_product = max(product_totals, key=product_totals.get)
+    return most_profitable_product
 
