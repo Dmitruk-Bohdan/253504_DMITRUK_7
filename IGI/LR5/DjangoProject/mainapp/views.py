@@ -2,9 +2,11 @@ import calendar
 from collections import Counter, defaultdict
 from datetime import date, datetime, timezone
 import locale
+import os
 from django.forms import ValidationError
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
+from autoshop.settings import BASE_DIR
 from .models import *
 from .forms import *
 from django.views import View, generic
@@ -43,11 +45,11 @@ def index(request):
     most_popular_product = get_most_popular_product(orders)
     most_profitable_product = get_most_profitable_product(orders)
 
-    user_timesone = 'timezone👍'
     current_datetime = datetime.now()
-    last_db_manipulation_date = 'last_db_manipulation_date👍'
-    user_ldmd = 'user_last_db_manipulation_date👍'
-    UTC_ldmd = 'UTC_last_db_manipulation_date👍'
+    last_db_manipulation_date = get_last_db_manipulation_date()
+
+    server_UTC = last_db_manipulation_date.astimezone(timezone.utc)
+
     calendar = get_calendar(current_datetime)
 
     return render(
@@ -61,10 +63,9 @@ def index(request):
                  'client_ages_median' : client_ages_median,
                  'most_popular_product' : most_popular_product,
                  'most_profitable_product' : most_profitable_product,
-                 'user_timesone' : user_timesone,
                  'current_datetime' : current_datetime,
-                 'user_ldmd' : user_ldmd,
-                 'UTC_ldmd' : UTC_ldmd,
+                 'last_db_manipulation_date' : last_db_manipulation_date,
+                 'server_UTC' : server_UTC,
                  'calendar' : calendar},
     )
 
@@ -786,8 +787,6 @@ def get_calendar(some_date):
                 calendar_string += f" {day.strftime('%d'):2s} "
         calendar_string += '\n'
 
-    print(calendar_string)
-
     return calendar_string
 
 def get_most_popular_product(orders):
@@ -811,3 +810,10 @@ def get_most_profitable_product(orders):
     most_profitable_product = max(product_totals, key=product_totals.get)
     return most_profitable_product
 
+def get_last_db_manipulation_date():
+    db_log_file_path = os.path.join(BASE_DIR, 'db.log')
+
+    with open(db_log_file_path, 'r') as file:
+        first_19_chars = file.read(19)
+        last_db_manipulation_date = datetime.strptime(first_19_chars, "%Y-%m-%d %H:%M:%S")
+    return last_db_manipulation_date

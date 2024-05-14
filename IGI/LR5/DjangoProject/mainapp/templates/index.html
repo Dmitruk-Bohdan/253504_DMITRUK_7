@@ -4,6 +4,40 @@
 <title>No bitches?</title>
 {% endblock %}
 
+{%block extraheader%}
+<script>
+    function getUserTimezone() {
+      return timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    }
+
+    function displayUserTimezone() {
+      var timezone = getUserTimezone();
+      var timezoneElement = document.getElementById("user-timezone");
+      timezoneElement.textContent += timezone;}
+
+    function displayDateTime(dateTimeUTC) {
+      var localTimeElement = document.getElementById("local-time");
+      var utcTimeElement = document.getElementById("utc-time");
+    
+      var myDatetime = new Date(Date.parse(dateTimeUTC));
+      console.log(dateTimeUTC);
+      console.log(myDatetime);
+
+      var localDatetime = myDatetime.toLocaleString();
+      var utcDatetime = myDatetime.toISOString();
+    
+      localTimeElement.textContent = localDatetime;
+      utcTimeElement.textContent = utcDatetime;
+      }
+
+      document.addEventListener("DOMContentLoaded", function() {
+        displayUserTimezone();
+        var serverUTC = "{{ server_UTC }}";
+        displayDateTime(serverUTC);
+      });
+      
+  </script>
+{%endblock%}
 
 {% block content %}
 <h1>Auto Shop Home</h1>
@@ -17,10 +51,10 @@
 <p><strong>Client ages median: </strong>{{ client_ages_median }}</p>
 <p><strong>Most popular product: </strong>{{ most_popular_product}}</p>
 <p><strong>Most profitable product: </strong>{{ most_profitable_product}}</p>
-<p><strong>User timezone: </strong>{{ user_timesone }}</p>
 <p><strong>Current datetime: </strong>{{ current_datetime }}</p>
-<p><strong>User LDMD: </strong>{{ user_ldmd }}</p>
-<p><strong>UTC LDMD: </strong>{{ UTC_ldmd }}</p>
+<p><strong>User Timezone: </strong><span id="user-timezone"></span></p>
+<p><strong>Time and date of last changes to the database: </strong><span id="local-time"></span></p>
+<p><strong>Time and date of last changes to the database in UTC format: </strong><span id="utc-time"></span></p>
 <p><strong>Calendar: </strong></p>
 <pre>{{ calendar }}</pre>
 
