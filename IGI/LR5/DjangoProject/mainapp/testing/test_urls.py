@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse, resolve
-import views
+from mainapp import views
 
 class UrlsTestCase(TestCase):
     def test_index_url(self):
