@@ -53,8 +53,8 @@
 <p><strong>Most profitable product: </strong>{{ most_profitable_product}}</p>
 <p><strong>Current datetime: </strong>{{ current_datetime }}</p>
 <p><strong>User Timezone: </strong><span id="user-timezone"></span></p>
-<p><strong>Time and date of last changes to the database: </strong><span id="local-time"></span></p>
-<p><strong>Time and date of last changes to the database in UTC format: </strong><span id="utc-time"></span></p>
+<p><strong>Time and date of last changes to the database: </strong><span id="local-time">{{server_UTC}}</span></p>
+{% comment %} <p><strong>Time and date of last changes to the database in UTC format: </strong><span id="utc-time"></span></p> {% endcomment %}
 <p><strong>Calendar: </strong></p>
 <pre>{{ calendar }}</pre>
 
