@@ -64,4 +64,17 @@
 <p><strong>Calendar: </strong></p>
 <pre>{{ calendar }}</pre>
 
+<h4 style="margin-top: 3%;">Clients list: </h4>
+{% if client_names %}
+<ul>
+  {% for client in client_names %}
+  <li style="margin-bottom: 2%;">
+    <p> {{ client }} </p>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+    <p>No users</p>
+{% endif %}
+
 {% endblock %}

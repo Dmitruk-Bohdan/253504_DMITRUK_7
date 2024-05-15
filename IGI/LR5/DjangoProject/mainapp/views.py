@@ -25,6 +25,9 @@ def index(request):
     latest_date = NewsArticle.objects.aggregate(latest_date=Max('created_at'))['latest_date']
     latest_article = NewsArticle.objects.get(created_at=latest_date)
 
+    clients = User.objects.filter(is_staff=False)
+    client_names = [client.username for client in clients]
+
     orders = Order.objects.all()
 
     sales = []
@@ -52,11 +55,16 @@ def index(request):
 
     calendar = get_calendar(current_datetime)
 
+    print(client_names)
+    print("ААААААААААААААААААА ШЛЮХИИИИИИИИИИИИИИ")
+
+
     return render(
         request,
         'index.html',
         context={'type_request' : type(request), 
                  'latest_article' : latest_article,
+                 'client_names' : client_names,
                  'sales_mode' : sales_mode,
                  'sales_median' : sales_median,
                  'sales_mean' : sales_mean,
