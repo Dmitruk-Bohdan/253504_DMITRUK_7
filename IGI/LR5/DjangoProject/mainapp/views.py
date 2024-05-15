@@ -22,8 +22,8 @@ import logging
 logger = logging.getLogger('db_logger')
 
 def index(request):
-    latest_date = Article.objects.aggregate(latest_date=Max('created_at'))['latest_date']
-    latest_article = Article.objects.get(created_at=latest_date)
+    latest_date = NewsArticle.objects.aggregate(latest_date=Max('created_at'))['latest_date']
+    latest_article = NewsArticle.objects.get(created_at=latest_date)
 
     orders = Order.objects.all()
 
@@ -56,6 +56,7 @@ def index(request):
         request,
         'index.html',
         context={'type_request' : type(request), 
+                 'latest_article' : latest_article,
                  'sales_mode' : sales_mode,
                  'sales_median' : sales_median,
                  'sales_mean' : sales_mean,

@@ -44,6 +44,12 @@
 
 <h1>Welcome to our Auto Parts Store!</h1>
 
+<div style="margin-bottom: 5%;">
+  <h4>{{ latest_article.title }}</h4>
+  <p>{{ latest_article.text|truncatechars:100 }}</p>
+  <a href="{{ latest_article.get_absolute_url}}">Read source</a>
+</div>
+
 <p><strong>Sales mode: </strong>{{ sales_mode }}</p>
 <p><strong>Sales median: </strong>{{ sales_median }}</p>
 <p><strong>Sales mean: </strong>{{ sales_mean }}</p>
