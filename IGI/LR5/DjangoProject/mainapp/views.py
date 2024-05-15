@@ -55,10 +55,6 @@ def index(request):
 
     calendar = get_calendar(current_datetime)
 
-    print(client_names)
-    print("ААААААААААААААААААА ШЛЮХИИИИИИИИИИИИИИ")
-
-
     return render(
         request,
         'index.html',
