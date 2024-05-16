@@ -58,12 +58,12 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     article_number = models.CharField(max_length=20)
     description = models.TextField(max_length=100)
-    price_per_unit = models.DecimalField(max_digits=10, decimal_places=2)
+    price_per_unit = models.DecimalField(max_digits=10, decimal_places=2, default= 9.99)
     suppliers = models.ManyToManyField(Supplier, related_name ='products')
     category = models.ForeignKey(Category, related_name ='products', on_delete=models.DO_NOTHING)
     pickup_points = models.ManyToManyField(PickupPoint, related_name ='pickup_points')
     manufacturer = models.ForeignKey(Manufacturer, related_name='products', on_delete=models.SET_NULL, null=True)
-    count = models.IntegerField()
+    count = models.IntegerField(default=5)
     paginate_by = 10
 
     @property

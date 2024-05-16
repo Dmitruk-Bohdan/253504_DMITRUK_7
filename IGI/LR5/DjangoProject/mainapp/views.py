@@ -771,6 +771,8 @@ def get_median(sales):
     
 def get_mode(sales):
     counter = Counter(sales)
+    if(len(sales) == 0):
+        return None
     return counter.most_common(1)[0][0]
 
 def get_calendar(some_date):
@@ -795,6 +797,8 @@ def get_calendar(some_date):
     return calendar_string
 
 def get_most_popular_product(orders):
+    if len(orders) == 0:
+        return None
     products = []
     for order in orders:
         products.append(order.product)
