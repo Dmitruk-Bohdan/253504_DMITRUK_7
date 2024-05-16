@@ -13,7 +13,7 @@ class UrlsTestCase(TestCase):
 
     def test_privacy_policy_url(self):
         url = reverse('privacy_policy')
-        self.assertEqual(resolve(url).func, views.index)
+        self.assertEqual(resolve(url).func, views.privacy_policy)
 
     def test_products_url(self):
         url = reverse('products')
