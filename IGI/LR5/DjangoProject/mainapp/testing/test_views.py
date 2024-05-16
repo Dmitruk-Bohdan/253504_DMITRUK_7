@@ -50,3 +50,19 @@ class GetMostPopularProductTest(TestCase):
         
         result = get_most_popular_product([order1, order2, order3, order4, order5, order6])
         self.assertEqual(result, 'Product 3')
+
+class GetMostProfitableProductTest(TestCase):
+    def test_get_most_profitable_product(self):
+        product1 = ProductFactory(name='Product 1', price_per_unit=10.0)
+        product2 = ProductFactory(name='Product 2', price_per_unit=20.0)
+        product3 = ProductFactory(name='Product 3', price_per_unit=5.0)
+
+        order1 = OrderFactory(product=product1, quantity=1)
+        order2 = OrderFactory(product=product2, quantity=2)
+        order3 = OrderFactory(product=product2, quantity=3)
+        order4 = OrderFactory(product=product3, quantity=1)
+        order5 = OrderFactory(product=product3, quantity=2)
+        order6 = OrderFactory(product=product3, quantity=3)
+
+        result = get_most_profitable_product([order1, order2, order3, order4, order5, order6])
+        self.assertEqual(result, 'Product 2')
