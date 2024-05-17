@@ -22,9 +22,10 @@
           {% block sidebar %}
             <ul class="sidebar-nav">
               <li><a href="{% url 'index' %}">Home</a></li>
-              <li><a href="{% url 'products' %}">All boobs</a></li>
-              <li><a href="{% url 'categories'%}">All tities</a></li>
+              <li><a href="{% url 'products' %}">Products</a></li>
+              <li><a href="{% url 'categories'%}">Categories</a></li>
               <li><a href="{% url 'about_us'%}">About us</a></li>
+              <li><a href="{% url 'about'%}">APIs</a></li>
               <li><a href="{% url 'privacy_policy' %}">Privacy policy</a></li>
               {% if user.is_authenticated %}
                 <li><a href="{% url 'orders'%}">Orders</a></li>

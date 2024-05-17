@@ -17,6 +17,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.db.models import Q, Max, Sum, Count
 from statistics import mean
+import requests
 import logging
 
 logger = logging.getLogger('db_logger')
@@ -77,7 +78,28 @@ def index(request):
 
     
 def about(request):
-    return render(request, 'about.html')
+    url = 'https://favqs.com/api/qotd'
+    url2 = 'https://api.agify.io/?name=andrew'
+
+    response = requests.get(url)
+    data = response.json()
+    quote = data['quote']
+
+    response = requests.get(url2)
+    data = response.json()
+    count = data['count']
+    name = data['name']
+    age = data['age']
+
+    context = {
+        'author': quote['author'],
+        'body': quote['body'],
+        'count' : count,
+        'name' : name,
+        'age' : age
+    }
+
+    return render(request, 'about.html', context)
 
 def privacy_policy(request):
     return render(request, 'privacy_policy.html')
