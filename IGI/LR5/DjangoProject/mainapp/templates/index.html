@@ -1,4 +1,6 @@
 {% extends "base_generic.html" %}
+{% load static %}
+
 
 {% block title %}
 <title>Home</title>
@@ -6,57 +8,60 @@
 
 {% block content %}
 <h1>Auto Shop Home</h1>
-
+<div>
+  <img src="{% static 'images/banner.png' %}" alt="Photo" style="max-width: 100%"/>
+</div>
 <h1>Welcome to our Auto Parts Store!</h1>
 
-<div style="margin-bottom: 5%;">
+<section style="margin-bottom: 5%;">
   <h4>{{ latest_article.title }}</h4>
   <p>{{ latest_article.text|truncatechars:100 }}</p>
   <a href="{{ latest_article.get_absolute_url}}">Read source</a>
-</div>
+</section>
 
-<div class="product-container">
-  <a href="{{product.get_absolute_url}}">
+<section class="product-container">
     <div class="product-container-header">
       <h4 style="margin-top: 3%;">Products: </h4>
     </div>
     <div class="product-container-body">
       {% if products %}
       {% for product in products %}
-        <div class="product-card">
-          <img src="{{product.image.url}}" class="product-img" alt="..." style="max-width: 25%"/>
-          <div class="product-card-body">
-            <h5 class="product-card-title">{{product.name}}</h5>
-            <p class="product-card-text">{{product.description}}</p>
+        <a href="{{product.get_absolute_url}}">
+          <div class="product-card">
+            <img src="{{product.image.url}}" class="product-img" alt="..." style="max-width: 25%"/>
+            <div class="product-card-body">
+              <h5 class="product-card-title">{{product.name}}</h5>
+              <p class="product-card-text">{{product.description}}</p>
+            </div>
           </div>
-        </div>
+        </a>
       {% endfor %}
     {% else %}
         <p>No products</p>
     {% endif %}
     </div>
-  </a>
-</div>
+</section>
 
 
-<div class="partner-container">
+<section class="partner-container">
   <div class="partner-container-header">
     <h4 style="margin-top: 3%;">Our partners: </h4>
   </div>
   <div class="partner-container-body">
     {% if partners %}
       {% for partner in partners %}
+      <a href="{{partner.website}}">
         <div class="partner-card">
-          <img src="{{partner.image.url}}" class="partner-img" alt="...">
+          <img src="{{partner.image.url}}" class="partner-img" alt="..." style="max-width: 10%"/>
           <div class="partner-card-body">
             <h5 class="partner-card-title">{{partner.name}}</h5>
-            <a href="{{product.get_absolute_url}}" >Learn more</a>
           </div>
         </div>
+      </a>
       {% endfor %}
     {% else %}
       <p>No partners</p>
     {% endif %}
   </div>
-</div>
+</section>
 {%endblock%}

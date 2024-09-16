@@ -121,8 +121,9 @@ class OrderCreateView(generic.View):
                 return render(request, 'order_create.html', {'form': form, 'product': product, 'message': message})
             
             order.save()
-            product.count -= amount
-            product.save()
+            # product.count -= amount
+            # product.save()
+            request.user.profile.cart.add_order(order)
             logger.info(f"Order {order.__str__()} created successfully by {order.customer}")
             return redirect('order_detail', pk=order.id)
         else:

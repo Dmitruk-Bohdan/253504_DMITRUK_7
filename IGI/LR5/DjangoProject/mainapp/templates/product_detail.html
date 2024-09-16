@@ -43,7 +43,7 @@
   <div style="margin-top:3%;margin-bottom:3%">
     <form action="{% url 'order_create' product_id=product.id %}" method="post">
       {% csrf_token %}
-      <button type="submit">Place an order</button>
+      <button type="submit">Add to cart</button>
     </form>
   </div>
   {% endif %}

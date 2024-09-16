@@ -132,10 +132,33 @@ class PromoCode(models.Model):
     def get_absolute_url(self):
         return reverse('promocode_detail', args=[str(self.id)])
     
+class Cart(models.Model):
+    orders = models.ManyToManyField('Order', blank=True, related_name='cart')
+
+    @property
+    def total_items(self):
+        return self.orders.count()
+
+    @property
+    def total_price(self):
+        return sum(order.total_price for order in self.orders.all())
+
+    def add_order(self, order):
+        if not self.orders.filter(id=order.id).exists():
+            self.orders.add(order)
+
+    def remove_order(self, order):
+        if self.orders.filter(id=order.id).exists():
+            self.orders.remove(order)
+
+    def __str__(self):
+        return f"Cart of {self.user.username} with {self.total_items} items"
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, related_name='profile',on_delete=models.CASCADE)
     birth_date = models.DateField(blank=True, null=True)
+    cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=20, blank=True)
     photo = models.ImageField(upload_to='images/employees/', default='images/employees/default_employee.png')
     job_description = models.TextField(null=True)
@@ -218,11 +241,3 @@ class Partner(models.Model):
     def __str__(self):
         return self.name
     
-class Cart(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    products = models.ManyToManyField(Product, through='CartProduct')
-
-class CartProduct(models.Model):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField()
