@@ -24,7 +24,7 @@
       {% if products %}
       {% for product in products %}
         <div class="product-card">
-          <img src="{{product.image.url}}" class="product-img" alt="...">
+          <img src="{{product.image.url}}" class="product-img" alt="..." style="max-width: 25%"/>
           <div class="product-card-body">
             <h5 class="product-card-title">{{product.name}}</h5>
             <p class="product-card-text">{{product.description}}</p>

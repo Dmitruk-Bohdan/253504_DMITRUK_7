@@ -137,7 +137,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, related_name='profile',on_delete=models.CASCADE)
     birth_date = models.DateField(blank=True, null=True)
     phone_number = models.CharField(max_length=20, blank=True)
-    photo = models.ImageField(upload_to='images/employees/', default='default_employee.png')
+    photo = models.ImageField(upload_to='images/employees/', default='images/employees/default_employee.png')
     job_description = models.TextField(null=True)
     non_secretive = models.BooleanField(default=False)
     
@@ -217,3 +217,12 @@ class Partner(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Cart(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    products = models.ManyToManyField(Product, through='CartProduct')
+
+class CartProduct(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()

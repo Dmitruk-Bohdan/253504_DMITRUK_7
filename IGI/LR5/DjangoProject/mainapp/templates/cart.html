@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+<title>Cart</title>
+{% endblock %}
+{% block content %}
+<ul>
+    {% for product in cart_products %}
+        <li>
+            <div>
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <h3>{{ product.name }}</h3>
+                <p>Price: ${{ product.price }}</p>
+                <p>Amount: {{ product.quantity }}</p>
+                <button>+</button>
+                <button>-</button>
+                <button>Удалить из корзины</button>
+            </div>
+        </li>
+    {% endfor %}
+</ul>
+
+<p>Общая сумма: ${{ total_price }}</p>
+
+<button>Оплатить</button>
+{% endblock %}

@@ -811,3 +811,23 @@ def get_last_db_manipulation_date():
         first_19_chars = file.read(19)
         last_db_manipulation_date = datetime.strptime(first_19_chars, "%Y-%m-%d %H:%M:%S")
     return last_db_manipulation_date
+
+@login_required
+def cart_view(request):
+    cart = Cart.objects.get_or_create(user=request.user)
+    cart_products = cart.products.all()
+    total_price = sum([product.price for product in cart_products])
+    context = {
+        'cart_products': cart_products,
+        'total_price': total_price
+    }
+    return render(request, 'cart.html', context)
+
+@method_decorator(login_required, name='dispatch')
+class UserProfileView(generic.DetailView):
+    model = User
+    template_name = 'profile.html'
+    context_object_name = 'user'
+
+    def get_object(self, queryset=None):
+        return self.request.user

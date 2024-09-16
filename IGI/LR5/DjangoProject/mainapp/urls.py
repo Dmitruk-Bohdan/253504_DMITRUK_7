@@ -48,4 +48,8 @@ urlpatterns = [
     path('pickup_point/<int:pk>/delete/', views.PickupPointDeleteView.as_view(), name='pickup_point_delete'),
     path('review_create/', views.ReviewCreateView.as_view(), name='review_create'),
     path('redirect-to-previous/', views.redirect_to_previous, name='redirect_to_previous'),
+    
+    path('cart/', views.cart_view, name='cart'),
+     path('profile/', views.UserProfileView.as_view(), name='profile'),
+
 ]
