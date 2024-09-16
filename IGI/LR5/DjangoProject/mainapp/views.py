@@ -26,53 +26,16 @@ def index(request):
     latest_date = NewsArticle.objects.aggregate(latest_date=Max('created_at'))['latest_date']
     latest_article = NewsArticle.objects.get(created_at=latest_date)
 
-    clients = User.objects.filter(is_staff=False)
-    client_names = [client.username for client in clients]
-
-    orders = Order.objects.all()
-
-    sales = []
-    for order in orders:
-        sales.append(order.total_price)
-
-    sales_mode = get_mode(sales)
-    sales_median = get_median(sales)
-    sales_mean = mean(sales)
-
-    client_ages = []
-    for user in User.objects.all():
-        client_ages.append(user.profile.age)
-
-    client_ages_mean = mean(client_ages)
-    client_ages_median = get_median(client_ages)
-
-    most_popular_product = get_most_popular_product(orders)
-    most_profitable_product = get_most_profitable_product(orders)
-
-    current_datetime = datetime.now()
-    last_db_manipulation_date = get_last_db_manipulation_date()
-
-    server_UTC = last_db_manipulation_date.astimezone(timezone.utc)
-
-    calendar = get_calendar(current_datetime)
+    products = Product.objects.all()
+    partners = Partner.objects.all()
 
     return render(
         request,
         'index.html',
         context={'type_request' : type(request), 
                  'latest_article' : latest_article,
-                 'client_names' : client_names,
-                 'sales_mode' : sales_mode,
-                 'sales_median' : sales_median,
-                 'sales_mean' : sales_mean,
-                 'client_ages_mean' : client_ages_mean,
-                 'client_ages_median' : client_ages_median,
-                 'most_popular_product' : most_popular_product,
-                 'most_profitable_product' : most_profitable_product,
-                 'current_datetime' : current_datetime,
-                 'last_db_manipulation_date' : last_db_manipulation_date,
-                 'server_UTC' : server_UTC,
-                 'calendar' : calendar},
+                 'products' : products,
+                 'partners' : partners},
     )
 
 

@@ -60,6 +60,7 @@ class Product(models.Model):
     description = models.TextField(max_length=100)
     price_per_unit = models.DecimalField(max_digits=10, decimal_places=2, default= 9.99)
     suppliers = models.ManyToManyField(Supplier, related_name ='products')
+    image = models.ImageField(upload_to='images/products/', default='images/products/default.png')
     category = models.ForeignKey(Category, related_name ='products', on_delete=models.DO_NOTHING)
     pickup_points = models.ManyToManyField(PickupPoint, related_name ='pickup_points')
     manufacturer = models.ForeignKey(Manufacturer, related_name='products', on_delete=models.SET_NULL, null=True)
@@ -209,3 +210,10 @@ class Review(models.Model):
     def __str__(self):
         return self.title
      
+class Partner(models.Model):
+    name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='images/partners/', default='images/partners/default.png')
+    website = models.URLField(default="https://minsk-lada.by")
+
+    def __str__(self):
+        return self.name

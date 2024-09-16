@@ -51,6 +51,7 @@ class ProductAdmin(admin.ModelAdmin):
                     'display_pickup_points',
                     'manufacturer',
                     'count',
+                    'image'
                     ]
     inlines = [SupplierInline]
 
@@ -91,6 +92,11 @@ class OrderAdmin(admin.ModelAdmin):
 class FAQAdmin(admin.ModelAdmin):
     list_display = ['title', 'question', 'created_at', 'photo']
     list_filter = ['title', 'created_at']
+    
+@admin.register(Partner)
+class PartnerAdmin(admin.ModelAdmin):
+    list_display = ['name', 'image', 'website']
+    list_filter = ['name']
     
 @admin.register(NewsArticle)
 class NewsArticleAdmin(admin.ModelAdmin):

@@ -4,41 +4,6 @@
 <title>Home</title>
 {% endblock %}
 
-{%block extraheader%}
-<script>
-    function getUserTimezone() {
-      return timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    }
-
-    function displayUserTimezone() {
-      var timezone = getUserTimezone();
-      var timezoneElement = document.getElementById("user-timezone");
-      timezoneElement.textContent += timezone;}
-
-    function displayDateTime(dateTimeUTC) {
-      var localTimeElement = document.getElementById("local-time");
-      var utcTimeElement = document.getElementById("utc-time");
-    
-      var myDatetime = new Date(Date.parse(dateTimeUTC));
-      console.log(dateTimeUTC);
-      console.log(myDatetime);
-
-      var localDatetime = myDatetime.toLocaleString();
-      var utcDatetime = myDatetime.toISOString();
-    
-      localTimeElement.textContent = localDatetime;
-      utcTimeElement.textContent = utcDatetime;
-      }
-
-      document.addEventListener("DOMContentLoaded", function() {
-        displayUserTimezone();
-        var serverUTC = "{{ server_UTC }}";
-        displayDateTime(serverUTC);
-      });
-      
-  </script>
-{%endblock%}
-
 {% block content %}
 <h1>Auto Shop Home</h1>
 
@@ -50,31 +15,48 @@
   <a href="{{ latest_article.get_absolute_url}}">Read source</a>
 </div>
 
-<p><strong>Sales mode: </strong>{{ sales_mode }}</p>
-<p><strong>Sales median: </strong>{{ sales_median }}</p>
-<p><strong>Sales mean: </strong>{{ sales_mean }}</p>
-<p><strong>Client ages mean: </strong>{{ client_ages_mean }}</p>
-<p><strong>Client ages median: </strong>{{ client_ages_median }}</p>
-<p><strong>Most popular product: </strong>{{ most_popular_product}}</p>
-<p><strong>Most profitable product: </strong>{{ most_profitable_product}}</p>
-<p><strong>Current datetime: </strong>{{ current_datetime }}</p>
-<p><strong>User Timezone: </strong><span id="user-timezone"></span></p>
-<p><strong>Time and date of last changes to the database: </strong><span id="local-time">{{server_UTC}}</span></p>
-{% comment %} <p><strong>Time and date of last changes to the database in UTC format: </strong><span id="utc-time"></span></p> {% endcomment %}
-<p><strong>Calendar: </strong></p>
-<pre>{{ calendar }}</pre>
+<div class="product-container">
+  <a href="{{product.get_absolute_url}}">
+    <div class="product-container-header">
+      <h4 style="margin-top: 3%;">Products: </h4>
+    </div>
+    <div class="product-container-body">
+      {% if products %}
+      {% for product in products %}
+        <div class="product-card">
+          <img src="{{product.image.url}}" class="product-img" alt="...">
+          <div class="product-card-body">
+            <h5 class="product-card-title">{{product.name}}</h5>
+            <p class="product-card-text">{{product.description}}</p>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+        <p>No products</p>
+    {% endif %}
+    </div>
+  </a>
+</div>
 
-<h4 style="margin-top: 3%;">Clients list: </h4>
-{% if client_names %}
-<ul>
-  {% for client in client_names %}
-  <li style="margin-bottom: 2%;">
-    <p> {{ client }} </p>
-  </li>
-  {% endfor %}
-</ul>
-{% else %}
-    <p>No users</p>
-{% endif %}
 
-{% endblock %}
+<div class="partner-container">
+  <div class="partner-container-header">
+    <h4 style="margin-top: 3%;">Our partners: </h4>
+  </div>
+  <div class="partner-container-body">
+    {% if partners %}
+      {% for partner in partners %}
+        <div class="partner-card">
+          <img src="{{partner.image.url}}" class="partner-img" alt="...">
+          <div class="partner-card-body">
+            <h5 class="partner-card-title">{{partner.name}}</h5>
+            <a href="{{product.get_absolute_url}}" >Learn more</a>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No partners</p>
+    {% endif %}
+  </div>
+</div>
+{%endblock%}
