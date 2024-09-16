@@ -91,12 +91,37 @@ class Product(models.Model):
     class Meta:
         ordering = ['name']
     
+class Cart(models.Model):
+    user = models.OneToOneField(User, related_name='cart',on_delete=models.CASCADE)
+
+    @property
+    def total_items(self):
+        return self.orders.count()
+
+    @property
+    def total_price(self):
+        return sum(order.total_price for order in self.orders.all())
+
+    def add_order(self, order):
+        if not self.orders.filter(id=order.id).exists():
+            order.cart = self  # Устанавливаем связь с корзиной
+            order.save()      # Сохраняем заказ
+
+    def remove_order(self, order):
+        if self.orders.filter(id=order.id).exists():
+            order.cart = None  # Удаляем связь с корзиной
+            order.save()      # Сохраняем заказ
+
+    def __str__(self):
+        return f"Cart of {self.user.username} with {self.total_items} items"
+
 
 class Order(models.Model):
     date = models.DateField()
     quantity = models.PositiveIntegerField()
     product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
     customer = models.CharField(max_length=100)
+    cart = models.ForeignKey(Cart, related_name='orders', on_delete=models.CASCADE, null=True, blank=True)
     pickup_point = models.ForeignKey(PickupPoint, on_delete=models.DO_NOTHING, default=None)
 
     paginate_by = 10
@@ -132,34 +157,12 @@ class PromoCode(models.Model):
     def get_absolute_url(self):
         return reverse('promocode_detail', args=[str(self.id)])
     
-class Cart(models.Model):
-    orders = models.ManyToManyField('Order', blank=True, related_name='cart')
-
-    @property
-    def total_items(self):
-        return self.orders.count()
-
-    @property
-    def total_price(self):
-        return sum(order.total_price for order in self.orders.all())
-
-    def add_order(self, order):
-        if not self.orders.filter(id=order.id).exists():
-            self.orders.add(order)
-
-    def remove_order(self, order):
-        if self.orders.filter(id=order.id).exists():
-            self.orders.remove(order)
-
-    def __str__(self):
-        return f"Cart of {self.user.username} with {self.total_items} items"
 
 
 class Profile(models.Model):
     user = models.OneToOneField(User, related_name='profile',on_delete=models.CASCADE)
     birth_date = models.DateField(blank=True, null=True)
-    cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
-    phone_number = models.CharField(max_length=20, blank=True)
+    phone_number = models.CharField(max_length=20, blank=True, null=True)
     photo = models.ImageField(upload_to='images/employees/', default='images/employees/default_employee.png')
     job_description = models.TextField(null=True)
     non_secretive = models.BooleanField(default=False)

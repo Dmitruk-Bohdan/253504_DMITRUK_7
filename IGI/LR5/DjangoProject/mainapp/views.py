@@ -123,7 +123,10 @@ class OrderCreateView(generic.View):
             order.save()
             # product.count -= amount
             # product.save()
-            request.user.profile.cart.add_order(order)
+            if not hasattr(request.user, 'cart'):
+                Cart.objects.create(user=request.user)
+            
+            request.user.cart.add_order(order)
             logger.info(f"Order {order.__str__()} created successfully by {order.customer}")
             return redirect('order_detail', pk=order.id)
         else:
