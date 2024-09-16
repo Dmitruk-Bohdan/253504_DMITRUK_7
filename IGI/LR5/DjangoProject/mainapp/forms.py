@@ -133,3 +133,8 @@ class FAQSearchForm(CustomSearchForm):
 class ReviewSearchForm(CustomSearchForm):
     sort_by = forms.ChoiceField(label='Sort by', required=False, choices=[('title', 'Title'), ('created_at', 'Publishing date'),
                                                           ('rating', 'Rating')])
+
+class OrderUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ['date', 'quantity', 'product', 'customer', 'cart', 'pickup_point']

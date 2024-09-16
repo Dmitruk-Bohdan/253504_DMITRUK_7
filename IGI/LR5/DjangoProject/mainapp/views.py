@@ -211,7 +211,11 @@ class OrderListView(generic.ListView):
     paginate_by = 5
     
     def get_queryset(self):
-        return Order.objects.all()
+
+        if self.request.user.is_staff:
+            return Order.objects.all()
+        else:
+            return Order.objects.filter(customer=self.request.user.username)
 
     def get(self, request, **kwargs):
         form = OrderSearchForm(request.GET)
@@ -816,17 +820,6 @@ def get_last_db_manipulation_date():
         last_db_manipulation_date = datetime.strptime(first_19_chars, "%Y-%m-%d %H:%M:%S")
     return last_db_manipulation_date
 
-@login_required
-def cart_view(request):
-    cart = Cart.objects.get_or_create(user=request.user)
-    cart_products = cart.products.all()
-    total_price = sum([product.price for product in cart_products])
-    context = {
-        'cart_products': cart_products,
-        'total_price': total_price
-    }
-    return render(request, 'cart.html', context)
-
 @method_decorator(login_required, name='dispatch')
 class UserProfileView(generic.DetailView):
     model = User
@@ -835,3 +828,57 @@ class UserProfileView(generic.DetailView):
 
     def get_object(self, queryset=None):
         return self.request.user
+    
+@login_required
+def order_update(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    product = order.product  
+    
+    if request.method == 'POST':
+        if 'action' in request.POST:
+            action = request.POST['action']
+            if action == 'increment':
+                if order.quantity < product.count:
+                    order.quantity += 1
+            elif action == 'decrement' and order.quantity > 1:
+                order.quantity -= 1
+
+        form = OrderUpdateForm(request.POST, instance=order)
+        if form.is_valid():
+            if order.quantity <= product.count:
+                form.save()
+                return redirect('order_details', order_id=order.id)
+            else:
+                form.add_error('quantity', 'Недостаточно товара на складе.')
+
+    else:
+        form = OrderUpdateForm(instance=order)
+
+    return render(request, 'order_update.html', {'form': form})
+
+@login_required
+def order_delete(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    
+    if request.method == 'POST':
+        order.delete()
+        return redirect(reverse('orders'))  # Используем reverse для получения правильного URL
+
+    return redirect(reverse('orders'))
+
+@login_required
+def order_confirm(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    product = order.product
+
+    if request.method == 'POST':
+        if product.count >= order.quantity:
+            product.count -= order.quantity
+            product.save()
+            order.delete()
+            return redirect('order_list')
+
+    context = {
+        'order': order
+    }
+    return render(request, 'confirm_order.html', context)

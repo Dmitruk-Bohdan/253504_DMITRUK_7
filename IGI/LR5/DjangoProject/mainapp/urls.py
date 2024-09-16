@@ -43,13 +43,15 @@ urlpatterns = [
     path('register', views.register_view, name='register'),
     path('supplier/<int:pk>/', views.SupplierDetailView.as_view(), name='supplier_detail'),
     path('order_create/<int:product_id>/', views.OrderCreateView.as_view(), name='order_create'),
+    path('order_update/<int:order_id>', views.order_update, name='order_update'),
+    path('order_delete/<int:order_id>', views.order_delete, name='order_delete'),
+    path('order_confirm/<int:order_id>', views.order_confirm, name='order_confirm'),
     path('pickup_point_create/', views.PickupPointCreateView.as_view(), name='pickup_point_create'),
     path('pickup_point_update/<int:pk>/', views.PickupPointUpdateView.as_view(), name='pickup_point_update'),
     path('pickup_point/<int:pk>/delete/', views.PickupPointDeleteView.as_view(), name='pickup_point_delete'),
     path('review_create/', views.ReviewCreateView.as_view(), name='review_create'),
     path('redirect-to-previous/', views.redirect_to_previous, name='redirect_to_previous'),
     
-    path('cart/', views.cart_view, name='cart'),
-     path('profile/', views.UserProfileView.as_view(), name='profile'),
+    path('profile/', views.UserProfileView.as_view(), name='profile'),
 
 ]

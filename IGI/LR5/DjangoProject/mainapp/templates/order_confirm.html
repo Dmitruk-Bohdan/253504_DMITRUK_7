@@ -1,0 +1,8 @@
+{% extends "base_generic.html" %}
+
+<h1>Confirm Order</h1>
+<p>Are you sure you want to confirm this order?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Confirm Order</button>
+</form>
