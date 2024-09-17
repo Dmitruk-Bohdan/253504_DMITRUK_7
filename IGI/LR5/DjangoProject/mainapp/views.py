@@ -107,7 +107,7 @@ class OrderCreateView(generic.View):
     
     def post(self, request, product_id, *args, **kwargs):
         product = get_object_or_404(Product, pk=product_id)
-        form = OrderForm(request.POST)
+        form = OrderForm(request.POST, product=product)
         if form.is_valid():
             order = form.save(commit=False)
             order.customer = request.user.username
@@ -128,7 +128,7 @@ class OrderCreateView(generic.View):
             
             request.user.cart.add_order(order)
             logger.info(f"Order {order.__str__()} created successfully by {order.customer}")
-            return redirect('order_detail', pk=order.id)
+            return redirect('order_confirm', order_id=order.id)
         else:
             form = OrderForm()
         
@@ -138,6 +138,48 @@ class OrderCreateView(generic.View):
         }
         return render(request, 'order_create.html', context)   
         
+from django.shortcuts import redirect
+
+@method_decorator(login_required, name='dispatch')
+class OrderEditView(generic.View):
+
+    def get(self, request, order_id, *args, **kwargs):
+        order = get_object_or_404(Order, pk=order_id)
+        product = order.product
+        form = OrderForm(instance=order, product=product)
+
+        context = {
+            'form': form,
+            'product': product,
+        }
+        return render(request, 'order_edit.html', context)
+
+    def post(self, request, order_id, *args, **kwargs):
+        order = get_object_or_404(Order, pk=order_id)
+        product = order.product
+        form = OrderForm(request.POST, instance=order, product=product)
+
+        if form.is_valid():
+            updated_order = form.save(commit=False)
+            updated_order.customer = request.user.username
+            updated_order.product = product
+            updated_order.date = datetime.now()
+            updated_order.pickup_point = form.cleaned_data['pickup_points']
+
+            amount = form.cleaned_data['quantity']
+            if amount > product.count:
+                message = f"Sorry, but we have only {product.count} units of {product.name}."
+                return render(request, 'order_edit.html', {'form': form, 'product': product, 'message': message})
+
+            updated_order.save()
+            logger.info(f"Order {updated_order.__str__()} updated successfully by {updated_order.customer}")
+            return redirect('order_confirm', order_id=updated_order.id)
+        
+        context = {
+            'form': form,
+            'product': product,
+        }
+        return render(request, 'order_edit.html', context)
 
 @method_decorator(login_required, name='dispatch')
 class ReviewCreateView(generic.View):
@@ -862,7 +904,7 @@ def order_delete(request, order_id):
     
     if request.method == 'POST':
         order.delete()
-        return redirect(reverse('orders'))  # Используем reverse для получения правильного URL
+        return redirect(reverse('orders')) 
 
     return redirect(reverse('orders'))
 
@@ -876,9 +918,9 @@ def order_confirm(request, order_id):
             product.count -= order.quantity
             product.save()
             order.delete()
-            return redirect('order_list')
+            return redirect('orders')
 
     context = {
         'order': order
     }
-    return render(request, 'confirm_order.html', context)
+    return render(request, 'order_confirm.html', context)

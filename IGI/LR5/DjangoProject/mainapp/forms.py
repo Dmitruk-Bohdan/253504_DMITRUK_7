@@ -5,11 +5,16 @@ from django.core.validators import MinValueValidator
 from django.contrib.auth.forms import *
 
 class OrderForm(forms.ModelForm):
+    def __init__(self, *args, product=None, **kwargs):
+        super(OrderForm, self).__init__(*args, **kwargs)
+        if product:
+            self.fields['pickup_points'].queryset = product.pickup_points.all()
+
     quantity = forms.IntegerField(
         widget=forms.NumberInput(attrs={'type': 'number', 'min': '1'}),
         validators=[MinValueValidator(1)]
     )
-    pickup_points = forms.ModelChoiceField(queryset=PickupPoint.objects.all(), empty_label=None)
+    pickup_points = forms.ModelChoiceField(queryset= PickupPoint.objects.none(), empty_label=None)
     class Meta:
         model = Order
         fields = ['quantity', 'pickup_points']
@@ -65,6 +70,8 @@ class PickupPointCreateForm(forms.ModelForm):
             raise forms.ValidationError('Incorrect phone number format. Please use the format +XXX(XX)XXX-XX-XX-XX')
         return phone_number
     
+    
+
 class PickupPointUpdateForm(forms.ModelForm):
     class Meta:
         model = PickupPoint
