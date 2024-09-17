@@ -49,9 +49,7 @@
             {% block sidebar %}
             <ul>
               <li><a href="{% url 'products' %}">Catalog</a></li>
-              <li><a href="{% url 'categories'%}">Categories</a></li>
               <li><a href="{% url 'about_us'%}">About us</a></li>
-              <li><a href="{% url 'about'%}">APIs</a></li>
               <li><a href="{% url 'privacy_policy' %}">Privacy policy</a></li>
               {% if user.is_authenticated %}
                 <li><a href="{% url 'orders'%}">Cart</a></li>
@@ -66,6 +64,7 @@
               {% if user.is_staff %}
                 <li><a href="{% url 'manufacturers'%}">Manufacturers</a></li>
                 <li><a href="{% url 'suppliers'%}">Suppliers</a></li>
+                <li><a href="{% url 'categories'%}">Categories</a></li>
               {% endif %}
               
             </ul>
@@ -98,6 +97,23 @@
       </section>
     </main>
     <footer>
-    </footer>
+      <div>
+          <address>
+              <strong>Office Address:</strong><br>
+              123 Auto Street,<br>
+              Car City, CA 12345, USA<br>
+          </address>
+          <article>
+              <strong>Phone Numbers:</strong><br>
+              +1 (555) 123-4567<br>
+              +1 (555) 987-6543<br>
+          </article>
+          <article>
+              <strong>Email:</strong><br>
+              <a href="mailto:info@autoshop.com">info@autoshop.com</a><br>
+          </article>
+          <p>&copy; 2023 Auto Parts Store. All rights reserved.</p>
+      </div>
+  </footer>
   </body>
 </html>

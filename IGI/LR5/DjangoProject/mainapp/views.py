@@ -304,7 +304,7 @@ class PickupPointDetailView(generic.DetailView):
     context_object_name = 'pickup_point'
     template_name = 'pickup_point_detail.html'
 
-@method_decorator(staff_member_required, name='dispatch')
+@method_decorator(login_required, name='dispatch')
 class PickupPointListView(generic.ListView):
     model = PickupPoint
     template_name = 'pickup_point_list.html'
@@ -695,7 +695,6 @@ class NewsArticleListView(generic.DetailView):
 
 
 
-@method_decorator(login_required, name='dispatch')
 class AboutArticleListView(generic.DetailView):
     model = AboutArticle
     template_name = 'about_article_list.html'

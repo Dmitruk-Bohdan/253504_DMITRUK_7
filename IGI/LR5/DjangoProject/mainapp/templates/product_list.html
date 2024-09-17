@@ -1,24 +1,35 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+  <section>
     <h1>Products</h1>
-
+  </section>
+  <section>
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
       <button type="submit">Search</button>
     </form>
-
-    {% if products %}
-    <ul>
-      {% for product in products %}
-      <li>
-        <a href="{{ product.get_absolute_url }}">{{ product.name }} </a> ({{product.price_per_unit}})
-      </li>
-      {% endfor %}
-
-    </ul>
-    {% else %}
-      <p>There are no products.</p>
-    {% endif %}
+  </section>
+  <section class="product-container">
+    <div class="product-container-header">
+      <h4 style="margin-top: 3%;">Products: </h4>
+    </div>
+    <div class="product-container-body">
+      {% if products %}
+        {% for product in products %}
+          <a href="{{product.get_absolute_url}}">
+            <div class="product-card">
+              <img src="{{product.image.url}}" class="product-img" alt="..." style="max-width: 25%"/>
+              <div class="product-card-body">
+                <h5 class="product-card-title">{{product.name}}</h5>
+                <p class="product-card-text">{{product.description}}</p>
+              </div>
+            </div>
+          </a>
+        {% endfor %}
+      {% else %}
+        <p>No products</p>
+      {% endif %}
+  </section>
 {% endblock %}

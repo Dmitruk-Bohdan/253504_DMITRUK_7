@@ -144,6 +144,7 @@ class Order(models.Model):
 class PromoCode(models.Model):
     code = models.CharField(max_length=20, unique=True)
     discount = models.DecimalField(max_digits=5, decimal_places=2, default=5)
+    image = models.ImageField(upload_to='images/promocodes/', default='images/promocodes/default.png')
     expiration_date = models.DateField(default=datetime.now() + timedelta(days=30))
     max_usage = models.PositiveIntegerField(default=3)
     used_count = models.PositiveIntegerField(default=0)
@@ -192,6 +193,7 @@ class Vacancy(models.Model):
     responsibilities = models.TextField(default='not definded')
     location = models.CharField(max_length=100, default='not definded')
     salary = models.DecimalField(max_digits=8, decimal_places=2, default=500)
+    image = models.ImageField(upload_to='images/vacancies/', default='images/vacancies/default.png')
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     
     def get_absolute_url(self):

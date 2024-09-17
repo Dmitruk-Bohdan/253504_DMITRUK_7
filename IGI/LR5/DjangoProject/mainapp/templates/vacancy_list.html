@@ -1,14 +1,6 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>Vacancies</h1>
-
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
-    
     {% if vacancies %}
     <ul>
       {% for vacancy in vacancies %}
@@ -21,4 +13,36 @@
     {% else %}
       <p>There are no orders.</p>
     {% endif %}
+    <section>
+      <h1>Vacancies</h1>
+    </section>
+    <section>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+      </form>
+    </section>
+    <section class="vacancy-container">
+      <div class="vacancy-container-header">
+        <h4 style="margin-top: 3%;">We are pleased to welcome into our ranks such specialists as: </h4>
+      </div>
+      <div class="vacancy-container-body">
+        {% if vacancies %}
+          {% for vacancy in vacancies %}
+              <div class="vacancy-card">
+                <img src="{{vacancy.image.url}}" class="vacancy-img" alt="..." style="max-width: 25%"/>
+                <div class="vacancy-card-body">
+                  <h5 class="vacancy-card-title">{{vacancy.name}}</h5>
+                  <p class="vacancy-card-text">{{vacancy.description}}</p>
+                  <a href="{{vacancy.get_absolute_url}}">
+                    <p>Further details</p>
+                  </a>
+                </div>
+              </div>
+          {% endfor %}
+        {% else %}
+          <p>No vacancies</p>
+        {% endif %}
+    </section>
 {% endblock %}
