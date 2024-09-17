@@ -2,23 +2,27 @@
 
 {% block content %}
     <h1>Frequently asked questions</h1>
-
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Search</button>
-    </form>
-
-    {% if faqs %}
-    <ul>
-      {% for faq in faqs %}
-      <li>
-        <a href="{{ faq.get_absolute_url }}"> {{ faq.title }} </a>
-      </li>
-      {% endfor %}
-
-    </ul>
-    {% else %}
-      <p>There are no questions.</p>
-    {% endif %}
+    <section>
+      <div>
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit">Search</button>
+        </form>
+      </div>
+      <article>
+        {% if faqs %}
+        <ul>
+          {% for faq in faqs %}
+          <li>
+            <a href="{{ faq.get_absolute_url }}"> {{ faq.title }} </a>
+          </li>
+          {% endfor %}
+    
+        </ul>
+        {% else %}
+          <p>There are no questions.</p>
+        {% endif %}
+      </article>
+    </section>
 {% endblock %}

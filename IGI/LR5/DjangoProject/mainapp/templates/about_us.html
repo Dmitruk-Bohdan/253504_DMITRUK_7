@@ -1,25 +1,21 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+
     <h1>About us</h1>
 
-
-    {% if about_articles %}
-
-    {% for about_article in about_articles %}
-    <div style="margin:5%">
-        <h4>{{ about_article.title }}</h4>
-
-        <img src="{{ about_article.photo.url }}" alt="Photo" style="max-width: 40%;">
-      
-        <div style="margin-top:5%">
-        <p>{{about_article.text}}</p>
-      </div>
-    </div>
-    {% endfor %}
-        <p><strong>{{about_article.created_at}}</strong></p>
-      </div>
-    {% else %}
-      <p>There are no info.</p>
-    {% endif %}
+    <section>
+      {% if about_articles %}
+        {% for about_article in about_articles %}
+          <article style="margin:5%">
+              <h4>{{ about_article.title }}</h4>
+              <img src="{{ about_article.photo.url }}" alt="Photo" style="max-width: 40%;">
+              <p>{{about_article.text}}</p>
+              <p>{{about_article.created_at}}</p>
+        </article>
+        {% endfor %}
+      {% else %}
+        <p>There are no info.</p>
+      {% endif %}
+    </section>
 {% endblock %}
