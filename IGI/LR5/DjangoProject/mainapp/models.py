@@ -116,6 +116,21 @@ class Cart(models.Model):
         return f"Cart of {self.user.username} with {self.total_items} items"
 
 
+class PromoCode(models.Model):
+    code = models.CharField(max_length=20, unique=True)
+    discount = models.DecimalField(max_digits=4, decimal_places=2, default=5)
+    expiration_date = models.DateField(default=datetime.now() + timedelta(days=30))
+
+    def is_valid(self):
+        return self.expiration_date >= datetime.now().date()
+
+    def __str__(self):
+        return self.code   
+
+    def get_absolute_url(self):
+        return reverse('promocode_detail', args=[str(self.id)])
+    
+
 class Order(models.Model):
     date = models.DateField()
     quantity = models.PositiveIntegerField()
@@ -123,6 +138,7 @@ class Order(models.Model):
     customer = models.CharField(max_length=100)
     cart = models.ForeignKey(Cart, related_name='orders', on_delete=models.CASCADE, null=True, blank=True)
     pickup_point = models.ForeignKey(PickupPoint, on_delete=models.DO_NOTHING, default=None)
+    promocode = models.ForeignKey(PromoCode, on_delete=models.DO_NOTHING,  blank=True, null=True, default=None)
 
     paginate_by = 10
 
@@ -135,28 +151,10 @@ class Order(models.Model):
 
     @property
     def total_price(self):
-        return self.quantity * self.price_per_unit
+        return self.quantity * self.price_per_unit * 100 / self.promocode.discount
 
     def __str__(self):
         return f"Order: {self.product.name} - {self.quantity} units"
-    
-    
-class PromoCode(models.Model):
-    code = models.CharField(max_length=20, unique=True)
-    discount = models.DecimalField(max_digits=5, decimal_places=2, default=5)
-    image = models.ImageField(upload_to='images/promocodes/', default='images/promocodes/default.png')
-    expiration_date = models.DateField(default=datetime.now() + timedelta(days=30))
-    max_usage = models.PositiveIntegerField(default=3)
-    used_count = models.PositiveIntegerField(default=0)
-
-    def is_valid(self):
-        return self.used_count < self.max_usage and self.expiration_date >= datetime.now().date()
-
-    def __str__(self):
-        return self.code   
-
-    def get_absolute_url(self):
-        return reverse('promocode_detail', args=[str(self.id)])
     
 
 

@@ -15,10 +15,21 @@ class OrderForm(forms.ModelForm):
         validators=[MinValueValidator(1)]
     )
     pickup_points = forms.ModelChoiceField(queryset= PickupPoint.objects.none(), empty_label=None)
+    promo_code = forms.CharField(required=False, max_length=50)
     class Meta:
         model = Order
-        fields = ['quantity', 'pickup_points']
-
+        fields = ['quantity', 'pickup_points', 'promo_code']
+        
+    def clean_promo_code(self):
+        code = self.cleaned_data.get('promo_code')
+        if code:
+            try:
+                promo = PromoCode.objects.get(code=code)
+                if promo.is_valid():
+                    return promo
+            except PromoCode.DoesNotExist:
+                raise forms.ValidationError("Entered promocode is not valid")
+        return None    
 
 class RegistrationForm(UserCreationForm):
     phone_number = forms.CharField(label='Phone number ', max_length=17, help_text='Format: +375(29)XXX-XX-XX')
