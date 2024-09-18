@@ -151,7 +151,10 @@ class Order(models.Model):
 
     @property
     def total_price(self):
-        return self.quantity * self.price_per_unit * 100 / self.promocode.discount
+        if self.promocode:
+            return self.quantity * self.price_per_unit * self.promocode.discount / 100
+        else:
+            return self.quantity * self.price_per_unit * 100
 
     def __str__(self):
         return f"Order: {self.product.name} - {self.quantity} units"

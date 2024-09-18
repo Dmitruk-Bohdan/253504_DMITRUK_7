@@ -1,6 +1,7 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+<section>
     <h1>Order Details</h1>
     <p><a href="{{ supplier.get_absolute_url }}">{{ supplier.name }} </a></p>
     <p>Product: <a href="{{ order.product.get_absolute_url }}">{{ order.product.name }} </a></p>
@@ -9,9 +10,14 @@
     <p>Customer: {{ order.customer }}</p>
     <p>Pickup point: <a href="{{ order.pickup_point.get_absolute_url }}">{{ order.pickup_point.address }} </a></p>
     <p>Total Price: {{ order.total_price }}</p>
-
+    {%if order.promocode%}
+    <p>Promo code: {{ order.promocode.code }}</p>
+    {%endif%}
+</section>
+<section>
     <form method="post">
         {% csrf_token %}
         <button type="submit">Confirm Order</button>
     </form>
+</section>
 {% endblock %}

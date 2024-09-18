@@ -2,8 +2,8 @@
 
 {% block content %}
   <h1>Product: {{ product.name }}</h1>
-  <p><strong>Unit price: {{ product.price_per_unit }}</strong></p>
-  <p><strong>Total price: <span id="totalPrice">{{ product.price_per_unit }}</span></strong></p>
+  <p><strong>Unit price: {{ product.price_per_unit}}</strong>
+    <p><strong>Total price: <span id="totalPrice">{{ product.price_per_unit }}</span></strong></p>
   <form method="POST">
     {% csrf_token %}
     
@@ -12,44 +12,19 @@
     <button type="submit">Confirm</button>
   </form>
   {% if message %}
-    <p><strong>{{ message }}</strong></p>
+    <p><strong>{{ message}}</strong>
   {% endif %}
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       var quantityInput = document.getElementById('id_quantity');
       var totalPriceElement = document.getElementById('totalPrice');
-      var promoCodeInput = document.getElementById('id_promo_code');
-      var unitPrice = parseFloat('{{ product.price_per_unit }}');
-      var discountPercent = 0;
+      var unitPrice = parseInt('{{ product.price_per_unit }}');
 
-      function updateTotalPrice() {
-        var quantity = parseInt(quantityInput.value) || 0;
+      quantityInput.addEventListener('input', function() {
+        var quantity = parseInt(quantityInput.value);
         var totalPrice = quantity * unitPrice;
-        var discount = totalPrice * (discountPercent / 100);
-        totalPriceElement.innerHTML = (totalPrice - discount).toFixed(2);
-      }
-
-      quantityInput.addEventListener('input', updateTotalPrice);
-
-      promoCodeInput.addEventListener('change', function() {
-        var promoCode = promoCodeInput.value;
-
-        // Simulate an AJAX request to validate the promo code and get the discount
-        fetch(`/validate-promo-code?code=${promoCode}`)
-          .then(response => response.json())
-          .then(data => {
-            if (data.valid) {
-              discountPercent = data.discount_percent;
-            } else {
-              discountPercent = 0;
-            }
-            updateTotalPrice();
-          })
-          .catch(error => {
-            discountPercent = 0;
-            updateTotalPrice();
-          });
+        totalPriceElement.innerHTML = totalPrice.toString();
       });
     });
   </script>

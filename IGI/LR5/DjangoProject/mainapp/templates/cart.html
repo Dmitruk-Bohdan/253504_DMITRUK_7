@@ -8,7 +8,7 @@
     {% for product in cart_products %}
         <li>
             <div>
-                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" style="max-width: 10%">
                 <h3>{{ product.name }}</h3>
                 <p>Price: ${{ product.price }}</p>
                 <p>Amount: {{ product.quantity }}</p>

@@ -15,7 +15,7 @@
       <li>
           <a href="{{ order.get_absolute_url }}">
             <div>
-              <img src="{{ order.product.image.url }}" alt="{{ order.product.name }}">
+              <img src="{{ order.product.image.url }}" alt="{{ order.product.name }}" style="max-width: 25%">
               <h3>{{ order.product.name }}</h3>
               <p>Price: "{{ order.total_price }}"</p>
               <p>Amount: {{ order.quantity }}</p>

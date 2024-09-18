@@ -105,6 +105,17 @@ def register_view(request):
 @method_decorator(login_required, name='dispatch')
 class OrderCreateView(generic.View):
     
+    def get(self, request, order_id, *args, **kwargs):
+        order = get_object_or_404(Order, pk=order_id)
+        product = order.product
+        form = OrderForm(instance=order, product=product)
+
+        context = {
+            'form': form,
+            'product': product,
+        }
+        return render(request, 'order_edit.html', context)
+    
     def post(self, request, product_id, *args, **kwargs):
         product = get_object_or_404(Product, pk=product_id)
         form = OrderForm(request.POST, product=product)
@@ -114,6 +125,7 @@ class OrderCreateView(generic.View):
             order.product = product 
             order.date = datetime.now()
             order.pickup_point = form.cleaned_data['pickup_points']
+            order.promocode = form.cleaned_data['promo_code']
 
             amount = form.cleaned_data['quantity']
             if amount > product.count:
@@ -130,7 +142,7 @@ class OrderCreateView(generic.View):
             logger.info(f"Order {order.__str__()} created successfully by {order.customer}")
             return redirect('order_confirm', order_id=order.id)
         else:
-            form = OrderForm()
+            form = OrderForm( product=product)
         
         context = {
             'form': form,

@@ -16,6 +16,7 @@ class OrderForm(forms.ModelForm):
     )
     pickup_points = forms.ModelChoiceField(queryset= PickupPoint.objects.none(), empty_label=None)
     promo_code = forms.CharField(required=False, max_length=50)
+    
     class Meta:
         model = Order
         fields = ['quantity', 'pickup_points', 'promo_code']
