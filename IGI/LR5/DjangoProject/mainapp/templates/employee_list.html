@@ -1,34 +1,40 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>Employees</h1>
-
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Search</button>
-    </form>
-
-    {% if employees %}
-    <ul>
-      {% for employee in employees %}
-      <li>
-        <div style="margin-top:5%;margin-bottom:5%;">
-          <img src="{{ employee.profile.photo.url }}" alt="Photo" style="max-width: 20%;">
-          <p><a href="{{ employee.get_absolute_url }}"> {{ employee.first_name }} {{ employee.last_name }} </a></p>
-          <p><strong>Job description: </strong> {{employee.profile.job_description}}</p>  
-          <p><strong>Email: </strong> {{employee.email}}</p> 
-          <p><strong>Phone: </strong> {{employee.profile.phone_number}}</p> 
-          {% if user.is_staff %} 
-          <p><strong>Username: </strong><a href="{{ employee.get_absolute_url }}">{{employee.username}}</a></p>
-          {% endif %}
-          </p>    
-        </div>
-       </li>
-      {% endfor %}
-
-    </ul>
-    {% else %}
-      <p>There are no employees.</p>
-    {% endif %}
+    <section>
+      <h1>Employees</h1>
+    </section>
+    <section>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+      </form>
+    </section>
+    <section class="employee-container">
+      <div class="employee-container-header">
+        <h4 style="margin-top: 3%;">There are our employees: </h4>
+      </div>
+      <div class="employee-container-body">
+        {% if employees %}
+          {% for employee in employees %}
+            <div class="employee-card">
+              <img src="{{ employee.profile.photo.url }}" alt="Photo" style="max-width: 20%;">
+              <div class="employee-card-body">
+                <p class="employee-card-title"><strong>Name: {{ employee.first_name }} {{ employee.last_name }} </strong></p>
+                <p><strong>Job description: </strong> {{employee.profile.job_description}}</p>  
+                <p><strong>Email: </strong> {{employee.email}}</p> 
+                <p><strong>Phone: </strong> {{employee.profile.phone_number}}</p> 
+              </div>
+            </div>
+            {% if user.is_staff %}
+              <a href="{{employee.get_absolute_url}}">
+                <p>Futher</p>
+              </a>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          <p>There are no employees.</p>
+        {% endif %}
+    </section>
 {% endblock %}

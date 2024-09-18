@@ -1,18 +1,6 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    {% if vacancies %}
-    <ul>
-      {% for vacancy in vacancies %}
-      <li>
-          <a href="{{ vacancy.get_absolute_url }}">{{ vacancy.title }}</a> -- {{vacancy.salary}}$ a year
-      </li>
-      {% endfor %}
-
-    </ul>
-    {% else %}
-      <p>There are no orders.</p>
-    {% endif %}
     <section>
       <h1>Vacancies</h1>
     </section>

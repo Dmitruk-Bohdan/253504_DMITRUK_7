@@ -1,27 +1,32 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+  <section>
     <h1>News</h1>
-
+  </section>
+  <section>
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
       <button type="submit">Search</button>
     </form>
-
-    {% if news_articles %}
-    <ul>
-      {% for article in news_articles %}
-      <li style="margin-bottom: 5%;">
-        <h4>{{ article.title }}</h4>
-        <p>{{ article.text|truncatechars:100 }}</p>
-        <a href="{{ article.get_absolute_url}}">Read Source</a>
-      </li>
-      {% endfor %}
-
-    </ul>
-    {% else %}
-      <p>There are no employees.</p>
-    {% endif %}
+  </section>
+  <section class="article-container">
+    <div class="article-container-body">
+      {% if news_articles %}
+        {% for article in news_articles %}
+          <div class="article-card">
+            <img src="{{ article.photo.url }}" class="article-img" alt="..." style="max-width: 25%"/>
+            <div class="article-card-body">
+              <h5 class="article-card-title">{{ article.title }}</h5>
+              <p class="article-card-text">{{ article.text|truncatechars:100 }}</p>
+            </div>
+            <a href="{{ article.get_absolute_url}}">Read Source</a>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>There is no news</p>
+      {% endif %}
+  </section>
 {% endblock %}
 

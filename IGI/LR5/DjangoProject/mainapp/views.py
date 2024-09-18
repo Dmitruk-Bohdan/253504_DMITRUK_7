@@ -187,16 +187,17 @@ class ReviewCreateView(generic.View):
         form = ReviewForm(request.POST)
         if form.is_valid():
             review = form.save(commit=False)
+            review.user = request.user  # Если нужно сохранить пользователя
             review.save()
             logger.info(f"Review {form.cleaned_data['title']} created successfully by {request.user.username}")
             return redirect('reviews')
-        
+        else:
+            # Если форма невалидна, возвращаем её с ошибками
+            return render(request, 'review_create.html', {'form': form})
+
     def get(self, request, *args, **kwargs):
-        form = ReviewForm(request.GET)
-        return render(
-                request, 
-                'review_create.html',
-                {'form': form})
+        form = ReviewForm()
+        return render(request, 'review_create.html', {'form': form})
     
 @method_decorator(staff_member_required, name='dispatch')
 class PickupPointCreateView(generic.View):
@@ -408,8 +409,9 @@ class PromoCodeListView(generic.ListView):
 
     def get(self, request, **kwargs):
         form = PromoCodeSearchForm(request.GET)
-        promocodes = PromoCode.objects.all()
-        return render(request, 'promocode_list.html', {'form': form, 'promocodes' : promocodes})
+        valid_promocodes = [promo for promo in PromoCode.objects.all() if promo.is_valid()]
+        invalid_promocodes = [promo for promo in PromoCode.objects.all() if not promo.is_valid()]         
+        return render(request, 'promocode_list.html', {'form': form, 'valid_promocodes' : valid_promocodes, 'invalid_promocodes' : invalid_promocodes})
 
     def post(self, request, *args, **kwargs):
         promocodes = []

@@ -54,7 +54,7 @@ class ReviewForm(forms.ModelForm):
     def clean_rating(self):
         rating = self.cleaned_data.get('rating')
         if rating < 1 or rating > 5:
-            raise forms.ValidationError('Рейтинг должен быть от 1 до 5')
+            raise forms.ValidationError('Rating must be from 1 to 5')
         return rating
     
 class PickupPointCreateForm(forms.ModelForm):
