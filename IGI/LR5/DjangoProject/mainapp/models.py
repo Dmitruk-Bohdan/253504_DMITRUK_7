@@ -232,6 +232,7 @@ class Review(models.Model):
     rating = models.PositiveIntegerField(default=0)
     text = models.TextField(null=True, default='not definded')
     created_at = models.DateField(auto_now_add=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews', null=True)
     
     def get_absolute_url(self):
         return reverse('review_detail', args=[str(self.id)])
