@@ -2,9 +2,10 @@
 {% load static %}
 {% block content %}
 <section>
-    <h2>Code listing example</h2>
+    <h2>Code listing and figure example</h2>
     <article>
-        <pre>
+        <figure>​
+            <figcaption>Listing 173.</figcaption>
             <code>
                 var <var>num1</var> = <samp>10</samp>;
                 var <var>num2</var> = <samp>20</samp>;
@@ -13,7 +14,7 @@
                 <p>Please press <kbd>Ctrl</kbd> + <kbd>S</kbd> to save the page.</p>
     
             </code>
-        </pre>
+        </figure>​
     </article>
 </section>
 <section>
@@ -56,7 +57,7 @@
           </div>
     </article>
 </section>
-<section></section>
+<section>
     <h2>Datetime example</h2>
     <article>
         <div>
@@ -64,7 +65,7 @@
           </div>
     </article>
 </section>
-<section></section>
+<section>
     <h2>Line break example</h2>
     <article>
         <div>
@@ -85,5 +86,76 @@ In <wbr>this <wbr>automotive <wbr>mart, <wbr>where <wbr>dreams <wbr>restart.
         </div>
     </article>
 </section>
-
+<section>
+    <h2>Form example</h2>
+    <article>
+        <h3>Feedback Form for Auto Parts Online Store</h3>
+        <form action="/submit-feedback" method="post" enctype="multipart/form-data">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+    
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+    
+            <label for="rating">Rating:</label>
+            <select id="rating" name="rating" required>
+                <option value="">Select Rating</option>
+                <option value="5">5 - Excellent</option>
+                <option value="4">4 - Good</option>
+                <option value="3">3 - Average</option>
+                <option value="2">2 - Poor</option>
+                <option value="1">1 - Very Poor</option>
+            </select><br><br>
+    
+            <label for="comments">Comments:</label><br>
+            <textarea id="comments" name="comments" rows="4" cols="50" required></textarea><br><br>
+    
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required minlength="8"><br><br>
+    
+            <label for="newsletter">Subscribe to newsletter:</label>
+            <input type="checkbox" id="newsletter" name="newsletter"><br><br>
+    
+            <label for="reason">Reason for feedback:</label><br>
+            <input type="radio" id="product_quality" name="reason" value="product_quality">
+            <label for="product_quality">Product Quality</label><br>
+            <input type="radio" id="delivery_time" name="reason" value="delivery_time">
+            <label for="delivery_time">Delivery Time</label><br>
+            <input type="radio" id="customer_service" name="reason" value="customer_service">
+            <label for="customer_service">Customer Service</label><br><br>
+    
+            <label for="file">Upload file:</label>
+            <input type="file" id="file" name="file"><br><br>
+    
+            <input type="submit" value="Submit Feedback">
+        </form>
+    </article>
+</section>
+<section>
+    <h2>Table example</h2>
+    <article>
+        <div>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Header 1</th>
+                        <th>Header 2</th>
+                        <th>Header 3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td headers="Header 1">1</td>
+                        <td headers="Header 2">Apple</td>
+                        <td rowspan="2" headers="Header 3">Merged Cell</td>
+                    </tr>
+                    <tr>
+                        <td headers="Header 1">2</td>
+                        <td headers="Header 2">Banana</td>
+                    </tr>
+                </tbody>
+            </table>
+          </div>
+    </article>
+</section>
 {%endblock%}
