@@ -48,9 +48,10 @@
         <nav>
             {% block sidebar %}
             <ul>
+              <li><a href="{% url 'demo' %}">DemoPage</a></li>
               <li><a href="{% url 'products' %}">Catalog</a></li>
               <li><a href="{% url 'about_us'%}">About us</a></li>
-              <li><a href="{% url 'privacy_policy' %}">Privacy policy</a></li>
+              <li><a href="{% static 'docs/autoshop-privacy-policy.pdf' %}" download>Privacy policy</a></li>
               {% if user.is_authenticated %}
                 <li><a href="{% url 'orders'%}">Cart</a></li>
                 <li><a href="{% url 'pickup_points'%}">Pickup points</a></li>

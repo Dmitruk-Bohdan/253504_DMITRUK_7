@@ -1,0 +1,89 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% block content %}
+<section>
+    <h2>Code listing example</h2>
+    <article>
+        <pre>
+            <code>
+                var <var>num1</var> = <samp>10</samp>;
+                var <var>num2</var> = <samp>20</samp>;
+                var <var>sum</var> = <var>num1</var> + <var>num2</var>;
+    
+                <p>Please press <kbd>Ctrl</kbd> + <kbd>S</kbd> to save the page.</p>
+    
+            </code>
+        </pre>
+    </article>
+</section>
+<section>
+    <h2>Abbreviation example</h2>
+    <article>
+        <p><abbr title="HyperText Markup Language">HTML</abbr>это язык разметки гипертекста.</p>
+    </article>
+</section>
+<section>
+    <h2>Definition example</h2>
+    <article>
+        <dl>
+            <dt>HTML</dt>
+            <dd>HyperText Markup Language - язык разметки гипертекста.</dd>
+        
+            <dt>CSS</dt>
+            <dd>Cascading Style Sheets - язык таблиц стилей для оформления веб-страниц.</dd>
+        </dl>
+    </article>
+</section>
+<section>
+    <h2>Citation example</h2>
+    <article>
+        <div>
+            <blockquote cite="https://www.forbes.ru/forbeslife/dosug/262327-na-vse-vremena-100-vdokhnovlyayushchikh-tsitat">
+              <p>I'm gonna go to the store and get some chips and sit down to write a lab, it'll be a blast.</p>
+            </blockquote>
+            <p>Some guy <cite>His diary</cite></p>
+          </div>
+    </article>
+</section>
+<section>
+    <h2>Audio example</h2>
+    <article>
+        <div>
+            <audio controls>
+                <source src="{% static 'audio/engine.mp3' %}" type="audio/mp3">
+                Your browser does not support the audio element.
+              </audio>
+          </div>
+    </article>
+</section>
+<section></section>
+    <h2>Datetime example</h2>
+    <article>
+        <div>
+            <p>We'll meet at <time datetime=“2024-09-19T15:30”>15:30</time> tomorrow.</p>
+          </div>
+    </article>
+</section>
+<section></section>
+    <h2>Line break example</h2>
+    <article>
+        <div>
+            <pre>
+In the store of gears and wheels,  
+Where metal sings and rubber squeals,  
+Engines hum, a symphony of parts,  
+In <wbr>this <wbr>automotive <wbr>mart, <wbr>where <wbr>dreams <wbr>restart.
+            </pre>
+        </div>
+        <div>   
+            <p>
+                In the store of gears and wheels,<br>  
+                Where metal sings and rubber squeals,<br>  
+                Engines hum, a symphony of parts,<br>  
+                In <wbr>this <wbr>automotive <wbr>mart, <wbr>where <wbr>dreams <wbr>restart.
+            </p>
+        </div>
+    </article>
+</section>
+
+{%endblock%}

@@ -53,5 +53,5 @@ urlpatterns = [
     path('redirect-to-previous/', views.redirect_to_previous, name='redirect_to_previous'),
     
     path('profile/', views.UserProfileView.as_view(), name='profile'),
-
+    path('demo/', views.demo_view, name='demo'),
 ]
