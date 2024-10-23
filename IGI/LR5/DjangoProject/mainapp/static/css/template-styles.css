@@ -170,24 +170,34 @@ nav a:hover {
 }
 
 footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: #333;
     color: #fff;
-    padding: 20px;
-    text-align: center;
-    margin-top: 40px;
+    padding: 2rem 2rem 0.2rem 2rem;
+    margin-top: 1rem;
+    text-align: left;
 }
 
 footer address, footer article {
-    margin-bottom: 10px;
+    margin-bottom: 0.5rem;
 }
 
 footer a {
-    color: #ff3333; /* Красный для ссылок */
     text-decoration: none;
+    color: #fff;
 }
 
 footer a:hover {
     text-decoration: underline;
+}
+
+.contact-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 3.5rem;
 }
 
 /* Адаптивность */
