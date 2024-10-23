@@ -4,6 +4,7 @@
     {% block title %}<title>Auto Shop</title>{% endblock %}
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../static/css/template-styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     {%block extraheader%}{%endblock%}
     
@@ -13,89 +14,88 @@
   <body>
     <header>
       <nav>
-        <ui>
-          <li>
-            <logo>
-              <a href="{% url 'index' %}">
-                <img src="{% static 'images/shop-logo.png' %}" alt="Photo" style="max-width: 10%;">
-              </a>
-              <a href="{% url 'index' %}">
-                AutoShop.by
-              </a>
-            </logo>
-          <li>
-          <li>
-            <user>
-              {% if user.is_authenticated %}
-                <a href="{% url 'profile' %}">
-                  <img src="{{ user.profile.photo.url }}" alt="User Photo" style="max-width: 10%;">
-                  <span>{{ user.get_username }}</span>
-                  <form action="{% url 'logout' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Logout</button>
-                  </form>
-                </a>
-              {% else %}
-                <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
-              {% endif %}
-            </user>
-          </li>
-        </ui>
-      </nav>
-    </header>
-    <main>
-      <aside>
-        <nav>
-            {% block sidebar %}
-            <ul>
-              <li><a href="{% url 'demo' %}">DemoPage</a></li>
-              <li><a href="{% url 'products' %}">Catalog</a></li>
-              <li><a href="{% url 'about_us'%}">About us</a></li>
-              <li><a href="{% static 'docs/autoshop-privacy-policy.pdf' %}" download>Privacy policy</a></li>
-              {% if user.is_authenticated %}
-                <li><a href="{% url 'orders'%}">Cart</a></li>
-                <li><a href="{% url 'pickup_points'%}">Pickup points</a></li>
-                <li><a href="{% url 'promocodes'%}">Promocodes</a></li>
-                <li><a href="{% url 'faqs'%}">FAQ</a></li>
-                <li><a href="{% url 'news_articles'%}">News</a></li>
-                <li><a href="{% url 'reviews'%}">Reviews</a></li>
-                <li><a href="{% url 'vacancies'%}">Vacancies</a></li>
-                <li><a href="{% url 'employees'%}">Employees</a></li>
-              {% endif %}
-              {% if user.is_staff %}
-                <li><a href="{% url 'manufacturers'%}">Manufacturers</a></li>
-                <li><a href="{% url 'suppliers'%}">Suppliers</a></li>
-                <li><a href="{% url 'categories'%}">Categories</a></li>
-              {% endif %}
-              
-            </ul>
-          {% endblock %}
-        </nav>
-      </aside>
-      <section>
-        {% block content %}
-        
-        {% endblock %}
-      </section>
-      <section>
-        {% block pagination %}
-          {% if is_paginated %}
-            <div class="pagination">
-              <span>
-                {% if page_obj.has_previous %}
-                  <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
-                {% endif %}
-                <span class="page-current">
-                  Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                </span>
-                {% if page_obj.has_next %}
-                  <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
-                {% endif %}
-              </span>
+          <div class="logo">
+            <a href="{% url 'index' %}">
+              <img id="logo" src="{% static 'images/shop-logo.png' %}" alt="Photo">
+            </a>
+            <a href="{% url 'index' %}" class="nav-link">
+              AutoShop.by
+            </a>
+          </div>
+          <div class="user">
+            {% if user.is_authenticated %}
+              <img src="{{ user.profile.photo.url }}" alt="User Photo" class="user-photo nav-item">
+              <a href="{% url 'profile' %}" class="nav-link nav-item">{{ user.get_username }}</a>
+              <form action="{% url 'logout' %}" method="post" class="logout-form nav-item">
+                {% csrf_token %}
+                <button type="submit" class="nav-button nav-item">Logout</button>
+              </form>
+            {% else %}
+              <a href="{% url 'login'%}?next={{request.path}}" class="nav-link nav-item" class="nav-button">Login</a>
+            {% endif %}
             </div>
-          {% endif %}
-        {% endblock %}
-      </section>
+      </table>
+    </header> 
+    <main>
+      <!-- <div class="banner">
+
+      </div> -->
+      <div class="content">
+        <aside>
+          <nav>
+              {% block sidebar %}
+              <ul>
+                <li><a href="{% url 'demo' %}">DemoPage</a></li>
+                <li><a href="{% url 'products' %}">Catalog</a></li>
+                <li><a href="{% url 'about_us'%}">About us</a></li>
+                <li><a href="{% static 'docs/autoshop-privacy-policy.pdf' %}" download>Privacy policy</a></li>
+                {% if user.is_authenticated %}
+                  <li><a href="{% url 'orders'%}">Cart</a></li>
+                  <li><a href="{% url 'pickup_points'%}">Pickup points</a></li>
+                  <li><a href="{% url 'promocodes'%}">Promocodes</a></li>
+                  <li><a href="{% url 'faqs'%}">FAQ</a></li>
+                  <li><a href="{% url 'news_articles'%}">News</a></li>
+                  <li><a href="{% url 'reviews'%}">Reviews</a></li>
+                  <li><a href="{% url 'vacancies'%}">Vacancies</a></li>
+                  <li><a href="{% url 'employees'%}">Employees</a></li>
+                {% endif %}
+                {% if user.is_staff %}
+                  <li><a href="{% url 'manufacturers'%}">Manufacturers</a></li>
+                  <li><a href="{% url 'suppliers'%}">Suppliers</a></li>
+                  <li><a href="{% url 'categories'%}">Categories</a></li>
+                {% endif %}
+                
+              </ul>
+            {% endblock %}
+          </nav>
+        </aside>
+        <div class="main-content">
+          <section>
+            {% block content %}
+            
+            {% endblock %}
+          </section>
+            {% block pagination %}
+              {% if is_paginated %}
+              <section>
+                <div class="pagination">
+                  <span>
+                    {% if page_obj.has_previous %}
+                      <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                    {% endif %}
+                    <span class="page-current">
+                      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+                    {% if page_obj.has_next %}
+                      <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                    {% endif %}
+                  </span>
+                </div>
+              </section>
+              {% endif %}
+            {% endblock %}
+        </div>
+      </div>
     </main>
     <footer>
       <div>
