@@ -7,10 +7,29 @@
 }
 
 @font-face {
+    font-family: 'rubik';
+    src: url('../fonts/rubik.ttf') format(truetype);
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'euclid'; /* Укажите имя шрифта */
+    src: url('../fonts/euclid-circular-a-regular.ttf') format('truetype');
+    font-weight: normal; /* Укажите начертание */
+    font-style: normal; /* Укажите стиль */
+}
+
+@font-face {
     font-family: 'open-sans'; /* Укажите имя шрифта */
     src: url('../fonts/OpenSans.ttf') format('truetype');
     font-weight: normal; /* Укажите начертание */
     font-style: normal; /* Укажите стиль */
+}
+
+::selection {
+    background-color: yellow; /* Цвет фона выделенного текста */
+    color: black; /* Цвет текста выделенного текста */
 }
 
 a {
@@ -107,23 +126,22 @@ main {
     margin: 1.2rem;
 }
 
-.banner {
-    height: 20px;
-}
-
 .content {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: minmax(auto, 12rem) minmax(24rem, auto);
 }
 
 aside {
-    width: 25%;
+    position: sticky;
+    top: 1em;
+    width: 90%;
     background-color: #444; /* Темно-серый для боковой панели */
     color: #fff;
     padding: 15px;
     border-radius: 5px;
     font-family: 'open-sans';
     font-size: 1.1rem;
+    height: min-content;
 }
 
 aside ul {
@@ -141,14 +159,15 @@ nav a {
 }
 
 nav a:hover {
+    text-decoration: none;
     color: #ff3333; /* Красный при наведении */
 }
 
 
 .main-content section{
-    width: 90%;
-    margin-left: 20px;
-    padding: 15px;
+    width: 95%;
+    margin-left: 3%;
+    /* padding: 15px; */
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

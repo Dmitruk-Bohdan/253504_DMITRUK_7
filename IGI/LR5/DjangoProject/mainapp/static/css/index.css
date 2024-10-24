@@ -1,0 +1,190 @@
+.welcome{
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    font-family: 'euclid';
+    color: #333;
+    font-size: 3rem;
+    letter-spacing: 0.1rem;
+    text-align: center;
+}
+
+.welcome-message{
+    margin-top: 4rem;
+    font-family: 'euclid';
+}
+.welcome-message p::first-letter{
+    font-size: 1.5em; /* Увеличение размера шрифта первой буквы */
+    color: red; /* Цвет первой буквы */
+    font-weight:bolder;
+    line-height: 1; /* Уменьшение расстояния между строками */
+}
+
+.welcome-message ol {
+    list-style: none; /* Убираем стандартные номера */
+    padding: 0;
+    counter-reset: hebrew; /* Сбрасываем счетчик */
+}
+
+.welcome-message li {
+    counter-increment: hebrew; 
+    margin-bottom: 0.5em; 
+    margin-left: 1rem;
+}
+
+.welcome-message li::before {
+    content: counter(hebrew, hebrew) ". "; /* Отображаем буквы иврита в качестве маркеров */
+    font-size: 1em; /* Размер маркера */
+    font-family: 'rubik';
+}
+
+h4 {
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+section {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 0.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* margin: 0 auto; */
+    width: 80%;
+}
+
+.last-news-section{
+    padding: 0.5rem;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Карточки продуктов */
+.product-container {
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+}
+
+.product-container-header {
+    text-align: center;
+    color: #ff3333; /* Красный цвет для заголовка секции продуктов */
+    margin-bottom: 20px;
+}
+
+.product-container-body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.product-card {
+    background-color: #fff;
+    border-radius: 10px;
+    width: 30%;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+}
+
+.product-card img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.product-card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.product-card-text {
+    color: #666; /* Серый цвет для текста описания */
+}
+
+/* Партнеры */
+.partner-container {
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+}
+
+.partner-container-header {
+    text-align: center;
+    color: #ff3333; /* Красный цвет для заголовка секции партнеров */
+    margin-bottom: 20px;
+}
+
+.partner-container-body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.partner-card {
+    background-color: #fff;
+    border-radius: 10px;
+    width: 25%;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.partner-card:hover {
+    transform: scale(1.05);
+}
+
+.partner-card img {
+    max-width: 50%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.partner-card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Ссылки */
+a {
+    color: #ff3333; /* Красный цвет для ссылок */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Адаптивность */
+@media (max-width: 1000px) {
+    .product-card, .partner-card {
+        width: 45%;
+    }
+}
+
+@media (max-width: 600px) {
+    .product-card, .partner-card {
+        width: 100%;
+    }
+}
