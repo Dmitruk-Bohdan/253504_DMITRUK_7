@@ -12,11 +12,11 @@
   <meta name="keywords" content="автозапчасти, запчасти для автомобилей, автомобильные запчасти, магазин автозапчастей">
 {%endblock%}
 {% block content %}
-<div >
-  <img src="{% static 'images/banner.png' %}" alt="Photo" style="max-width: 100%"/>
-</div>
+<section class="index-banner">
+  <img src="{% static 'images/banner.png' %}" alt="Photo"/>
+</section>
 <h1 class="welcome">Welcome to our Auto Parts Store!</h1>
-<section class="welcome-message">
+<section class="index-section welcome-message">
   <p>We are thrilled to have you visit our online auto parts store, your one-stop destination for a wide selection of high-quality automotive components. Whether you are a professional mechanic or a DIY enthusiast, we are committed to providing you with the best products at competitive prices.</p>
   <p>At our store, you will discover a comprehensive range of auto parts for various makes and models, including:</p>
   <ol>
@@ -36,50 +36,21 @@
   <h3>Customer Satisfaction Guaranteed</h3>
   <p>Your satisfaction is our top priority. If you have any questions or concerns about your order, our customer service team is here to help. We are dedicated to ensuring that your shopping experience is smooth and enjoyable.</p>
 </section>
-<section class="last-new-section">
-  <h4>{{ latest_article.title }}</h4>
-  <p>{{ latest_article.text|truncatechars:100 }}</p>
+<section class="last-news-section index-section ">
+  <h4 class="index-subheader">{{ latest_article.title }}</h4>
+  <img src="{{ latest_article.photo.url}}" alt="here must be photo"/>
+  <p>{{ latest_article.text|truncatechars:300 }}</p>
   <a href="{{ latest_article.get_absolute_url}}">Read source</a>
 </section>
 
-<section class="product-container">
-    <div class="product-container-header">
-      <h4 style="margin-top: 3%;">Products: </h4>
-    </div>
-    <div class="product-container-body">
-      {% if products %}
-      {% for product in products %}
-        <a href="{{product.get_absolute_url}}">
-          <div class="product-card">
-            <img src="{{product.image.url}}" class="product-img" alt="..." style="max-width: 25%"/>
-            <div class="product-card-body">
-              <h5 class="product-card-title">{{product.name}}</h5>
-              <p class="product-card-text">{{product.description}}</p>
-            </div>
-          </div>
-        </a>
-      {% endfor %}
-    {% else %}
-        <p>No products</p>
-    {% endif %}
-    </div>
-</section>
-
-
-<section class="partner-container">
-  <div class="partner-container-header">
-    <h4 style="margin-top: 3%;">Our partners: </h4>
-  </div>
+<section class="index-section partner-container">
+  <h4 class="index-subheader">Our partners</h4>
   <div class="partner-container-body">
     {% if partners %}
       {% for partner in partners %}
-      <a href="{{partner.website}}">
-        <div class="partner-card">
-          <img src="{{partner.image.url}}" class="partner-img" alt="..." style="max-width: 10%"/>
-          <div class="partner-card-body">
-            <h5 class="partner-card-title">{{partner.name}}</h5>
-          </div>
-        </div>
+      <a href="{{partner.website}}" class="partner-card">
+        <img src="{{partner.image.url}}" class="partner-img" alt="..."/>
+        <h5 class="partner-card-title">{{partner.name}}</h5>
       </a>
       {% endfor %}
     {% else %}

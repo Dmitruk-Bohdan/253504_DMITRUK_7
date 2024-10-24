@@ -43,16 +43,12 @@ body {
     margin: 0;
     padding: 0;
 }
-
+ 
 /* Шапка сайта */
 header {
     background-color: #333; /* Тёмно-серый фон */
     color: #fff;
-    padding: 1.5rem;
-}
-
-header {
-    background-color: #333; /* Задний фон для заголовка (по желанию) */
+    padding: 0.5rem;
 }
 
 header nav {
@@ -83,7 +79,7 @@ nav div a:hover{
     display: flex; /* Используем flexbox для логотипа и названия */
     align-items: center; /* Вертикальное выравнивание по центру */
     font-family: 'monsterrat';
-    font-size: 3rem;
+    font-size: 2.8rem;
 }
 
 
@@ -123,7 +119,9 @@ nav div a:hover{
 
 
 main {
-    margin: 1.2rem;
+    padding: 1.2rem;
+    background-image: url('../images/background-cut.png');
+    background-repeat: repeat;
 }
 
 .content {
@@ -164,11 +162,11 @@ nav a:hover {
 }
 
 
-.main-content section{
+section.main-content{
     width: 95%;
-    margin-left: 3%;
+    margin-left: 3% ;
     /* padding: 15px; */
-    background-color: #fff;
+    background-color: rgba(255,255,255,0.9) !important;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -195,7 +193,6 @@ footer {
     background-color: #333;
     color: #fff;
     padding: 2rem 2rem 0.2rem 2rem;
-    margin-top: 1rem;
     text-align: left;
 }
 

@@ -12,6 +12,10 @@
     margin-top: 4rem;
     font-family: 'euclid';
 }
+
+.welcome-message p{
+    font-size: 1.15rem;
+}
 .welcome-message p::first-letter{
     font-size: 1.5em; /* Увеличение размера шрифта первой буквы */
     color: red; /* Цвет первой буквы */
@@ -29,6 +33,7 @@
     counter-increment: hebrew; 
     margin-bottom: 0.5em; 
     margin-left: 1rem;
+    font-size: 1.15rem;
 }
 
 .welcome-message li::before {
@@ -37,33 +42,69 @@
     font-family: 'rubik';
 }
 
-h4 {
+.last-news-section{
+    overflow: hidden;
+}
+
+h4.index-subheader {
+    font-family: 'euclid';
+    margin: 0 0 1rem 0.2rem !important;
     font-size: 1.5rem;
     font-weight: normal;
 }
 
-section {
+.last-news-section img{
+    border-radius: 10px;
+    float: left;
+    margin-right: 1rem;
+    max-width: 25%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.last-news-section a{
+    position: relative;
+    color: #ff3333;
+    font-family: 'euclid';
+    margin-left: 2.5%;
+    font-size: 1.2rem;
+    background-image: linear-gradient(90deg, red, #822003);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    transition: background-size .3s;
+}
+
+.last-news-section a:hover {
+    background-size: 100% 2px;
+  }
+
+.last-news-section p{
+    font-family: 'open-sans';
+    text-indent: 2.5%;
+    margin: 0.5%;
+    margin-bottom: 1%;
+    font-size: 1.15rem;
+}
+
+.index-banner{
+    margin: 2%;    
+}
+
+.index-banner img{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    border-radius: 10px;
+}
+
+.index-section {
+    margin: 2%;
     background-color: #fff;
     border-radius: 10px;
-    padding: 0.5rem;
+    padding: 2%;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    /* margin: 0 auto; */
-    width: 80%;
 }
 
-.last-news-section{
-    padding: 0.5rem;
-}
-
-img {
-    max-width: 100%;
-    display: block;
-    margin: 0 auto;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Карточки продуктов */
 .product-container {
     margin: 50px auto;
     padding: 20px;
@@ -116,75 +157,72 @@ img {
     color: #666; /* Серый цвет для текста описания */
 }
 
-/* Партнеры */
-.partner-container {
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 80%;
-}
-
-.partner-container-header {
+.partner-container h4{
     text-align: center;
-    color: #ff3333; /* Красный цвет для заголовка секции партнеров */
-    margin-bottom: 20px;
+    font-size: 1.8rem;
 }
 
-.partner-container-body {
+div.partner-container-body {
+    z-index: 1;
+    position: relative;
+    background-image: url('../images/partners-background.jpg');
+    background-size: cover;
+    width: 100%;
     display: flex;
+    padding-top: 3%;
+    padding-bottom: 3%;
     flex-wrap: wrap;
     justify-content: space-around;
 }
 
-.partner-card {
+div.partner-container-body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.4);
+    z-index: 2;
+}
+
+a.partner-card {
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    width: 20%;
     background-color: #fff;
-    border-radius: 10px;
-    width: 25%;
-    padding: 10px;
-    margin-bottom: 20px;
-    text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
 }
 
-.partner-card:hover {
-    transform: scale(1.05);
-}
-
-.partner-card img {
-    max-width: 50%;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
-
 .partner-card-title {
+    margin: 0;
     font-size: 1.25rem;
     font-weight: bold;
     color: #333;
+    transition: transform 0.5s;
 }
 
-/* Ссылки */
-a {
-    color: #ff3333; /* Красный цвет для ссылок */
-    text-decoration: none;
-    font-weight: bold;
+.partner-card:hover {
+    transform: scale(1.05);
+    background-image: url('../images/metal-background.jpg');
+    background-size: cover;
 }
 
-a:hover {
-    text-decoration: underline;
+.partner-card:hover h5{
+    font-size: 1.33em;
+    text-transform: uppercase;
+    font-weight: 800;
 }
 
-/* Адаптивность */
-@media (max-width: 1000px) {
-    .product-card, .partner-card {
-        width: 45%;
-    }
+.partner-card img {
+    margin-bottom: 10%;
+    width: 50%;
 }
 
-@media (max-width: 600px) {
-    .product-card, .partner-card {
-        width: 100%;
-    }
-}
+
