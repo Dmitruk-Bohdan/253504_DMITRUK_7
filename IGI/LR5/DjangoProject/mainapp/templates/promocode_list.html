@@ -1,14 +1,18 @@
 {% extends "base_generic.html" %}
-
+{% load static %}
+{%block extraheader%}
+  <link rel="stylesheet" href="{% static 'css/promocodes.css' %} {{ now|date:'U' }}"/>
+  <link rel="stylesheet" href="{% static 'css/product_list.css' %} {{ now|date:'U' }}"/>
+{%endblock%} 
 {% block content %}
-    <section>
-      <h2>Promocodes</h2>
-    </section>
-    <section>
+    <section class="search-bar">
+      <h1>
+        Promocodes
+      </h1>
       <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Search</button>
+      <button type="submit" class="nav-button">Search</button>
       </form>
     </section>
     <section class="promo-container">
