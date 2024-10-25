@@ -1,8 +1,8 @@
 {% extends "base_generic.html" %}
 {% load static %}
 {%block extraheader%}
-  <link rel="stylesheet" href="{% static 'css/product_list.css' %} {{ now|date:'U' }}">
-{%endblock%}
+  <link rel="stylesheet" href="{% static 'css/product_list.css' %} {{ now|date:'U' }}"/>
+{%endblock%} 
 {% block content %}
   <section class="search-bar">
     <h1>
@@ -24,7 +24,7 @@
                 <div class="product-card-image-container">
                   <img itemprop="image" src="{{product.image.url}}" class="product-img" alt="..."/>
                 </div>
-                
+
                 <h5  itemprop="name" class="product-card-title">{{product.name}}</h5>
 
                 <div class="product-card-body">

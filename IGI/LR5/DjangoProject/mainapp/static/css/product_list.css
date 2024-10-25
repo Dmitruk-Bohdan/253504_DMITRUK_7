@@ -126,23 +126,29 @@
     height: 25%; /* Занимает оставшиеся 45% высоты карточки */
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Выравнивание текста по нижнему краю */
+    justify-content: center ; /* Выравнивание текста по нижнему краю */
     padding: 15px;
 }
 
 .product-card-title {
-    font-size: 1.25em;
-    color: #0D61BC;
-    margin: 0 0 10px 0;
+    position: relative;
+    color: #822003; 
+    background-image: linear-gradient(90deg, red, #822003);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    transition: background-size .3s;
+    font-size: 1.33rem;
+}
+
+.product-card:hover h5.product-card-title{
+    color: #ff3333;
+    background-size: 100% 2px;
 }
 
 .product-card-body p {
     font-size: 1em;
     color: #555;
-}
-
-.product-card-body h5:hover {
-    color: #822003; 
 }
 
 
