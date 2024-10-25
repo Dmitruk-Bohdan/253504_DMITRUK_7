@@ -78,14 +78,38 @@
     border-radius: 10px;
 }
 
-/* Карточки товаров */
+
 .product-card {
+    height: 90%;
     border: 1px solid #ccc;
     border-radius: 10px;
     overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
     background-color: #fff;
-    padding: 15px;
+    display: flex;
+    flex-direction: column; /* Размещаем элементы сверху вниз */
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-card a{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+
+.product-card-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1; /* задает квадратное соотношение сторон */
+    overflow: hidden;
+    height: 45%;
+    padding: 5%;
 }
 
 .product-card:hover {
@@ -95,15 +119,21 @@
 
 .product-card img {
     width: 100%;
-    height: auto;
-    border-bottom: 2px solid #0D61BC; /* Серый */
-    margin-bottom: 15px;
+    height: 100%;
 }
 
-.product-card-body h5 {
+.product-card-body {
+    height: 25%; /* Занимает оставшиеся 45% высоты карточки */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Выравнивание текста по нижнему краю */
+    padding: 15px;
+}
+
+.product-card-title {
     font-size: 1.25em;
     color: #0D61BC;
-    margin-bottom: 10px;
+    margin: 0 0 10px 0;
 }
 
 .product-card-body p {
@@ -112,12 +142,12 @@
 }
 
 .product-card-body h5:hover {
-    color: #822003; /* Красный */
+    color: #822003; 
 }
 
-/* Сообщение об отсутствии продуктов */
+
 .product-container-body p {
-    color: #822003; /* Красный */
+    color: #822003;
     font-size: 1.2em;
     text-align: center;
     padding: 20px;

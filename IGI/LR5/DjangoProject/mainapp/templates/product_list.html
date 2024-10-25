@@ -19,15 +19,19 @@
       {% if products %}
         {% for product in products %}
           <div itemscope itemtype="https://schema.org/Product">
-            <a href="{{product.get_absolute_url}}">
-              <div class="product-card">
-                <img itemprop="image" src="{{product.image.url}}" class="product-img" alt="..." style="max-width: 25%"/>
+            <div class="product-card">
+              <a href="{{product.get_absolute_url}}">
+                <div class="product-card-image-container">
+                  <img itemprop="image" src="{{product.image.url}}" class="product-img" alt="..."/>
+                </div>
+                
+                <h5  itemprop="name" class="product-card-title">{{product.name}}</h5>
+
                 <div class="product-card-body">
-                  <h5  itemprop="name" class="product-card-title">{{product.name}}</h5>
                   <p itemprop="description" class="product-card-text">{{product.description}}</p>
                 </div>
-              </div>
-            </a>
+              </a>
+            </div>
           </div>  
         {% endfor %}
       {% else %}
