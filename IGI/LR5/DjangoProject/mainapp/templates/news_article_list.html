@@ -2,6 +2,7 @@
 {% load static %}
 {%block extraheader%}
   <link rel="stylesheet" href="{% static 'css/product_list.css' %} {{ now|date:'U' }}"/>
+  <link rel="stylesheet" href="{% static 'css/news.css' %} {{ now|date:'U' }}"/>
 {%endblock%} 
 {% block content %}
   <section class="search-bar">
@@ -19,12 +20,10 @@
       {% if news_articles %}
         {% for article in news_articles %}
           <div class="article-card">
-            <img src="{{ article.photo.url }}" class="article-img" alt="..." style="max-width: 25%"/>
-            <div class="article-card-body">
-              <h5 class="article-card-title">{{ article.title }}</h5>
-              <p class="article-card-text">{{ article.text|truncatechars:100 }}</p>
-            </div>
-            <a href="{{ article.get_absolute_url}}">Read Source</a>
+            <h4 class="article-card-header">{{ article.title }}</h4>
+            <img src="{{ article.photo.url}}" alt="here must be photo"/>
+            <p>{{ article.text|truncatechars:300 }}</p>
+            <a href="{{ article.get_absolute_url}}">Read source</a>
           </div>
         {% endfor %}
       {% else %}

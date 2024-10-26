@@ -2,6 +2,7 @@
 {% load static %}
 {%block extraheader%}
   <link rel="stylesheet" href="{% static 'css/searchbar.css' %} {{ now|date:'U' }}"/>
+  <link rel="stylesheet" href="{% static 'css/vacancies.css' %} {{ now|date:'U' }}"/>
 {%endblock%} 
 {% block content %}
     <section class="search-bar">
@@ -16,25 +17,23 @@
     </section>
     <section class="vacancy-container">
       <div class="vacancy-container-header">
-        <h3 style="margin-top: 3%;">We are pleased to welcome into our ranks such specialists as: </h3>
+          <h3>We are pleased to welcome into our ranks such specialists as:</h3>
       </div>
       <div class="vacancy-container-body">
-        {% if vacancies %}
-          {% for vacancy in vacancies %}
-              <div class="vacancy-card">
-                <img src="{{vacancy.image.url}}" class="vacancy-img" alt="..." style="max-width: 25%"/>
-                <div class="vacancy-card-body">
-                  <h5 class="vacancy-card-title">{{vacancy.name}}</h5>
-                  <p class="vacancy-card-text">{{vacancy.description}}</p>
-                  <a href="{{vacancy.get_absolute_url}}">
-                    <p>Further details</p>
-                  </a>
-                </div>
-              </div>
-          {% endfor %}
-        {% else %}
-          <p>No vacancies</p>
-        {% endif %}
+          {% if vacancies %}
+              {% for vacancy in vacancies %}
+                  <div class="vacancy-card">
+                      <img src="{{vacancy.image.url}}" class="vacancy-img" alt="Vacancy image" />
+                      <div class="vacancy-card-body">
+                          <h5 class="vacancy-card-title">{{vacancy.title}}</h5>
+                          <p class="vacancy-card-text">{{vacancy.description|truncatechars:150 }}</p>
+                          <a href="{{vacancy.get_absolute_url}}" class="vacancy-details-link">Further details</a>
+                      </div>
+                  </div>
+              {% endfor %}
+          {% else %}
+              <p>No vacancies available</p>
+          {% endif %}
       </div>
-    </section>
+  </section>  
 {% endblock %}

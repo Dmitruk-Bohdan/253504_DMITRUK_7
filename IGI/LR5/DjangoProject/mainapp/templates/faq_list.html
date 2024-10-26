@@ -2,6 +2,7 @@
 {% load static %}
 {%block extraheader%}
   <link rel="stylesheet" href="{% static 'css/searchbar.css' %} {{ now|date:'U' }}"/>
+  <link rel="stylesheet" href="{% static 'css/faq_list.css' %} {{ now|date:'U' }}"/>
 {%endblock%} 
 {% block content %}
   <section class="search-bar">
@@ -17,24 +18,23 @@
   <section class="faq-container">
     <div class="faq-container-body">
       {% if faqs %}
-      <div class="faq-card">
         {% for faq in faqs %}
-        <article>
-          <details>
-            <summary>
-              <strong>{{ faq.title }}</strong>
-            </summary>
-            <p><strong>Question:</strong> {{ faq.question }}</p> 
-            <p><strong>Answer:</strong> {{ faq.text }}</p> 
-            <p><strong>{{ faq.created_at }}</strong></p> 
-          </details>
-        </article>
+        <div class="faq-card-container">
+          <div class="faq-card">
+            <details>
+              <summary>
+                <strong>{{ faq.title }}</strong>
+              </summary>
+              <p><strong>Question:</strong> {{ faq.question }}</p> 
+              <p><strong>Answer:</strong> {{ faq.text }}</p> 
+              <p><strong>{{ faq.created_at }}</strong></p> 
+            </details>
+          </div>
+        </div>
         {% endfor %}
-      </div>
       {% else %}
       <p>There are no questions.</p>
       {% endif %}
     </div>
-        
   </section>
 {% endblock %}

@@ -2,6 +2,7 @@
 {% load static %}
 {%block extraheader%}
   <link rel="stylesheet" href="{% static 'css/searchbar.css' %} {{ now|date:'U' }}"/>
+  <link rel="stylesheet" href="{% static 'css/reviews.css' %} {{ now|date:'U' }}"/>
 {%endblock%} 
 {% block content %}
     <section class="search-bar">
@@ -18,27 +19,27 @@
       <div class="review-admin-bar">
         <form action="{% url 'review_create' %}" method="get">
           {% csrf_token %}
-          <button type="submit">Create review</button>
+          <button type="submit" class="btn-create-review">Create Review</button>
         </form>
       </div>
       <div class="review-container-body">
         {% if reviews %}
           {% for review in reviews %}
-              <div class="review-card">
-                <div class="review-card-header">
-                  <p class="review-card-title"><strong>{{review.title}}</strong></p>
-                </div>
-                <div class="review-card-body">
-                  <p class="review-card-author">User: {{review.user.username}}</p>
-                  <p class="review-card-rating">Rating: {{review.rating}}</p>
-                  <p class="review-card-text">{{review.text}}</p>
-                  <p class="review-card-created-at">{{review.created_at}}</p>
-                </div>
-              </div>
+          <div class="review-card">
+            <div class="review-card-header">
+              <h4 class="review-card-title">{{ review.title }}</h4>
+            </div>
+            <div class="review-card-body">
+              <p class="review-card-author"><strong>User:</strong> {{ review.user.username }}</p>
+              <p class="review-card-rating"><strong>Rating:</strong> {{ review.rating }}</p>
+              <p class="review-card-text">{{ review.text }}</p>
+              <p class="review-card-created-at">{{ review.created_at }}</p>
+            </div>
+          </div>
           {% endfor %}
         {% else %}
-          <p>No reviews</p>
+          <p class="no-reviews">No reviews</p>
         {% endif %}
-      </div>  
+      </div>
     </section>    
 {% endblock %}

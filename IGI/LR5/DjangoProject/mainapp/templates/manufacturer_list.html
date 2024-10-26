@@ -18,9 +18,9 @@
     <div class="manufacturer-container-body">
       {% if manufacturers %}
         {% for manufacturer in manufacturers %}
-        <div class="manufacturer-card">
-          <a href="{{ manufacturer.get_absolute_url }}">{{ manufacturer.name }} </a> ({{manufacturer.phone}})
-        </div>
+          <div class="manufacturer-card">
+            <a href="{{ manufacturer.get_absolute_url }}">{{ manufacturer.name }} </a> ({{manufacturer.phone}})
+          </div>
         {% endfor %}
       {% else %}
         <p>There are no manufacturers.</p>

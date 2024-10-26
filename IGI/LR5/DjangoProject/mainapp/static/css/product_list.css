@@ -131,7 +131,7 @@
 }
 
 .product-card-title {
-    font-family: 'euclid';
+    font-family: 'open-sans';
     position: relative;
     color: #822003; 
     background-image: linear-gradient(90deg, red, #822003);
