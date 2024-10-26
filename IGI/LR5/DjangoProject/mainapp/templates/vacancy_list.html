@@ -1,19 +1,22 @@
 {% extends "base_generic.html" %}
-
+{% load static %}
+{%block extraheader%}
+  <link rel="stylesheet" href="{% static 'css/searchbar.css' %} {{ now|date:'U' }}"/>
+{%endblock%} 
 {% block content %}
-    <section>
-      <h1>Vacancies</h1>
-    </section>
-    <section>
+    <section class="search-bar">
+      <h1>
+        Vacancies
+      </h1>
       <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Search</button>
+        <button type="submit" class="nav-button">Search</button>
       </form>
     </section>
     <section class="vacancy-container">
       <div class="vacancy-container-header">
-        <h4 style="margin-top: 3%;">We are pleased to welcome into our ranks such specialists as: </h4>
+        <h3 style="margin-top: 3%;">We are pleased to welcome into our ranks such specialists as: </h3>
       </div>
       <div class="vacancy-container-body">
         {% if vacancies %}
@@ -32,5 +35,6 @@
         {% else %}
           <p>No vacancies</p>
         {% endif %}
+      </div>
     </section>
 {% endblock %}

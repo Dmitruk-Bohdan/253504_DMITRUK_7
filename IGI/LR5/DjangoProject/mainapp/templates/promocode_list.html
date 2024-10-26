@@ -2,7 +2,7 @@
 {% load static %}
 {%block extraheader%}
   <link rel="stylesheet" href="{% static 'css/promocodes.css' %} {{ now|date:'U' }}"/>
-  <link rel="stylesheet" href="{% static 'css/product_list.css' %} {{ now|date:'U' }}"/>
+  <link rel="stylesheet" href="{% static 'css/searchbar.css' %} {{ now|date:'U' }}"/>
 {%endblock%} 
 {% block content %}
     <section class="search-bar">
@@ -17,7 +17,7 @@
     </section>
     <section class="promo-container">
       <div class="promo-container-header">
-        <h3 style="margin-top: 3%;">Current promocodes: </h3>
+        <h4 class="subheader">Current promocodes: </h3>
       </div>
       <div class="promo-container-body">
         {% if  valid_promocodes%}
@@ -27,9 +27,6 @@
               <p class="promo-card-title"><strong>{{promo.code}}</strong></p>
             </div>
             <div class="promo-card-body">
-              <div>
-                <img src="{{promo.image.url}}" class="promo" alt="..." style="max-width: 25%"/>
-              </div>
               <p class="promo-card-text"><strong>Discount: </strong> {{promo.discount}}</p>
               <p class="promo-card-text"><strong>Expiration date</strong> {{promo.expiration_date}}</p>
               <p class="promo-card-text"><strong></strong> {{promo.created_at}}</p>
@@ -42,7 +39,7 @@
     </section>
     <section class="promo-container">
       <div class="promo-container-header">
-        <h3 style="margin-top: 3%;">Promo code archive : </h3>
+        <h4 class="class="subheader>Promo code archive : </h4>
       </div>
       <div class="promo-container-body">
         {% if  invalid_promocodes%}
@@ -52,9 +49,6 @@
               <p class="promo-card-title"><strong>{{promo.code}}</strong></p>
             </div>
             <div class="promo-card-body">
-              <div>
-                <img src="{{promo.image.url}}" class="promo" alt="..." style="max-width: 25%"/>
-              </div>
               <p class="promo-card-text"><strong>Discount: </strong> {{promo.discount}}</p>
               <p class="promo-card-text"><strong>Expiration date</strong> {{promo.expiration_date}}</p>
               <p class="promo-card-text"><strong></strong> {{promo.created_at}}</p>

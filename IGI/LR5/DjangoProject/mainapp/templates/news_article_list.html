@@ -1,18 +1,21 @@
 {% extends "base_generic.html" %}
-
+{% load static %}
+{%block extraheader%}
+  <link rel="stylesheet" href="{% static 'css/product_list.css' %} {{ now|date:'U' }}"/>
+{%endblock%} 
 {% block content %}
-  <section>
-    <h1>News</h1>
-  </section>
-  <section>
+  <section class="search-bar">
+    <h1>
+      News
+    </h1>
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
-      <button type="submit">Search</button>
+      <button type="submit" class="nav-button">Search</button>
     </form>
   </section>
   <section class="article-container">
-    <article class="article-container-body">
+    <div class="article-container-body">
       {% if news_articles %}
         {% for article in news_articles %}
           <div class="article-card">
@@ -27,6 +30,7 @@
       {% else %}
         <p>There is no news</p>
       {% endif %}
-  </article>
+    </div>
+  </section>
 {% endblock %}
 

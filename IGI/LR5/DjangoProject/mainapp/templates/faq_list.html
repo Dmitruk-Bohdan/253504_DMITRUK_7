@@ -1,32 +1,40 @@
 {% extends "base_generic.html" %}
-
+{% load static %}
+{%block extraheader%}
+  <link rel="stylesheet" href="{% static 'css/searchbar.css' %} {{ now|date:'U' }}"/>
+{%endblock%} 
 {% block content %}
-    <h1>Frequently asked questions</h1>
-      <section>
-        <div>
-          <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Search</button>
-          </form>
-        </div>
-      </section>
-      <section>
-        {% if faqs %}
-          {% for faq in faqs %}
-          <article>
-            <details>
-              <summary>
-                <strong>{{ faq.title }}</strong>
-              </summary>
-              <p><strong>Question:</strong> {{ faq.question }}</p> 
-              <p><strong>Answer:</strong> {{ faq.text }}</p> 
-              <p><strong>{{ faq.created_at }}</strong></p> 
-            </details>
-          </article>
-          {% endfor %}
-        {% else %}
-          <p>There are no questions.</p>
-        {% endif %}
-      </section>
+  <section class="search-bar">
+    <h1>
+      Frequently asked questions
+    </h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="nav-button">Search</button>
+    </form>
+  </section>
+  <section class="faq-container">
+    <div class="faq-container-body">
+      {% if faqs %}
+      <div class="faq-card">
+        {% for faq in faqs %}
+        <article>
+          <details>
+            <summary>
+              <strong>{{ faq.title }}</strong>
+            </summary>
+            <p><strong>Question:</strong> {{ faq.question }}</p> 
+            <p><strong>Answer:</strong> {{ faq.text }}</p> 
+            <p><strong>{{ faq.created_at }}</strong></p> 
+          </details>
+        </article>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p>There are no questions.</p>
+      {% endif %}
+    </div>
+        
+  </section>
 {% endblock %}

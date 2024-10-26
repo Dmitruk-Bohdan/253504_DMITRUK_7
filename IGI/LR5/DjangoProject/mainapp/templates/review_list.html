@@ -1,26 +1,25 @@
 {% extends "base_generic.html" %}
+{% load static %}
+{%block extraheader%}
+  <link rel="stylesheet" href="{% static 'css/searchbar.css' %} {{ now|date:'U' }}"/>
+{%endblock%} 
 {% block content %}
-    <section>
-      <h2>Reviews</h2>
-    </section>
-    <section>
+    <section class="search-bar">
+      <h1>
+        Reviews
+      </h1>
       <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Search</button>
+        <button type="submit" class="nav-button">Search</button>
       </form>
     </section>
-    <section>
-      <div>
+    <section class="review-container">
+      <div class="review-admin-bar">
         <form action="{% url 'review_create' %}" method="get">
           {% csrf_token %}
           <button type="submit">Create review</button>
         </form>
-      </div>
-    </section>
-    <section class="review-container">
-      <div class="review-container-header">
-        <h3 style="margin-top: 3%;">Previous feedback: </h3>
       </div>
       <div class="review-container-body">
         {% if reviews %}
@@ -40,6 +39,6 @@
         {% else %}
           <p>No reviews</p>
         {% endif %}
+      </div>  
     </section>    
-
 {% endblock %}

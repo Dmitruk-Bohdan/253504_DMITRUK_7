@@ -3,9 +3,11 @@
     padding: 20px;
 }
 
-.promo-container-header h3 {
-    color: #333;
-    font-weight: bold;
+.promo-container-header h4 {
+    font-family: 'euclid';
+    margin: 0 0 1rem 0.2rem !important;
+    font-size: 2rem;
+    font-weight: normal;
 }
 
 /* Карточки промокодов */
@@ -27,34 +29,33 @@
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
 }
 
+.promo-card header{
+    width: 60%;
+}
+
 .promo-card-header p {
+    letter-spacing: 0.15rem;
+    font-family: 'monsterrat';
+    font-weight: 900;
     font-size: 1.25rem;
     color: #822003;
     margin: 0;
 }
 
 .promo-card-body {
-    flex: 1;
-    padding-left: 15px;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-direction: row;
+    width: 40%;
 }
 
-.promo-card img {
-    max-width: 100px;
-    max-height: 100px;
-    object-fit: contain;
-    margin-right: 20px;
-    border: 2px solid #ff3333;
+p.promo-card-text {
+    font-weight: normal;
+    font-size: 1.25rem;
+    margin-right: 1rem;
 }
 
-.promo-card-text {
-    color: #555;
-    margin: 5px 0;
-}
-
-.promo-card-title {
+p.promo-card-text strong{
+    font-family: 'euclid';
     font-weight: bold;
-    color: #ff3333;
 }
+
