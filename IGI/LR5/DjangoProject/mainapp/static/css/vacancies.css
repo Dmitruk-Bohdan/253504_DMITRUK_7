@@ -23,8 +23,8 @@ margin: 2rem;
 
 .vacancy-img {
     border: 2px solid #822003;
-    width: 120px;
-    height: 120px;
+    width: 10rem;
+    height: 10rem;
     margin-right: 15px;
     float: left; 
     object-fit: cover;

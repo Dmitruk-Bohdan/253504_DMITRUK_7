@@ -1,0 +1,153 @@
+
+  h1 {
+    font-size: 3rem;
+    font-family: 'monsterrat';
+    font-weight: 900;
+    color: #822003;
+    text-align: center;
+  }
+  
+  .about-navigation {
+    margin: 0 2.5%;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .about-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .about-links li {
+    display: inline;
+    margin: 0 10px;
+  }
+  
+  .about-links a {
+    color: #ff3333;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .about-links a:hover {
+    color: #822003;
+  }
+  
+  .about-section {
+    max-width: 95%;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+    color: #333;
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+  }
+  
+  .about-section h2 {
+    font-family: 'monsterrat';
+    font-size: 2em;
+    color: #822003;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .about-article {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  
+  .about-title {
+    font-size: 1.5em;
+    color: #822003;
+    margin: 0 0 1.5rem 0;
+  }
+  
+  .about-text {
+    font-family: 'euclid';
+    color: #444;
+    margin: 0 0 1rem 0;
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+
+  .about-date {
+    font-size: 0.9em;
+    color: #888;
+    margin-top: 10px;
+  }
+  
+  .about-image {
+    width: 25%;
+    border-radius: 8px;
+    margin: 0.5rem 1rem 1rem 1rem;
+    padding: auto;
+    object-fit: cover;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .about-article.odd .about-image {
+    float: left;
+    margin-right: 2rem;
+  }
+  
+  .about-article.even .about-image {
+    float: right;
+    margin-left: 2rem;
+  }
+
+  .about-video {
+    width: 100%;
+    height: 400px;
+    border-radius: 8px;
+  }
+  
+  .about-history {
+    padding: 0;
+    list-style-type: none;
+  }
+  
+  .about-history li {
+    background-color: #fff;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .about-history li:hover {
+    transform: translateY(-5px);
+  }
+
+  .company-info {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    line-height: 1.8;
+  }
+  
+  .certificate-image {
+    max-width: 60%;
+    margin: 10px auto;
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .subheader{
+    font-size: 1.25rem;
+    font-family: 'open-sans';
+    font-weight: 500;
+    margin: 0.5rem 0 1rem 1rem;
+    
+  }
+  

@@ -1,87 +1,69 @@
 {% extends "base_generic.html" %}
 {% load static %}
+{%block extraheader%}
+<link rel="stylesheet" href="{% static 'css/about.css' %} {{ now|date:'U' }}" />
+{%endblock%} 
 {% block content %}
+<h1>About Us</h1>
+<section class="about-navigation">
+  <div class="about-links">
+    <ul>
+      <li><em><a href="#section1">General Info</a></em></li>
+      <li><em><a href="#section2">Our Story</a></em></li>
+      <li><em><a href="#section3">History by Years</a></em></li>
+      <li><em><a href="#section4">Company Credentials</a></em></li>
+      <li><em><a href="#section5">Our Certification</a></em></li>
+    </ul>
+  </div>
+</section>
 
-    <h1>About us</h1>
-    <section>
-      <div>
-        <ui>
-          <li>
-            <em><a href="#section1">General info</a></em>
-          </li>
-          <li>
-            <em><a href="#section2">Our Story</a></em>
-          </li>
-          <li>
-            <em><a href="#section3">History by Years</a></em>
-          </li>
-          <li>
-            <em><a href="#section4">Company Credentials</a></em>
-          </li>
-          <li>
-            <em><a href="#section5">Our Certification</a></em>
-          </li>
-        </ui>
-      </div>
-    </section>
-    <section>
-      <div>
-        <h2 id="section1">General info</h2>
-      </div>
-      <div>
-        {% if about_articles %}
-          {% for about_article in about_articles %}
-            <article style="margin:5%">
-                <h4>{{ about_article.title }}</h4>
-                <img src="{{ about_article.photo.url }}" alt="Photo" style="max-width: 40%;">
-                <p>{{about_article.text}}</p>
-                <p>{{about_article.created_at}}</p>
-          </article>
-          {% endfor %}
-        {% else %}
-          <p>There are no info.</p>
-        {% endif %}
-      </div>
-    </section>
-    <section>
-      <div>
-          <h2 id="section2">Our Story</h2>
-          <iframe width="100%" height="400" src="https://www.youtube.com/embed/rU79a0xkfYg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-    </section>
-    <section>
-        <div>
-          <div>
-            <h2 id="section3">History by Years</h2>
-          </div>
-          <div>
-            <ul>
-              <li><strong>2010:</strong> Company founded.</li>
-              <li><strong>2015:</strong> Launched our first online store.</li>
-              <li><strong>2020:</strong> Expanded product range and services.</li>
-              <li><strong>2023:</strong> Reached 1 million customers.</li>
-            </ul>
-          </div>
-        </div>
-    </section>
-    <section>
-      <div>
-          <h2 id="section4">Company Credentials</h2>
-          <p>Our company is registered and certified to ensure the highest quality of service. Here are our details:</p>
-          <address>
-              <strong>Name:</strong> Auto Parts Store Inc.<br>
-              <strong>Address:</strong> 123 Auto St, Car City, CA 12345<br>
-              <strong>Email:</strong> info@autopartsstore.com<br>
-              <strong>Phone:</strong> +1 (555) 123-4567
-          </address>
-      </div>
-  </section>
+<section class="about-section" id="section1">
+  <h2>General Info</h2>
+  {% if about_articles %}
+    {% for about_article in about_articles %}
+      <article class="about-article {% cycle 'odd' 'even' %}">
+        <h4 class="about-title">{{ about_article.title }}</h4>
+        <img src="{{ about_article.photo.url }}" alt="Photo" class="about-image">
+        <p class="about-text">{{ about_article.text }}</p>
+        <p class="about-date">{{ about_article.created_at }}</p>
+      </article>
+    {% endfor %}
+  {% else %}
+    <p>There is no information available.</p>
+  {% endif %}
+</section>
 
-  <section>
-      <div>
-          <h2 id="section5">Our Certification</h2>
-          <img src="{% static 'images/Certificate.png' %}" alt="Certificate" class="certificate-image">
-          <p>We are proud to be certified by the Parts Association.</p>
-      </div>
-  </section>
+
+<section class="about-section" id="section2">
+  <h2>Our Story</h2>
+  <iframe class="about-video" src="https://www.youtube.com/embed/rU79a0xkfYg" frameborder="0" allowfullscreen></iframe>
+</section>
+
+<section class="about-section" id="section3">
+  <h2>History by Years</h2>
+  <ul class="about-history">
+    <li><strong>2010:</strong> Company founded.</li>
+    <li><strong>2015:</strong> Launched our first online store.</li>
+    <li><strong>2020:</strong> Expanded product range and services.</li>
+    <li><strong>2023:</strong> Reached 1 million customers.</li>
+  </ul>
+</section>
+
+<section class="about-section" id="section4">
+  <h2>Company Credentials</h2>
+  <p class="subheader">Our company is registered and certified to ensure the highest quality of service</p>
+  <address class="company-info">
+    <strong>Name:</strong> Auto Parts Store Inc.<br>
+    <strong>Address:</strong> 123 Auto St, Car City, CA 12345<br>
+    <strong>Email:</strong> info@autopartsstore.com<br>
+    <strong>Phone:</strong> +1 (555) 123-4567
+  </address>
+</section>
+
+<section class="about-section" id="section5">
+  <h2>Our Certification</h2>
+  <p class="subheader">We are proud to be certified by the Parts Association</p>
+  <img src="{% static 'images/Certificate.png' %}" alt="Certificate" class="certificate-image">
+</section>
+
 {% endblock %}

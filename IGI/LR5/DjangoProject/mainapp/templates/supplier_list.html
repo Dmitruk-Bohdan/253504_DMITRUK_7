@@ -2,6 +2,7 @@
 {% load static %}
 {%block extraheader%}
   <link rel="stylesheet" href="{% static 'css/searchbar.css' %} {{ now|date:'U' }}"/>
+  <link rel="stylesheet" href="{% static 'css/suppliers.css' %} {{ now|date:'U' }}"/>
 {%endblock%} 
 {% block content %}
   <section class="search-bar">
@@ -19,7 +20,15 @@
       {% if suppliers %}
         {% for supplier in suppliers %}
         <div class="supplier-card">
-          <a href="{{ supplier.get_absolute_url }}">{{ supplier.name }} </a> ({{supplier.phone}})
+          <div class="supplier-card-header">
+            <h4 class="supplier-card-title">{{ supplier.name }}</h4>
+          </div>
+          <div class="supplier-card-body">
+            <p class="supplier-card-address"><strong>Address :</strong> {{ supplier.address }}</p>
+            <p class="supplier-card-phone"><strong>Phone: </strong>{{ supplier.phone }}</p>
+            <p class="supplier-card-created-at">{{ supplier.created_at }}</p>
+            <a href="{{supplier.get_absolute_url}}" class="supplier-details-link">Further details</a>
+          </div>
         </div>
         {% endfor %}
       {% else %}
