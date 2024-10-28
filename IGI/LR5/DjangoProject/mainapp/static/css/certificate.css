@@ -4,6 +4,11 @@
     display: inline-block;
     display: grid;
     justify-items: center; 
+    border: 20px solid transparent;
+    border-image-source: url('../images/certificate-border-image.png');
+    border-image-slice: 30; 
+    border-image-repeat: round;
+    box-sizing: border-box;
 }
 
 .certificate-background-image {
@@ -27,7 +32,7 @@
 }
 
 .certificate-body h2 {
-    position: absolute; /* Устанавливаем абсолютное позиционирование */
+    position: absolute; 
     font-size: 1.8rem;
     text-align: center;
     color: #375a83;
@@ -38,7 +43,7 @@
 }
 
 .certificate-body h3 {
-    position: absolute; /* Устанавливаем абсолютное позиционирование */
+    position: absolute; 
     font-size: 1rem;
     text-align: center;
     color: #375a83;
@@ -49,7 +54,7 @@
 }
 
 .certificate-body h4 {
-    position: absolute; /* Устанавливаем абсолютное позиционирование */
+    position: absolute; 
     font-size: 1.2rem;
     text-align: center;
     color: #375a83;

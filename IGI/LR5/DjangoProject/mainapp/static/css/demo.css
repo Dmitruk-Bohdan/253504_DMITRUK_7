@@ -120,4 +120,58 @@ h2 {
     width: 200px;
     border: 1px solid #ccc;
   }
+
+  /* Section Styling */
+.table-demo-section {
+  margin: 20px;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Webkit (Chrome, Safari) */
+  -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Mozilla (Firefox) */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Standard */
+}
+
+/* Table Styling */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse; /* Remove double lines */
+}
+
+.styled-table caption {
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.styled-table th,
+
+
+/* Style for table rows and columns */
+.styled-table thead {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.styled-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9; /* Styling alternate rows */
+}
+
+.styled-table tbody td:nth-child(3) {
+  font-style: italic; /* Styling specific column */
+}
+
+.styled-table tbody td:empty {
+  background-color: #ffe6e6; /* Background color for empty cells */
+}
+
+/* Adding hover effect with vendor prefixes */
+.styled-table tbody tr:hover {
+  background-color: #e0f7fa;
+  -webkit-transition: background-color 0.3s; /* Webkit */
+  -moz-transition: background-color 0.3s; /* Mozilla */
+  transition: background-color 0.3s; /* Standard */
+}
+
   

@@ -17,16 +17,16 @@
     font-size: 1.15rem;
 }
 .welcome-message p::first-letter{
-    font-size: 1.5em; /* Увеличение размера шрифта первой буквы */
-    color: red; /* Цвет первой буквы */
+    font-size: 1.5em; 
+    color: red; 
     font-weight:bolder;
-    line-height: 1; /* Уменьшение расстояния между строками */
+    line-height: 1;
 }
 
 .welcome-message ol {
-    list-style: none; /* Убираем стандартные номера */
+    list-style: none;
     padding: 0;
-    counter-reset: hebrew; /* Сбрасываем счетчик */
+    counter-reset: hebrew;
 }
 
 .welcome-message li {
@@ -37,8 +37,8 @@
 }
 
 .welcome-message li::before {
-    content: counter(hebrew, hebrew) ". "; /* Отображаем буквы иврита в качестве маркеров */
-    font-size: 1em; /* Размер маркера */
+    content: counter(hebrew, hebrew) ". "; 
+    font-size: 1em;
     font-family: 'rubik';
 }
 
