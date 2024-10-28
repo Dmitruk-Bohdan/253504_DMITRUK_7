@@ -86,8 +86,15 @@ h4.index-subheader {
     font-size: 1.15rem;
 }
 
+
+
+
+
+
 .index-banner{
-    margin: 2%;    
+    margin: 2%;  
+    position: relative;  
+    overflow: hidden;
 }
 
 .index-banner img{
@@ -95,7 +102,69 @@ h4.index-subheader {
     height: 100%;
     object-fit: fill;
     border-radius: 10px;
+    visibility: collapse;
 }
+
+.line-container {
+    align-self: center;
+    width: 70%;        
+    height: 5px;        
+    background-color: transparent;
+    margin: 3% auto;  
+    z-index: 2;
+  }
+
+  
+  .loading-line {
+    width: 0;           
+    height: 100%;       
+    background-color: #ff3333;
+    animation: 2s loadLine ease-in-out forwards;
+    z-index: 2;
+  }
+
+  @keyframes loadLine {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  img.box{
+    width: 40%;
+    height: 70%;
+  }
+
+  .box{
+    width: 30%;
+    z-index: 2;
+    position: absolute;
+    left: 30%;
+    opacity: 0;
+    transform: translateY(10%);
+    animation: 2s appearAndMove 3s ease-out forwards;
+    visibility: visible !important;
+  }
+
+  @keyframes appearAndMove {
+    0% {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(0); 
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(20%); 
+    }
+  }
+
+
+
 
 .index-section {
     margin: 2%;

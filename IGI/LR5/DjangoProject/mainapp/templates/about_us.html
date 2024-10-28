@@ -2,6 +2,7 @@
 {% load static %}
 {%block extraheader%}
 <link rel="stylesheet" href="{% static 'css/about.css' %} {{ now|date:'U' }}" />
+<link rel="stylesheet" href="{% static 'css/certificate.css' %} {{ now|date:'U' }}" />
 {%endblock%} 
 {% block content %}
 <h1>About Us</h1>
@@ -62,8 +63,17 @@
 
 <section class="about-section" id="section5">
   <h2>Our Certification</h2>
-  <p class="subheader">We are proud to be certified by the Parts Association</p>
-  <img src="{% static 'images/Certificate.png' %}" alt="Certificate" class="certificate-image">
+  <div class="certificate-body">
+    <img src="{% static 'images/certificate-background.jpg'%}" class="certificate-background-image"/>
+    <h1>CERTIFICATE</h1>
+    <h2>The best company in the world</h2>
+    <h3>Issued by an international certification center for the world's coolest companies</h3>
+    <h4>10.09.2004</h4>
+    <div class="certificate-signature">
+      <p>F.Right</p>
+      <img src="{% static 'images/signature.png' %}" alt="signature">
+    </div>
+  </div>
 </section>
 
 {% endblock %}

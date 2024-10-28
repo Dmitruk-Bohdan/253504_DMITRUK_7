@@ -1,0 +1,85 @@
+.certificate-body {
+    margin: 5% 20%;
+    position: relative;
+    display: inline-block;
+    display: grid;
+    justify-items: center; 
+}
+
+.certificate-background-image {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    z-index: 0; 
+}
+
+.certificate-body h1 {
+    position: absolute;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    color: #375a83;
+    top: 20%; 
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1; 
+}
+
+.certificate-body h2 {
+    position: absolute; /* Устанавливаем абсолютное позиционирование */
+    font-size: 1.8rem;
+    text-align: center;
+    color: #375a83;
+    top: 40%; 
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1; 
+}
+
+.certificate-body h3 {
+    position: absolute; /* Устанавливаем абсолютное позиционирование */
+    font-size: 1rem;
+    text-align: center;
+    color: #375a83;
+    top: 50%; 
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1; 
+}
+
+.certificate-body h4 {
+    position: absolute; /* Устанавливаем абсолютное позиционирование */
+    font-size: 1.2rem;
+    text-align: center;
+    color: #375a83;
+    top: 65%; 
+    left: 25%;
+    transform: translateX(-50%);
+    z-index: 1; 
+}
+
+.certificate-signature {
+    position: absolute;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    direction: row;
+    top: 65%; 
+    left: 75%; 
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.certificate-signature p {
+    color: #375a83;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.certificate-signature img {
+    width: 20%;
+    height: 40%;
+    z-index: 1;
+}

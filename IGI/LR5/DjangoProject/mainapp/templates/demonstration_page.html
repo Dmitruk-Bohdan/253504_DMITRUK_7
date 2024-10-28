@@ -1,161 +1,19 @@
 {% extends "base_generic.html" %}
 {% load static %}
+{%block extraheader%}
+<link rel="stylesheet" href="{% static 'css/demo.css' %} {{ now|date:'U' }}" />
+{%endblock%} 
 {% block content %}
-<section>
-    <h2>Code listing and figure example</h2>
-    <article>
-        <figure>​
-            <figcaption>Listing 173.</figcaption>
-            <code>
-                var <var>num1</var> = <samp>10</samp>;
-                var <var>num2</var> = <samp>20</samp>;
-                var <var>sum</var> = <var>num1</var> + <var>num2</var>;
-    
-                <p>Please press <kbd>Ctrl</kbd> + <kbd>S</kbd> to save the page.</p>
-    
-            </code>
-        </figure>​
-    </article>
-</section>
-<section>
-    <h2>Abbreviation example</h2>
-    <article>
-        <p><abbr title="HyperText Markup Language">HTML</abbr>это язык разметки гипертекста.</p>
-    </article>
-</section>
-<section>
-    <h2>Definition example</h2>
-    <article>
-        <dl>
-            <dt>HTML</dt>
-            <dd>HyperText Markup Language - язык разметки гипертекста.</dd>
-        
-            <dt>CSS</dt>
-            <dd>Cascading Style Sheets - язык таблиц стилей для оформления веб-страниц.</dd>
-        </dl>
-    </article>
-</section>
-<section>
-    <h2>Citation example</h2>
-    <article>
-        <div>
-            <blockquote cite="https://www.forbes.ru/forbeslife/dosug/262327-na-vse-vremena-100-vdokhnovlyayushchikh-tsitat">
-              <p>I'm gonna go to the store and get some chips and sit down to write a lab, it'll be a blast.</p>
-            </blockquote>
-            <p>Some guy <cite>His diary</cite></p>
-          </div>
-    </article>
-</section>
-<section>
-    <h2>Audio example</h2>
-    <article>
-        <div>
-            <audio controls>
-                <source src="{% static 'audio/engine.mp3' %}" type="audio/mp3">
-                Your browser does not support the audio element.
-              </audio>
-          </div>
-    </article>
-</section>
-<section>
-    <h2>Datetime example</h2>
-    <article>
-        <div>
-            <p>We'll meet at <time datetime=“2024-09-19T15:30”>15:30</time> tomorrow.</p>
-          </div>
-    </article>
-</section>
-<section>
-    <h2>Line break example</h2>
-    <article>
-        <div>
-            <pre>
-In the store of gears and wheels,  
-Where metal sings and rubber squeals,  
-Engines hum, a symphony of parts,  
-In <wbr>this <wbr>automotive <wbr>mart, <wbr>where <wbr>dreams <wbr>restart.
-            </pre>
+<div class="scene">
+    <div class="box">
+        <div class="flap"></div>
+        <div class="details">
+            <div class="detail"></div>
+            <div class="detail"></div>
+            <div class="detail"></div>
         </div>
-        <div>   
-            <p>
-                In the store of gears and wheels,<br>  
-                Where metal sings and rubber squeals,<br>  
-                Engines hum, a symphony of parts,<br>  
-                In <wbr>this <wbr>automotive <wbr>mart, <wbr>where <wbr>dreams <wbr>restart.
-            </p>
-        </div>
-    </article>
-</section>
-<section>
-    <h2>Form example</h2>
-    <article>
-        <h3>Feedback Form for Auto Parts Online Store</h3>
-        <form action="/submit-feedback" method="post" enctype="multipart/form-data">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required><br><br>
-    
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br><br>
-    
-            <label for="rating">Rating:</label>
-            <select id="rating" name="rating" required>
-                <option value="">Select Rating</option>
-                <option value="5">5 - Excellent</option>
-                <option value="4">4 - Good</option>
-                <option value="3">3 - Average</option>
-                <option value="2">2 - Poor</option>
-                <option value="1">1 - Very Poor</option>
-            </select><br><br>
-    
-            <label for="comments">Comments:</label><br>
-            <textarea id="comments" name="comments" rows="4" cols="50" required></textarea><br><br>
-    
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required minlength="8"><br><br>
-    
-            <label for="newsletter">Subscribe to newsletter:</label>
-            <input type="checkbox" id="newsletter" name="newsletter"><br><br>
-    
-            <label for="reason">Reason for feedback:</label><br>
-            <input type="radio" id="product_quality" name="reason" value="product_quality">
-            <label for="product_quality">Product Quality</label><br>
-            <input type="radio" id="delivery_time" name="reason" value="delivery_time">
-            <label for="delivery_time">Delivery Time</label><br>
-            <input type="radio" id="customer_service" name="reason" value="customer_service">
-            <label for="customer_service">Customer Service</label><br><br>
-    
-            <label for="file">Upload file:</label>
-            <input type="file" id="file" name="file"><br><br>
-    
-            <input type="submit" value="Submit Feedback">
-        </form>
-    </article>
-</section>
-<section>
-    <h2>Table example</h2>
-    <article>
-        <div>
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>Header 1</th>
-                        <th>Header 2</th>
-                        <th>Header 3</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td headers="Header 1">1</td>
-                        <td headers="Header 2">Apple</td>
-                        <td rowspan="2" headers="Header 3">Merged Cell</td>
-                    </tr>
-                    <tr>
-                        <td headers="Header 1">2</td>
-                        <td headers="Header 2">Banana</td>
-                    </tr>
-                </tbody>
-            </table>
-          </div>
-    </article>
-</section>
+    </div>
+    <div class="company-name">Auto Parts Store</div>
+</div>
+
 {%endblock%}
