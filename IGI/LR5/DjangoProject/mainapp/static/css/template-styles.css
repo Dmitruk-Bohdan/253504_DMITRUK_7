@@ -44,9 +44,9 @@ body {
     padding: 0;
 }
  
-/* Шапка сайта */
+
 header {
-    background-color: #333; /* Тёмно-серый фон */
+    background-color: #333;
     color: #fff;
     padding: 0.5rem;
 }
@@ -59,7 +59,7 @@ header nav {
 nav div {
     display: flex;
     flex-direction: row;
-    padding: 0.5rem; /* Отступы внутри ячеек */
+    padding: 0.5rem; 
     gap: 2.3rem;
 }
 
@@ -76,8 +76,8 @@ nav div a:hover{
 }
 
 .logo {
-    display: flex; /* Используем flexbox для логотипа и названия */
-    align-items: center; /* Вертикальное выравнивание по центру */
+    display: flex; 
+    align-items: center; 
     font-family: 'monsterrat';
     font-size: 2.8rem;
 }
@@ -90,26 +90,26 @@ nav div a:hover{
 }
 
 .nav-link {
-    text-decoration: none; /* Убираем подчеркивание у ссылок */
-    color: #fff; /* Цвет текста (по желанию) */
+    text-decoration: none;
+    color: #fff; 
 }
 
 
 .user-photo {
-    width: 5rem; /* Ширина изображения пользователя */
+    width: 5rem; 
     height: 5rem;
-    border-radius: 50%; /* Круглая форма для фото пользователя */
+    border-radius: 50%;
 }
 
 .nav-button {
-    background-color: transparent; /* Прозрачный фон */
-    border: 2px solid white; /* Белая граница */
-    color: white; /* Белый текст */
+    background-color: transparent; 
+    border: 2px solid white; 
+    color: white; 
     padding: 0.7rem 1.3rem;
-    border-radius: 8px; /* Слегка скругленные края */
-    font-size: 1.2rem; /* Размер шрифта */
-    cursor: pointer; /* Курсор в виде руки при наведении */
-    transition: background-color 0.3s ease; /* Плавный переход цвета */
+    border-radius: 8px;
+    font-size: 1.2rem; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease;
 }
 
 .nav-button:hover {
@@ -133,7 +133,7 @@ aside {
     position: sticky;
     top: 1em;
     width: 90%;
-    background-color: #444; /* Темно-серый для боковой панели */
+    background-color: #444; 
     color: #fff;
     padding: 15px;
     border-radius: 5px;
@@ -158,14 +158,13 @@ nav a {
 
 nav a:hover {
     text-decoration: none;
-    color: #ff3333; /* Красный при наведении */
+    color: #ff3333;
 }
 
 
 section.main-content{
     width: 95%;
     margin-left: 3% ;
-    /* padding: 15px; */
     background-color: rgba(255,255,255,0.9) !important;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -216,7 +215,6 @@ footer a:hover {
     margin-bottom: 3.5rem;
 }
 
-/* Адаптивность */
 @media (max-width: 1000px) {
     main {
         flex-direction: column;

@@ -4,16 +4,73 @@
 <link rel="stylesheet" href="{% static 'css/demo.css' %} {{ now|date:'U' }}" />
 {%endblock%} 
 {% block content %}
-<div class="scene">
-    <div class="box">
-        <div class="flap"></div>
-        <div class="details">
-            <div class="detail"></div>
-            <div class="detail"></div>
-            <div class="detail"></div>
-        </div>
-    </div>
-    <div class="company-name">Auto Parts Store</div>
+
+
+<section>
+<!-- 1.	Селекторы
+•	атрибутов (начинаются с подстроки, заканчиваются подстрокой, атрибут с определенным значением), 
+•	классов, 
+•	комбинации селекторов (объединение – AND, селекторы потомков, дочерних элементов) -->
+<input type="text" placeholder="Begins with 'data'" data-info="exampleStart" />
+<input type="text" placeholder="Ends with 'info'" data-desc="textInfo" />
+<input type="text" placeholder="Contains 'part'" data-note="somePart" />
+<input type="text" placeholder="Certain value" data-value="exactMatch" />
+
+<div class="parent">
+  <p class="descendant">div descendant with 'parent' class</p>
+  <div class="child">direct child element div with class 'parent'</div>
 </div>
+</section>
+<section>
+    <!-- 1.	динамическое состояние для ссылок – различные стили для посещенных, не посещенных, для элементов в фокусе [выбранные табом]
+    2.	выделить стилями доступные, обязательные и заблокированные элементы формы,
+    3.	элементы со значениями вне диапазона, включенные флажки и переключатели
+    4.	отображение кавычек в зависимости от языка цитаты
+    5.	добавить контекст в начале и конце фрагмента текста
+    6.	медиа-запросы для отображения страниц в зависимости от ширины и высоты области отображения
+    7.	Изменять вид курсора при наведении на кнопки 
+    8.	интервал между словами
+    9.	перенос и разрыв слов -->
+
+    <h2>1. Dynamic Link States</h2>
+    <a href="#link" class="dynamic-link">Unvisited Link</a>
+    <a href="#link" class="dynamic-link">Visited Link</a>
+  
+    <h2>2. Form Field States</h2>
+    <form>
+      <input type="text" placeholder="Available field" />
+      <input type="text" placeholder="Required field" required />
+      <input type="text" placeholder="Disabled field" disabled />
+    </form>
+  
+    <h2>3. Form Elements with Specific States</h2>
+    <form>
+      <input type="number" min="1" max="10" value="15" />
+      <input type="checkbox" checked /> Checked Checkbox
+      <input type="radio" name="example" checked /> Checked Radio Button
+    </form>
+  
+    <h2>4. Quotes with Language-Dependent Styling</h2>
+    <blockquote lang="en">Quote in English</blockquote>
+    <blockquote lang="fr">Citation in French</blockquote>
+  
+    <h2>5. Text with Context Before and After</h2>
+    <p class="context">
+      <span class="before">[Start]</span>This is a sample text with context added before and after.<span class="after">[End]</span>
+    </p>
+  
+    <h2>6. Media Queries for Responsive Design</h2>
+    <div class="media-box">Responsive Block</div>
+  
+    <h2>7. Cursor Change on Buttons</h2>
+    <button class="custom-cursor">Hover over me</button>
+  
+    <h2>8. Word Spacing and Hyphenation</h2>
+    <p class="word-spacing">This is an example of text with custom word spacing.</p>
+    <p class="hyphenation">This is a longwordthatmayneedhyphenationforsmallscreens.</p>  
+</section>
+<section>
+    
+</section>
 
 {%endblock%}
