@@ -1,17 +1,24 @@
-/* Селекторы атрибутов */
-input[data-info^="example"] {
+@import url('https://fonts.googleapis.com/css2?family=Dekko&display=swap');
+
+
+p {
+  font-family: 'Dekko', 'Comic Sans', cursive, sans-serif;
+}
+
+
+input.selectorex[data-info^="example"] {
     background-color: #e0f7fa;
 }
 
-input[data-desc$="info"] {
+input.selectorex[data-desc$="info"] {
     background-color: #ffe0b2;
 }
 
-input[data-note*="part"] {
+input.selectorex[data-note*="part"] {
     background-color: #d1c4e9;
 }
 
-input[data-value="exactMatch"] {
+input.selectorex[data-value="exactMatch"] {
     background-color: #c8e6c9;
 }
 
@@ -21,7 +28,11 @@ input[data-value="exactMatch"] {
     background-color: #f1f8e9;
 }
 
-.parent .descendant {
+#frst, #scnd{
+  text-decoration: underline;
+}
+
+.parent {
     color: #1e88e5;
     font-style: italic;
 }
@@ -47,6 +58,28 @@ h2 {
     outline: 2px solid black;
   }
   
+  .dynamic-link:hover{
+    color: red;
+  }
+  
+  ul{
+    list-style-type: lower-greek;
+    li:first-child {
+      color: #1e88e5;
+    }
+    li:last-child {
+      color: #4caf50;
+    }
+    li:nth-child(2) {
+      color: pink;
+    }
+    li:nth-last-child(3) {
+      color: aquamarine;
+    }
+    li:nth-child(3n){
+      color: blueviolet;
+    }
+  }
   /* 2. Form field states */
   input:enabled {
     background-color: #e0f7fa;
@@ -83,11 +116,14 @@ h2 {
   }
   
   /* 5. Context added before and after text */
-  .context .before {
+  .context::before {
+    content: "[Start]"; /* Текст, добавляемый перед содержимым */
     font-weight: bold;
     color: gray;
   }
-  .context .after {
+  
+  .context::after {
+    content: "[End]"; /* Текст, добавляемый после содержимого */
     font-weight: bold;
     color: gray;
   }
@@ -108,34 +144,50 @@ h2 {
   
   /* 7. Custom cursor */
   button.custom-cursor:hover {
-    cursor: pointer;
+    cursor: url('../pointer/ut_heart_normal.cur'), auto;
   }
   
   /* 8. Word spacing and hyphenation */
-  .word-spacing {
-    word-spacing: 0.3em;
-  }
-  .hyphenation {
-    hyphens: auto;
-    width: 200px;
-    border: 1px solid #ccc;
+  .line-height{
+    line-height: 1.5;
   }
 
-  /* Section Styling */
+
+
+  .word-spacing {
+    word-spacing: 0.5em;
+    
+    font-variant-caps: small-caps
+  }
+  .hyphenation {
+    hyphens:auto;
+    width: 200px;
+    border: 1px solid #ccc;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .multi-column {
+    columns: 3;
+    column-gap: 20px;
+    p {
+      margin:0
+    }
+  }
+  
 .table-demo-section {
   margin: 20px;
   padding: 20px;
   border: 2px solid #ccc;
   border-radius: 8px;
-  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Webkit (Chrome, Safari) */
-  -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Mozilla (Firefox) */
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Standard */
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+  -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
 }
 
-/* Table Styling */
 .styled-table {
   width: 100%;
-  border-collapse: collapse; /* Remove double lines */
+  border-collapse: collapse; /*убрать границы*/
 }
 
 .styled-table caption {
@@ -145,33 +197,33 @@ h2 {
   font-size: 1.2rem;
 }
 
-.styled-table th,
-
-
-/* Style for table rows and columns */
-.styled-table thead {
+.styled-table th{
   background-color: #f4f4f4;
   font-weight: bold;
 }
 
+.styled-table td{
+  text-align: center; /* Горизонтальное выравнивание */
+  vertical-align: middle; 
+}
+
 .styled-table tbody tr:nth-child(even) {
-  background-color: #f9f9f9; /* Styling alternate rows */
+  background-color: #00ff4c70; 
 }
 
 .styled-table tbody td:nth-child(3) {
-  font-style: italic; /* Styling specific column */
+  font-style: italic; 
 }
 
 .styled-table tbody td:empty {
-  background-color: #ffe6e6; /* Background color for empty cells */
+  background-color: #ffe6e6;
 }
 
-/* Adding hover effect with vendor prefixes */
 .styled-table tbody tr:hover {
   background-color: #e0f7fa;
-  -webkit-transition: background-color 0.3s; /* Webkit */
-  -moz-transition: background-color 0.3s; /* Mozilla */
-  transition: background-color 0.3s; /* Standard */
+  -webkit-transition: background-color 0.3s;
+  -moz-transition: background-color 0.3s; 
+  transition: background-color 0.3s; 
 }
 
   

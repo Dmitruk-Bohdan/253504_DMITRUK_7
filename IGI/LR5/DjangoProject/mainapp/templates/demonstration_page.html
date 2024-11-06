@@ -7,14 +7,18 @@
 
 
 <section>
-<!-- 1.	Селекторы
-•	атрибутов (начинаются с подстроки, заканчиваются подстрокой, атрибут с определенным значением), 
-•	классов, 
-•	комбинации селекторов (объединение – AND, селекторы потомков, дочерних элементов) -->
-<input type="text" placeholder="Begins with 'data'" data-info="exampleStart" />
-<input type="text" placeholder="Ends with 'info'" data-desc="textInfo" />
-<input type="text" placeholder="Contains 'part'" data-note="somePart" />
-<input type="text" placeholder="Certain value" data-value="exactMatch" />
+
+<input type="text" placeholder="Begins with 'data'" data-info="exampleStart" class="selectorex"/>
+<input type="text" placeholder="Ends with 'info'" data-desc="text-info" class="selectorex"/>
+<input type="text" placeholder="Contains 'part'" data-note="some_part" class="selectorex"/>
+<input type="text" placeholder="Certain value" data-value="exactMatch" class="selectorex"/>
+
+<p id="frst">
+  first text
+</p>
+<p id="scnd">
+  second text
+</p>
 
 <div class="parent">
   <p class="descendant">div descendant with 'parent' class</p>
@@ -22,19 +26,23 @@
 </div>
 </section>
 <section>
-    <!-- 1.	динамическое состояние для ссылок – различные стили для посещенных, не посещенных, для элементов в фокусе [выбранные табом]
-    2.	выделить стилями доступные, обязательные и заблокированные элементы формы,
-    3.	элементы со значениями вне диапазона, включенные флажки и переключатели
-    4.	отображение кавычек в зависимости от языка цитаты
-    5.	добавить контекст в начале и конце фрагмента текста
-    6.	медиа-запросы для отображения страниц в зависимости от ширины и высоты области отображения
-    7.	Изменять вид курсора при наведении на кнопки 
-    8.	интервал между словами
-    9.	перенос и разрыв слов -->
 
     <h2>1. Dynamic Link States</h2>
-    <a href="#link" class="dynamic-link">Unvisited Link</a>
-    <a href="#link" class="dynamic-link">Visited Link</a>
+    <a href="#link1" class="dynamic-link">Unvisited Link</a>
+    <a href="#link2" class="dynamic-link">Visited Link</a>
+
+    <ul>
+      <li>Первый элемент</li>
+      <li>Второй элемент</li>
+      <li>Третий элемент</li>
+      <li>Четвёртый элемент</li>
+      <li>Пятый элемент</li>
+      <li>Шестой элемент</li>
+      <li>Седьмой элемент</li>
+      <li>Восьмой элемент</li>
+      <li>Девятый элемент</li>
+      <li>Десятый элемент</li>      
+    </ul>
   
     <h2>2. Form Field States</h2>
     <form>
@@ -47,7 +55,7 @@
     <form>
       <input type="number" min="1" max="10" value="15" />
       <input type="checkbox" checked /> Checked Checkbox
-      <input type="radio" name="example" checked /> Checked Radio Button
+      <input type="radio" name="example"/> Checked Radio Button
     </form>
   
     <h2>4. Quotes with Language-Dependent Styling</h2>
@@ -56,7 +64,7 @@
   
     <h2>5. Text with Context Before and After</h2>
     <p class="context">
-      <span class="before">[Start]</span>This is a sample text with context added before and after.<span class="after">[End]</span>
+      This is a sample text with context added before and after.
     </p>
   
     <h2>6. Media Queries for Responsive Design</h2>
@@ -66,11 +74,21 @@
     <button class="custom-cursor">Hover over me</button>
   
     <h2>8. Word Spacing and Hyphenation</h2>
+    <p class="line-height">How did Comic Sans come into existence? 1995 saw the release of Microsoft Bob, software that acted as a user-friendly interface to introduce younger users to the Microsoft operating systems of the time. The virtual guide for using the OS was a dog named Rover, who gave advice via dismissable speech bubbles, just like Microsoft’s anthropomorphic paper clip — remember him?Well, Connare was surprised to see that in beta versions of Microsoft Bob, Rover ‘talked’ in the formal Times New Roman: “I thought, ‘That’s silly. Dogs don’t talk like that.’ So I said it would look better if it looked like a comic book.Drawing on the lettering style of comic books including The Dark Knight and Watchmen, Connare drafted a typeface without anti-aliasing for PC screens. It had personality, unusual letter spacing and unequal visual weight. And it communicated a playful, friendly and informal aspect to whatever Rover explained to you.</p>
     <p class="word-spacing">This is an example of text with custom word spacing.</p>
-    <p class="hyphenation">This is a longwordthatmayneedhyphenationforsmallscreens.</p>  
-</section>
+    <p class="hyphenation" lang="de">Dies ist ein sehrlangeswortdasaufeinmalaufgeteiltwerdenkann.</p>
+    
+    <h2>Multi-column</h2>
+    <div class="multi-column">
+      <p>Content goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <p>More content. Vestibulum ac diam sit amet quam vehicula elementum. Duis at consectetur lorem donec massa sapien faucibus et molestie ac feugiat.</p>
+      <p>More content. Etiam erat velit scelerisque in dictum non consectetur a erat. At elementum eu facilisis sed. Nulla at volutpat diam ut venenatis tellus in.</p>
+    </div>
+
+  </section>
+
+<h2>Table and Vendor Prefix</h2>
 <section class="table-demo-section">
-  <h2>Table and Vendor Prefix</h2>
   <table class="styled-table">
     <caption>Sales Report</caption>
     <thead>
