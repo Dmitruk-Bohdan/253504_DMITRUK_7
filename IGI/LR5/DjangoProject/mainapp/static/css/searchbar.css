@@ -1,0 +1,70 @@
+.search-bar {
+    background-image: url('../images/search-bar-bachground.png');
+    background-size: cover;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #fff;
+}
+
+.search-bar h1 {
+    font-size: 3rem;
+    margin-bottom: 1.8rem;
+    margin-top: 1.2rem;
+    font-family: 'monsterrat';
+}
+
+.search-bar form {
+    font-family: 'euclid';
+    font-size: 1.5rem;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    align-items: center;
+}
+
+.search-bar input[type="text"],
+.search-bar button {
+    font-family: 'euclid';
+    padding: 0.8rem;
+    border: none;
+    font-size: 1rem;
+}
+
+.search-bar input[type="text"] {
+    width: 20rem;
+    height: 1rem;
+    border-radius: 5px;
+    margin-left: 1rem;
+}
+
+.search-bar button {
+    font-size: 1.25rem;
+    background-color: transparent;
+    border: 2px solid white;
+    padding: 0.7rem 1.3rem;
+    transition: background-color 0.3s ease; 
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.search-bar button:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 2px solid white;
+}
+
+.search-bar input[type="checkbox"]
+{
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.search-bar select
+{
+    width: 10rem;
+    height: 1.7rem;
+    font-family: 'euclid';
+    font-size: 1rem;
+    margin: 0.3rem;
+}

@@ -1,0 +1,279 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Examples of HTML Tags{% endblock title %}
+{% block header %}Examples of HTML Tags{% endblock header %}
+
+{% block content %}
+    <h1>Examples of HTML Tags</h1>
+    <nav>
+        <ul>
+            <li><a href="#section1">Go to Section 1</a></li>
+            <li><a href="#section2">Go to Section 2</a></li>
+        </ul>
+    </nav>
+
+    <section>
+        <h2>Text Formatting Examples</h2>
+        <p translate="yes">This is an example of <b>bold text</b> using the <code>&lt;b&gt;</code> tag.</p>
+        <p>This text is <em>emphasized</em> using the <code>&lt;em&gt;</code> tag.</p>
+        <p>This text is <i>italicized</i> using the <code>&lt;i&gt;</code> tag.</p>
+        <p>This text is <s>strikethrough</s> using the <code>&lt;s&gt;</code> tag.</p>
+        <p>This text is <strong>strongly emphasized</strong> using the <code>&lt;strong&gt;</code> tag.</p>
+        <p dir="rtl">This text is <u>underlined</u> using the <code>&lt;u&gt;</code> tag.</p>
+        <p contenteditable="true">This is <small>small text</small> using the <code>&lt;small&gt;</code> tag.</p>
+        <p spellcheck="true">This is H<sub>2</sub>O, where the <sub>subscript</sub> is used for chemical formulas.</p>
+        <p>This is 5<sup>2</sup>, which demonstrates <sup>superscript</sup> usage.</p>
+    </section>
+
+    <section>
+        <h2>Example of Listing:</h2>
+        <pre><code>var fruits = ["apples", "oranges", "mangoes", "cherries"];
+document.writeln("I like " + fruits.length + " fruits");</code></pre>
+        <p>The variable in this example is <var>fruits</var></p>
+        <p>The output from the code is: <samp>I like 4 fruits</samp></p>
+        <p>When prompted for my favorite fruit, I typed: <kbd>cherries</kbd></p>
+    </section>
+
+    <section id="section1">
+        <h2>Section 1</h2>
+        <p>Here is an <abbr title="Hypertext Markup Language">HTML</abbr> abbreviation.</p>
+        <p>Here is a <dfn>definition</dfn> for a term.</p>
+        <p>She said, <q cite="https://en.wikipedia.org/wiki/The_Great_Gatsby">This is a quoted text.</q></p>
+        <p><cite>The Great Gatsby</cite> is a novel written by F. Scott Fitzgerald.</p>
+        <p>Event date: <time datetime="2024-09-30">September 30, 2024</time></p>
+        <p>Text with a <mark>highlighted section</mark> to emphasize important information.</p>
+        <p>The sun shone bright and clear.<br>
+            It was a beautiful day to explore the city.<br>
+            As I walked through the park,<br>
+            I felt a gentle breeze in my hair.</p>
+        <p>In the world of chemistry, we often encounter:<br>
+            phenylalanine<wbr>acetyl<wbr>methionine<wbr>and<wbr>tryptophan.</p>
+
+        <a href="../media/images/logo.png" download>Download Sample Image</a>
+    </section>
+
+    <nav>
+        <h2>Navigation</h2>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About company</a></li>
+            <li><a href="{% url 'news' %}">News</a></li>
+        </ul>
+    </nav>
+
+    <section id="section2">
+        <h2>Section 2</h2>
+        <pre>
+function f(x) {
+    if (x > 0)
+        alert(x);
+}
+        </pre>
+        <blockquote cite="http://en.wikipedia.org/wiki/Apple">
+            The apple forms a tree that is small and deciduous, reaching 3 to 12 meters (9.8 to 39 ft) tall, with a broad, often densely twiggy crown.
+        </blockquote>
+    </section>
+
+    <section>
+        <h2>Ordered and Unordered Lists</h2>
+        <ol type="1" start="-10">
+            <li>Son</li>
+            <li>Daughter</li>
+            <li>Mother</li>
+            <li>Father</li>
+        </ol>
+        <ol type="A">
+            <li>Cat</li>
+            <li>Dog</li>
+            <li>Monkey</li>
+            <li>Bird</li>
+        </ol>
+        <ul type="square">
+            <li>One</li>
+            <li type="circle">Two</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Definition List</h2>
+        <dl>
+            <dt>HTML-документ</dt>
+            <dd>Обычный текстовый файл, который может содержать...</dd>
+            <dt>Сайт</dt>
+            <dd>Cайт — это набор отдельных веб-страниц, которые связаны между собой ссылками и единым оформлением.</dd>
+        </dl>
+    </section>
+
+    <section>
+        <h2>Code Example</h2>
+        <figure>
+            <figcaption>Listing 23. Using the code element</figcaption>
+            <pre><code>var fruits = ["apples", "oranges", "mangoes", "cherries"];
+document.writeln("I like " + fruits.length + " fruits");</code></pre>
+        </figure>
+    </section>
+
+    <section>
+        <h2>Table Example</h2>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th id="name">Name</th>
+                        <th id="surname">Amount</th>
+                        <th  id="work_period">Work period</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td headers="name">Kirill</td>
+                        <td headers="surname">Girel</td>
+                        <td rowspan="2" headers="work_period">5</td>
+                    </tr>
+                    <tr>
+                        <td headers="name">Valera</td>
+                        <td headers="surname">Novikov</td>
+                    </tr>
+                    <tr>
+                        <td headers="name">Dima</td>
+                        <td headers="surname">Davydovskiy</td>
+                        <td headers="work_period">1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section>
+        <h2>Form example</h2>
+        <form action="http://example.com/app/profile.php" method="post" name="main" novalidate autocomplete="on" target="_blank">>
+          Имя:
+          <input type="text" name="username"><br>
+          Адрес эл. почты:
+          <input type="text" disabled name="email"><br>
+          Пол:<br>
+          <input type="radio" checked name="sex" value="male">мужской<br>
+          <input type="radio" name="sex" value="female">женский<br>
+        
+          <input type="submit" value="Отправить">
+          <input type="reset" value="Очистить">
+        </form>
+    </section>
+    <section>
+        <form action="http://server.com" method="post">
+            Login:
+            <input type="text" name="login"
+                   size="10" autocomplete="on">
+            <br>
+            Password:
+            <input type="password" name="pass"
+                   maxlength="8">
+            <br><br>
+            <input type="submit" value="Log in">
+        </form>
+    </section>
+    <section>
+        <form action="http://server.com" method="post" 
+          enctype="multipart/form-data"
+          accept="image/jpeg,image/png,image/gif" >
+    
+            Select file:<br><br>
+            <input type="file" name="fileinput">
+            <br><br>
+            <input type="submit" value="Send!">
+        </form>
+    </section>
+    <section>
+    <form action="http://server.com" method="post">
+        Click on the image to send:
+        <br><br>
+        <input type="image" name="img" src="../media/images/logo.png" title="Our logo"
+               width="200">
+    </form>
+    </section>
+    <section>
+        <h2>Text area</h2>
+        <form action="http://server.com" method="post">
+       <textarea name="desc" cols="45" rows="10"
+                 placeholder="Input description"
+                 required maxlength="450"></textarea>
+       <br><br>
+       <input type="submit" value="Send!">
+     </form>
+    </section>
+    <section>
+        <h2>Drop-down list</h2>
+        <form action="http://server.com" method="post">
+         <select size="4" name="s1">
+           <option disabled>Choose a hero:</option>
+           <option value="iron">Iron Man</option>
+           <option selected value="captain">Captain America</option>
+           <option value="thor">Thor</option>
+         </select>
+         <br>
+         <select size="1" name="s2">
+           <option disabled>Choose a hero:</option>
+           <option value="iron">Iron Man</option>
+           <option selected value="captain">Captain America</option>
+           <option value="thor">Thor</option>
+         </select>
+         <br>
+         <input type="submit" value="Send!">
+        </form>
+    </section>
+    <section>
+        <h2>Optgroup</h2>
+        <select size="7" name="list">
+      <option value="v1">Not in group</option>
+      <optgroup label="Group 1">
+        <option value="v2">Item G1-1</option>
+        <option value="v3">Item G1-2</option>
+      </optgroup>
+      <optgroup label="Group 2">
+        <option value="v4">Item G2-1</option>
+        <option value="v5">Item G2-2</option>
+      </optgroup>
+    </select>
+    </section>
+    <section>
+      <ul>
+        <li>
+          <a href="https://www.wikiwand.com/ru/HTML" target="fr">HTML</a>
+        </li>
+        <li>
+          <a href="https://www.wikiwand.com/ru/HTML5" target="fr">HTML5</a>
+        </li>
+      </ul>
+      <iframe name="fr" width="400" height="150">Old browser</iframe>
+    </section>
+    <section>
+        <audio controls>
+        <source src={% static 'amogus.mp3' %}/>
+        Audio content cannot be played
+        </audio>
+    </section>
+    <section>
+        <div itemscope itemtype="https://schema.org/Person">
+          <span itemprop="name">Kirill Girel</span>
+          <img src="../media/images/Girel.png" height="100px" alt="John" itemprop="image">
+          <span itemprop="jobTitle">Agent</span>
+          <span itemprop="telephone">+375(29)5219865</span>
+          <a href="mailto:kirill@example.com" itemprop="email">Email Kirill</a>
+        </div>
+    <hr>
+    </section>
+    <section>
+        <details>
+          <summary>Kinds of Triathlon</summary>
+          There are different kinds of triathlon - sprint, Olympic and so on. I am aiming for Olympic, which consists of the following:
+          <ol>
+            <li>1.5km swim</li>
+            <li>40km cycle</li>
+            <li>10km run</li>
+          </ol>
+        </details>
+    </section>
+
+
+    
+
+{% endblock %}

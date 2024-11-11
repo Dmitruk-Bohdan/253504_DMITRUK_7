@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% block title %}<title>Auto Shop</title>{% endblock %}
+    <meta charset="utf-8" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    {%block extraheader%}{%endblock%}
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/template-styles.css' %}"/>
+  </head>
+  <body>
+    <header>
+      <nav>
+          <div class="logo">
+            <a href="{% url 'index' %}">
+              <img id="logo" src="{% static 'images/shop-logo.png' %}" alt="Photo">
+            </a>
+            <a href="{% url 'index' %}" class="nav-link">
+              AutoShop.by
+            </a>
+          </div>
+          <div class="user">
+            {% if user.is_authenticated %}
+              <img src="{{ user.profile.photo.url }}" alt="User Photo" class="user-photo nav-item">
+              <a href="{% url 'profile' %}" class="nav-link nav-item">{{ user.get_username }}</a>
+              <form action="{% url 'logout' %}" method="post" class="logout-form nav-item">
+                {% csrf_token %}
+                <button type="submit" class="nav-button nav-item">Logout</button>
+              </form>
+            {% else %}
+              <a href="{% url 'login'%}?next={{request.path}}" class="nav-link nav-item" class="nav-button">Login</a>
+            {% endif %}
+            </div>
+      </table>
+    </header> 
+    <main>
+
+      <div class="content">
+        <aside>
+          <nav>
+              {% block sidebar %}
+              <ul>
+                <li><a href="{% url 'demo' %}">DemoPage</a></li>
+                <li><a href="{% url 'products' %}">Catalog</a></li>
+                <li><a href="{% url 'about_us'%}">About us</a></li>
+                <li><a href="{% static 'docs/autoshop-privacy-policy.pdf' %}" download>Privacy policy</a></li>
+                {% if user.is_authenticated %}
+                  <li><a href="{% url 'orders'%}">Cart</a></li>
+                  <li><a href="{% url 'pickup_points'%}">Pickup points</a></li>
+                  <li><a href="{% url 'promocodes'%}">Promocodes</a></li>
+                  <li><a href="{% url 'faqs'%}">FAQ</a></li>
+                  <li><a href="{% url 'news_articles'%}">News</a></li>
+                  <li><a href="{% url 'reviews'%}">Reviews</a></li>
+                  <li><a href="{% url 'vacancies'%}">Vacancies</a></li>
+                  <li><a href="{% url 'employees'%}">Employees</a></li>
+                {% endif %}
+                {% if user.is_staff %}
+                  <li><a href="{% url 'manufacturers'%}">Manufacturers</a></li>
+                  <li><a href="{% url 'suppliers'%}">Suppliers</a></li>
+                  <li><a href="{% url 'categories'%}">Categories</a></li>
+                {% endif %}
+                
+              </ul>
+            {% endblock %}
+          </nav>
+        </aside>
+        <section class="main-content">
+            {% block content %}
+            
+            {% endblock %}
+        </section>
+      </div>
+    </main>
+    <footer>
+      <div class="contact-info">
+          <address>
+              <strong>Office Address:</strong><br>
+              123 Auto Street,<br>
+              Car City, CA 12345, USA<br>
+          </address>
+          <article>
+              <strong>Phone Numbers:</strong><br>
+              +1 (555) 123-4567<br>
+              +1 (555) 987-6543<br>
+          </article>
+          <article>
+              <strong>Email:</strong><br>
+              <a href="mailto:info@autoshop.com">info@autoshop.com</a><br>
+          </article>
+      </div>
+      <p class="copyright">&copy; 2023 Auto Parts Store. All rights reserved.</p>
+  </footer>
+  </body>
+</html>

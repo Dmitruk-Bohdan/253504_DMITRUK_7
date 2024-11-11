@@ -1,0 +1,77 @@
+{% extends "base_generic.html" %}
+{% load static %}
+
+
+{% block title %}
+<title>Home</title>
+{% endblock %}
+
+{%block extraheader%}
+  <link rel="stylesheet" href="../static/css/index.css {{ now|date:'U' }}">
+  <meta name="description" content="Магазин автозапчастей для всех марок автомобилей. Большой выбор запчастей по доступным ценам.">
+  <meta name="keywords" content="автозапчасти, запчасти для автомобилей, автомобильные запчасти, магазин автозапчастей">
+{%endblock%}
+{% block content %}
+<section class="index-banner">
+  <img src="{% static 'images/banner.png'%}" alt="Photo"/>
+  <img src="{% static 'images/box.png'%}" alt="box" class="box">
+  <img src="{% static 'images/inst1.png'%}" alt="inst1" class="inst1"/>
+  <img src="{% static 'images/inst2.png'%}" alt="inst2" class="inst2"/>
+  <img src="{% static 'images/inst3.png'%}" alt="inst3" class="inst3"/>
+  <img src="{% static 'images/inst4.png'%}" alt="inst4" class="inst4"/>
+  <img src="{% static 'images/inst5.png'%}" alt="inst5" class="inst5"/>
+  <img src="{% static 'images/inst6.png'%}" alt="inst6" class="inst6"/>
+  <img src="{% static 'images/box-label.png'%}" alt="box-label" class="box-label"/>
+  <div class="line-container">
+    <div class="loading-line"></div>
+  </div>
+</section>
+<h1 class="welcome">Welcome to our Auto Parts Store!</h1>
+<section class="index-section welcome-message">
+  <p>We are thrilled to have you visit our online auto parts store, your one-stop destination for a wide selection of high-quality automotive components. Whether you are a professional mechanic or a DIY enthusiast, we are committed to providing you with the best products at competitive prices.</p>
+  <p>At our store, you will discover a comprehensive range of auto parts for various makes and models, including:</p>
+  <ol>
+    <li>Engine Components: From timing belts and gaskets to oil filters and spark plugs, we stock everything you need to keep your engine running smoothly.</li>
+    <li>Transmission Parts: Ensure optimal performance with our selection of clutches, torque converters, and transmission fluid.</li>
+    <li>Suspension and Steering: Explore our extensive inventory of shocks, struts, ball joints, and steering components designed to enhance your vehicle's stability and handling.</li>
+    <li>Braking Systems: Safety is paramount, which is why we offer high-quality brake pads, rotors, and calipers to keep you secure on the road.</li>
+    <li>Electrical and Lighting: Find everything from batteries and alternators to headlights and taillights, ensuring that your vehicle is always well-lit and ready</li>
+    <li>Accessories and More: Don’t miss our selection of interior and exterior accessories that add both style and functionality to your vehicle.</li>
+  </ol>
+  <h3>Why Choose Us?</h3>
+  <p>We pride ourselves on offering exceptional customer service and expert guidance. Our knowledgeable staff is available to assist you in finding the right parts for your specific vehicle needs. We understand the importance of quality and reliability, which is why we only partner with trusted manufacturers to ensure that every product meets our rigorous standards.</p>
+  <h3>Special Offers and Promotions</h3>
+  <p>Be sure to check our website regularly for special offers and promotions! We frequently run discounts on a variety of products, helping you save even more on your automotive needs. Sign up for our newsletter to stay informed about the latest arrivals, exclusive deals, and tips for maintaining your vehicle.</p>
+  <h3>Fast and Reliable Shipping</h3>
+  <p>We offer fast and reliable shipping options to get your parts to you as quickly as possible. Enjoy peace of mind knowing that your order will be processed promptly, and you can track your shipment every step of the way.</p>
+  <h3>Customer Satisfaction Guaranteed</h3>
+  <p>Your satisfaction is our top priority. If you have any questions or concerns about your order, our customer service team is here to help. We are dedicated to ensuring that your shopping experience is smooth and enjoyable.</p>
+</section>
+<section class="last-news-section index-section ">
+  <h4 class="index-subheader">{{ latest_article.title }}</h4>
+  <img src="{{ latest_article.photo.url}}" alt="here must be photo"/>
+  <p>{{ latest_article.text|truncatechars:300 }}</p>
+  <a href="{{ latest_article.get_absolute_url}}">Read source</a>
+</section>
+
+<section class="index-section partner-container">
+  <h4 class="index-subheader">Our partners</h4>
+  <div class="partner-container-body">
+    {% if partners %}
+      {% for partner in partners %}
+      <a href="{{partner.website}}" class="partner-card">
+        <img src="{{partner.image.url}}" class="partner-img" alt="..."/>
+        <h5 class="partner-card-title">{{partner.name}}</h5>
+      </a>
+      {% endfor %}
+    {% else %}
+      <p>No partners</p>
+    {% endif %}
+  </div>
+</section>
+
+<section>
+  <div class="loader"></div>
+</section>
+{%endblock%}
+

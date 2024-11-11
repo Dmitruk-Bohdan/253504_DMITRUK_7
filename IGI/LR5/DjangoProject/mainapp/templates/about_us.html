@@ -1,0 +1,79 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{%block extraheader%}
+<link rel="stylesheet" href="{% static 'css/about.css' %} {{ now|date:'U' }}" />
+<link rel="stylesheet" href="{% static 'css/certificate.css' %} {{ now|date:'U' }}" />
+{%endblock%} 
+{% block content %}
+<h1>About Us</h1>
+<section class="about-navigation">
+  <div class="about-links">
+    <ul>
+      <li><em><a href="#section1">General Info</a></em></li>
+      <li><em><a href="#section2">Our Story</a></em></li>
+      <li><em><a href="#section3">History by Years</a></em></li>
+      <li><em><a href="#section4">Company Credentials</a></em></li>
+      <li><em><a href="#section5">Our Certification</a></em></li>
+    </ul>
+  </div>
+</section>
+
+<section class="about-section" id="section1">
+  <h2>General Info</h2>
+  {% if about_articles %}
+    {% for about_article in about_articles %}
+      <article class="about-article {% cycle 'odd' 'even' %}">
+        <h4 class="about-title">{{ about_article.title }}</h4>
+        <img src="{{ about_article.photo.url }}" alt="Photo" class="about-image">
+        <p class="about-text">{{ about_article.text }}</p>
+        <p class="about-date">{{ about_article.created_at }}</p>
+      </article>
+    {% endfor %}
+  {% else %}
+    <p>There is no information available.</p>
+  {% endif %}
+</section>
+
+
+<section class="about-section" id="section2">
+  <h2>Our Story</h2>
+  <iframe class="about-video" src="https://www.youtube.com/embed/rU79a0xkfYg" frameborder="0" allowfullscreen></iframe>
+</section>
+
+<section class="about-section" id="section3">
+  <h2>History by Years</h2>
+  <ul class="about-history">
+    <li><strong>2010:</strong> Company founded.</li>
+    <li><strong>2015:</strong> Launched our first online store.</li>
+    <li><strong>2020:</strong> Expanded product range and services.</li>
+    <li><strong>2023:</strong> Reached 1 million customers.</li>
+  </ul>
+</section>
+
+<section class="about-section" id="section4">
+  <h2>Company Credentials</h2>
+  <p class="subheader">Our company is registered and certified to ensure the highest quality of service</p>
+  <address class="company-info">
+    <strong>Name:</strong> Auto Parts Store Inc.<br>
+    <strong>Address:</strong> 123 Auto St, Car City, CA 12345<br>
+    <strong>Email:</strong> info@autopartsstore.com<br>
+    <strong>Phone:</strong> +1 (555) 123-4567
+  </address>
+</section>
+
+<section class="about-section" id="section5">
+  <h2>Our Certification</h2>
+  <div class="certificate-body">
+    <img src="{% static 'images/certificate-background-background.png'%}" class="certificate-background-image"/>
+    <h1>CERTIFICATE</h1>
+    <h2>The best company in the world</h2>
+    <h3>Issued by an international certification center for the world's coolest companies</h3>
+    <h4>10.09.2004</h4>
+    <div class="certificate-signature">
+      <p>F.Right</p>
+      <img src="{% static 'images/signature.png' %}" alt="signature">
+    </div>
+  </div>
+</section>
+
+{% endblock %}

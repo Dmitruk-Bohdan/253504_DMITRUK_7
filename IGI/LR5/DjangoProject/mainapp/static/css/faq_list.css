@@ -1,0 +1,55 @@
+.faq-card-container {
+    margin: 1rem;
+    padding: 20px;
+    color: #333;
+    background: url('../images/faq-background.png');
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-bottom: 2rem
+}
+
+.faq-card {
+    background-color: #333;
+    margin: 1rem;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid #555;
+}
+
+details {
+    padding: 10px 20px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: #555;
+}
+
+details[open] {
+    background-color: #333;
+}
+
+details summary {
+    font-family: 'monsterrat';
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+details[open] summary{
+    color: #ff3333;
+}
+
+details summary::marker {
+    content: none;
+}
+
+details summary:hover {
+    color: #ff5555;
+    text-decoration: underline;
+}

@@ -1,0 +1,32 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Product: {{ product.name }}</h1>
+  <p><strong>Unit price: {{ product.price_per_unit}}</strong>
+    <p><strong>Total price: <span id="totalPrice">{{ product.price_per_unit }}</span></strong></p>
+  <form method="POST">
+    {% csrf_token %}
+    
+    {{ form.as_p }}
+    
+    <button type="submit">Confirm</button>
+  </form>
+  {% if message %}
+    <p><strong>{{ message}}</strong>
+  {% endif %}
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var quantityInput = document.getElementById('id_quantity');
+      var totalPriceElement = document.getElementById('totalPrice');
+      var unitPrice = parseInt('{{ product.price_per_unit }}');
+
+      quantityInput.addEventListener('input', function() {
+        var quantity = parseInt(quantityInput.value);
+        var totalPrice = quantity * unitPrice;
+        totalPriceElement.innerHTML = totalPrice.toString();
+      });
+    });
+  </script>
+
+{% endblock %}
