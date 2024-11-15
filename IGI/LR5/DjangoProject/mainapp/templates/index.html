@@ -8,10 +8,23 @@
 
 {%block extraheader%}
   <link rel="stylesheet" href="../static/css/index.css {{ now|date:'U' }}">
+  <script src="../static/scripts/slider.js"></script>
+  <link rel="stylesheet" href="../static/css/slider.css">
   <meta name="description" content="Магазин автозапчастей для всех марок автомобилей. Большой выбор запчастей по доступным ценам.">
   <meta name="keywords" content="автозапчасти, запчасти для автомобилей, автомобильные запчасти, магазин автозапчастей">
 {%endblock%}
 {% block content %}
+<section>
+  <div class="slider-container">
+    <div class="slider">
+      <img src="../static/images/slider-img1.jpg" width="600" height="400" alt="Белый пушистый кот">
+      <img src="../static/images/slider-img2.jpg" width="600" height="400" alt="Рыжий пушистый кот">
+      <img src="../static/images/slider-img3.jpg" width="600" height="400" alt="Рыжий пушистый кот с белой грудкой">
+    </div>
+    <button class="prev-button" type="button" aria-label="Посмотреть предыдущий слайд">&lt;</button>
+    <button class="next-button" type="button" aria-label="Посмотреть следующий слайд">&gt;</button>
+  </div>
+</section>
 <section class="index-banner">
   <img src="{% static 'images/banner.png'%}" alt="Photo"/>
   <img src="{% static 'images/box.png'%}" alt="box" class="box">
