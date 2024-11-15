@@ -1,0 +1,62 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{%block extraheader%}
+  <link rel="stylesheet" href="{% static 'css/promocodes.css' %} {{ now|date:'U' }}"/>
+  <link rel="stylesheet" href="{% static 'css/searchbar.css' %} {{ now|date:'U' }}"/>
+{%endblock%} 
+{% block content %}
+    <section class="search-bar">
+      <h1>
+        Promocodes
+      </h1>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+      <button type="submit" class="nav-button">Search</button>
+      </form>
+    </section>
+    <section class="promo-container">
+      <div class="promo-container-header">
+        <h4 class="subheader">Current promocodes: </h3>
+      </div>
+      <div class="promo-container-body">
+        {% if  valid_promocodes%}
+          {% for promo in valid_promocodes %}
+          <div class="promo-card">
+            <div class="promo-card-header">
+              <p class="promo-card-title"><strong>{{promo.code}}</strong></p>
+            </div>
+            <div class="promo-card-body">
+              <p class="promo-card-text"><strong>Discount: </strong> {{promo.discount}}</p>
+              <p class="promo-card-text"><strong>Expiration date</strong> {{promo.expiration_date}}</p>
+              <p class="promo-card-text"><strong></strong> {{promo.created_at}}</p>
+            </div>
+          </div>
+          {% endfor %}
+        {% else %}
+        <p>There are no valid promocodes.</p>
+        {% endif %}
+    </section>
+    <section class="promo-container">
+      <div class="promo-container-header">
+        <h4 class="class="subheader>Promo code archive : </h4>
+      </div>
+      <div class="promo-container-body">
+        {% if  invalid_promocodes%}
+          {% for promo in invalid_promocodes %}
+          <div class="promo-card">
+            <div class="promo-card-header">
+              <p class="promo-card-title"><strong>{{promo.code}}</strong></p>
+            </div>
+            <div class="promo-card-body">
+              <p class="promo-card-text"><strong>Discount: </strong> {{promo.discount}}</p>
+              <p class="promo-card-text"><strong>Expiration date</strong> {{promo.expiration_date}}</p>
+              <p class="promo-card-text"><strong></strong> {{promo.created_at}}</p>
+            </div>
+          </div>
+          {% endfor %}
+        {% else %}
+        <p>There are no valid promocodes.</p>
+        {% endif %}
+    </section>
+{% endblock %}

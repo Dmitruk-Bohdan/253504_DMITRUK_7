@@ -1,0 +1,41 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{%block extraheader%}
+  <link rel="stylesheet" href="{% static 'css/product_list.css' %} {{ now|date:'U' }}"/>
+{%endblock%} 
+{% block content %}
+  <section class="search-bar">
+    <h1>
+      Catalogue
+    </h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="nav-button">Search</button>
+    </form>
+  </section>
+  <section class="product-container">
+    <div class="product-container-body">
+      {% if products %}
+        {% for product in products %}
+          <div itemscope itemtype="https://schema.org/Product">
+            <div class="product-card">
+              <a href="{{product.get_absolute_url}}">
+                <div class="product-card-image-container">
+                  <img itemprop="image" src="{{product.image.url}}" class="product-img" alt="..."/>
+                </div>
+
+                <h5  itemprop="name" class="product-card-title">{{product.name}}</h5>
+
+                <div class="product-card-body">
+                  <p itemprop="description" class="product-card-text">{{product.description}}</p>
+                </div>
+              </a>
+            </div>
+          </div>  
+        {% endfor %}
+      {% else %}
+        <p>No products</p>
+      {% endif %}
+  </section>
+{% endblock %}

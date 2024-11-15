@@ -1,0 +1,232 @@
+/* Основные стили для всего сайта */
+@font-face {
+    font-family: 'monsterrat'; /* Укажите имя шрифта */
+    src: url('../fonts/Montserrat-SemiBold.ttf') format('truetype');
+    font-weight: normal; /* Укажите начертание */
+    font-style: normal; /* Укажите стиль */
+}
+
+@font-face {
+    font-family: 'rubik';
+    src: url('../fonts/rubik.ttf') format(truetype);
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'euclid'; /* Укажите имя шрифта */
+    src: url('../fonts/euclid-circular-a-regular.ttf') format('truetype');
+    font-weight: normal; /* Укажите начертание */
+    font-style: normal; /* Укажите стиль */
+}
+
+@font-face {
+    font-family: 'open-sans'; /* Укажите имя шрифта */
+    src: url('../fonts/OpenSans.ttf') format('truetype');
+    font-weight: normal; /* Укажите начертание */
+    font-style: normal; /* Укажите стиль */
+}
+
+::selection {
+    background-color: yellow; /* Цвет фона выделенного текста */
+    color: black; /* Цвет текста выделенного текста */
+}
+
+a {
+    text-decoration: none; /* Убираем подчеркивание */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2; /* Светло-серый фон */
+    color: #333; /* Тёмно-серый текст */
+    margin: 0;
+    padding: 0;
+}
+ 
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 0.5rem;
+}
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+nav div {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5rem; 
+    gap: 2.3rem;
+}
+
+nav div a:hover{
+    color: #ff3333;
+}
+
+.nav-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-self: center;
+    font-size: 1.2rem;
+}
+
+.logo {
+    display: flex; 
+    align-items: center; 
+    font-family: 'monsterrat';
+    font-size: 2.8rem;
+}
+
+
+
+.logo img{
+    max-height: 5rem;
+    max-width: 5rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #fff; 
+}
+
+
+.user-photo {
+    width: 5rem; 
+    height: 5rem;
+    border-radius: 50%;
+}
+
+.nav-button {
+    background-color: transparent; 
+    border: 2px solid white; 
+    color: white; 
+    padding: 0.7rem 1.3rem;
+    border-radius: 8px;
+    font-size: 1.2rem; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+    border-color: #ff3333;
+    color: #ff3333;
+}
+
+
+main {
+    padding: 1.2rem;
+    background-image: url('../images/background-cut.png');
+    background-repeat: repeat;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: minmax(auto, 12rem) minmax(24rem, auto);
+}
+
+aside {
+    position: sticky;
+    top: 1em;
+    width: 90%;
+    background-color: #444; 
+    color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    font-family: 'open-sans';
+    font-size: 1.1rem;
+    height: min-content;
+}
+
+aside ul {
+    list-style: none;
+    padding: 0;
+}
+
+aside ul li {
+    margin-bottom: 10px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: none;
+    color: #ff3333;
+}
+
+
+section.main-content{
+    width: 95%;
+    margin-left: 3% ;
+    background-color: rgba(255,255,255,0.9) !important;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    color: #333;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.pagination a:hover {
+    color: #ff3333; 
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #333;
+    color: #fff;
+    padding: 2rem 2rem 0.2rem 2rem;
+    text-align: left;
+}
+
+footer address, footer article {
+    margin-bottom: 0.5rem;
+}
+
+footer a {
+    text-decoration: none;
+    color: #fff;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.contact-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 3.5rem;
+}
+
+@media (max-width: 1000px) {
+    main {
+        flex-direction: column;
+    }
+
+    aside {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    section {
+        width: 100%;
+        margin: 0;
+    }
+}

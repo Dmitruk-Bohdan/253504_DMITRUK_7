@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Review: {{ review.title }}</h1>
+
+
+  <div style="margin-left:20px;margin-top:20px">
+    <p> {{ review.text }}</p> 
+    <p><strong>Rating: </strong> {{ review.rating }}</p> 
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<section>
+  <div>
+    <h2>Title: {{ product.name }}</h2>
+  </div>
+  <div>
+    <div>
+      <img src="{{product.image.url}}" class="product-img" alt="..." style="max-width: 25%"/>
+    </div>
+    <p><strong>Article number:</strong> {{ product.article_number }}</p> <!-- author detail link not yet defined -->
+    <p><strong>Price per unit:</strong> {{ product.price_per_unit }}</p>
+    <p><strong>Category:</strong> <a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a> </p> 
+    
+    {% if user.is_staff %}
+      <p><strong>Amount:</strong> {{ product.count }}</p>
+      <p><strong>Manufacturer:</strong><a href="{{ product.manufacturer.get_absolute_url }}"> {{ product.manufacturer.name }}</a></p>
+    {% elif user.is_authenticated%}
+      <p><strong>Manufacturer:</strong> {{ product.manufacturer.name }}</p>
+    {% endif %}
+  
+    {% if user.is_staff %}
+      <p><strong>Suppliers:</strong>
+      {% for supplier in product.suppliers.all %}
+          <p><a href="{{ supplier.get_absolute_url }}">{{ supplier.name }} </a></p>
+      {% endfor %}
+      {% endif %}
+    </p>
+  
+    {% if user.is_authenticated %}
+    <p><strong>Pickup points:</strong></p>
+      {% for pickup_point in product.pickup_points.all %}
+          <p><a href="{{ pickup_point.get_absolute_url }}">{{ pickup_point.address }} </a></p>
+      {% endfor %}
+    {% endif %}
+  
+  
+    <div>
+      <h4>Description:</h4>
+      <p>{{product.description}}</p>
+    </div>
+  
+    {% if user.is_authenticated %}
+    <div>
+      <form action="{% url 'order_create' product_id=product.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Add to cart</button>
+      </form>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+
+{% endblock %}

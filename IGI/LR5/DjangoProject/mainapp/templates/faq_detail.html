@@ -1,0 +1,11 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Question: {{ faq.title }}</h1>
+
+  <p><strong>Question:</strong> {{ faq.question }}</p> 
+  <p><strong>Answer:</strong> {{ faq.text }}</p> 
+  <p><strong>{{ faq.created_at }}</strong></p> 
+
+
+{% endblock %}
