@@ -8,22 +8,24 @@
 
 {%block extraheader%}
   <link rel="stylesheet" href="../static/css/index.css {{ now|date:'U' }}">
+  <link rel="stylesheet" href="../static/css/slider.css">
+  <script src="../static/scripts/slider.js"></script>
   <meta name="description" content="Магазин автозапчастей для всех марок автомобилей. Большой выбор запчастей по доступным ценам.">
   <meta name="keywords" content="автозапчасти, запчасти для автомобилей, автомобильные запчасти, магазин автозапчастей">
 {%endblock%}
 {% block content %}
-<section class="index-banner">
-  <img src="{% static 'images/banner.png'%}" alt="Photo"/>
-  <img src="{% static 'images/box.png'%}" alt="box" class="box">
-  <img src="{% static 'images/inst1.png'%}" alt="inst1" class="inst1"/>
-  <img src="{% static 'images/inst2.png'%}" alt="inst2" class="inst2"/>
-  <img src="{% static 'images/inst3.png'%}" alt="inst3" class="inst3"/>
-  <img src="{% static 'images/inst4.png'%}" alt="inst4" class="inst4"/>
-  <img src="{% static 'images/inst5.png'%}" alt="inst5" class="inst5"/>
-  <img src="{% static 'images/inst6.png'%}" alt="inst6" class="inst6"/>
-  <img src="{% static 'images/box-label.png'%}" alt="box-label" class="box-label"/>
-  <div class="line-container">
-    <div class="loading-line"></div>
+
+<section>
+  <div class="slider-container">
+    <div class="slider">
+      <img src="../static/images/slider_images/sl-img-1.jpg" width="600" height="400" class="slide">
+      <img src="../static/images/slider_images/sl-img-2.jpg" width="600" height="400" class="slide">
+      <img src="../static/images/slider_images/sl-img-3.jpg" width="600" height="400" class="slide">
+      <img src="../static/images/slider_images/sl-img-4.jpg" width="600" height="400" class="slide">
+      <img src="../static/images/slider_images/sl-img-5.jpg" width="600" height="400" class="slide">
+    </div>
+    <button class="prev-button" type="button" aria-label="Посмотреть предыдущий слайд">&lt;</button>
+    <button class="next-button" type="button" aria-label="Посмотреть следующий слайд">&gt;</button>
   </div>
 </section>
 <h1 class="welcome">Welcome to our Auto Parts Store!</h1>
@@ -73,5 +75,6 @@
 <section>
   <div class="loader"></div>
 </section>
+
 {%endblock%}
 
