@@ -36,6 +36,33 @@
       <span class="indicator"></span>
     </div>
   </div>
+
+  {% if user.is_staff %}
+  <div id="settings-form">
+    <h3>Настройки слайдера</h3>
+    <form id="slider-settings-form">
+      <label>
+        <input type="checkbox" id="loop" /> Loop 
+      </label><br/>
+      <label>
+        <input type="checkbox" id="navs" /> Navs 
+      </label><br/>
+      <label>
+        <input type="checkbox" id="pags" /> Pags 
+      </label><br/>
+      <label>
+        <input type="checkbox" id="auto" /> Auto 
+      </label><br/>
+      <label>
+        Stop on hover: <input type="checkbox" id="stopMouseHover"/>
+      </label><br/>
+      <label>
+        Delay (сек): <input type="number" id="delay" />
+      </label><br/>
+      <button type="submit">Сохранить настройки</button>
+    </form>
+  </div>
+  {% endif %}
 </section>
 <h1 class="welcome">Welcome to our Auto Parts Store!</h1>
 <section class="index-section welcome-message">

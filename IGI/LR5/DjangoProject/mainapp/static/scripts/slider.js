@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const slideCounter = document.querySelector('.slide-counter');
   const slideText = document.querySelector('.slide-text'); // Элемент для текста
   let slideIndex = 1; // Начинаем с 1, чтобы учесть клонированный слайд
+  let slideInterval;
+  let delay = 3000;
 
   // Клонируем первый и последний слайды
   const firstClone = slides[0].cloneNode(true);
@@ -82,18 +84,92 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  let slideInterval = setInterval(autoSlide, 3000);
+  const startAutoSlide = (delay) => {
+    // Остановить текущий интервал, если он был
+    if (slideInterval) {
+      clearInterval(slideInterval);
+    }
+    
+    // Устанавливаем новый интервал
+    slideInterval = setInterval(autoSlide, delay);
+  };
 
-  // Добавление событий для клика на индикатор
-  indicators.forEach((indicator, index) => {
-    indicator.addEventListener('click', () => {
-      slideIndex = index + 1; // +1, чтобы учесть клонированный слайд
-      slide();
-    });
-  });
-
+  const stopAutoSlide = () => {
+    clearInterval(slideInterval);
+  };
+  
   // Инициализация слайдера после загрузки
   window.addEventListener('load', () => {
     slide();
+    startAutoSlide(delay); 
   });
+
+  document.getElementById('slider-settings-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+  
+    const loop = document.getElementById('loop').checked;
+    const navs = document.getElementById('navs').checked;
+    const pags = document.getElementById('pags').checked;
+    const isAuto = document.getElementById('auto').checked;
+    const stopOnHover = document.getElementById('stopMouseHover').checked;
+    const delayValue = document.getElementById('delay').value;
+    const delay = delayValue && !isNaN(delayValue) ? parseInt(delayValue) * 1000 : 5000;
+
+    if (navs) {
+      enableButtons();
+    } else {
+      disableButtons();
+    }
+
+    if (pags) {
+      enablePagination();
+    } else {
+      disablePagination();
+    }
+
+    if (isAuto) {
+      startAutoSlide(delay);  // Перезапуск с новым интервалом
+    } else {
+      stopAutoSlide();  // Остановка автопереключения
+    }
+
+    if (stopOnHover) {
+      slider.addEventListener('mouseenter', stopAutoSlide);
+      slider.addEventListener('mouseleave', () => startAutoSlide(delay));
+    }
+
+  });
+  
+  function disableButtons() {
+    const buttons = document.querySelectorAll('.prev-button, .next-button');
+    buttons.forEach(button => {
+      button.style.visibility = 'hidden';
+      button.style.pointerEvents = 'none';
+    });
+  }
+  
+  function enableButtons() {
+    const buttons = document.querySelectorAll('.prev-button, .next-button');
+    buttons.forEach(button => {
+      button.style.visibility = 'visible';
+      button.style.pointerEvents = 'auto';
+    });
+  }
+  
+  function disablePagination() {
+    const indicators = document.querySelectorAll('.indicators .indicator');
+    indicators.forEach(indicator => {
+      indicator.style.visibility = 'hidden';
+      indicator.style.pointerEvents = 'none';
+    });
+  }
+  
+  function enablePagination() {
+    const indicators = document.querySelectorAll('.indicators .indicator');
+    indicators.forEach(indicator => {
+      indicator.style.visibility = 'visible';
+      indicator.style.pointerEvents = 'auto';
+    });
+  }  
+
 });

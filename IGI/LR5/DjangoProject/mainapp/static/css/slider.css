@@ -87,3 +87,22 @@
   z-index: 10;
 }
 
+#settings-form {
+  margin: 5% 30%;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  visibility: visible;
+}
+
+.prev-button,
+.next-button {
+  visibility: visible; /* Кнопки видимы по умолчанию */
+  pointer-events: auto; /* Кнопки доступны для взаимодействия */
+}
+
+.indicators .indicator {
+  visibility: visible; /* Индикаторы видимы по умолчанию */
+  pointer-events: auto; /* Индикаторы доступны для взаимодействия */
+}
