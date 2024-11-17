@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let slideIndex = 1; // Начинаем с 1, чтобы учесть клонированный слайд
   let slideInterval;
   let delay = 3000;
+  let loop = true;
 
   // Клонируем первый и последний слайды
   const firstClone = slides[0].cloneNode(true);
@@ -48,40 +49,71 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Слушатели событий для кнопок
   prevButton.addEventListener('click', () => {
-    slideIndex--;
-    slide();
-    if (slideIndex < 1) {
-      setTimeout(() => {
-        slider.style.transition = 'none';
-        slideIndex = slideCount; // Переход к последнему реальному слайду
-        slider.style.transform = `translateX(${-slideIndex * imageWidth}px)`;
-      }, 500);
+    if(loop)
+    {
+      slideIndex--;
+      slide();
+      if (slideIndex < 1) {
+        setTimeout(() => {
+          slider.style.transition = 'none';
+          slideIndex = slideCount; // Переход к последнему реальному слайду
+          slider.style.transform = `translateX(${-slideIndex * imageWidth}px)`;
+        }, 500);
+      }
     }
+    else{
+      if(slideIndex > 1)
+      {
+        slideIndex--;
+        slide();
+      }
+    }
+   
   });
 
   nextButton.addEventListener('click', () => {
-    slideIndex++;
-    slide();
-    if (slideIndex > slideCount) {
-      setTimeout(() => {
-        slider.style.transition = 'none';
-        slideIndex = 1; // Переход к первому реальному слайду
-        slider.style.transform = `translateX(${-imageWidth}px)`;
-      }, 500);
+    if(loop)
+    {
+      slideIndex++;
+      slide();
+      if (slideIndex > slideCount) {
+        setTimeout(() => {
+          slider.style.transition = 'none';
+          slideIndex = 1; // Переход к первому реальному слайду
+          slider.style.transform = `translateX(${-imageWidth}px)`;
+        }, 500);
+      }
+    }
+    else{
+      if(slideIndex < (slideCount))
+      {
+        slideIndex++;
+        slide();
+      }
     }
   });
 
   // Автоматическая прокрутка слайдов
   const autoSlide = () => {
-    slideIndex++;
-    slide();
-    if (slideIndex > slideCount) {
-      setTimeout(() => {
-        slider.style.transition = 'none';
-        slideIndex = 1;
-        slider.style.transform = `translateX(${-imageWidth}px)`;
-      }, 500);
-    }
+    if(loop)
+      {
+        slideIndex++;
+        slide();
+        if (slideIndex > slideCount) {
+          setTimeout(() => {
+            slider.style.transition = 'none';
+            slideIndex = 1; // Переход к первому реальному слайду
+            slider.style.transform = `translateX(${-imageWidth}px)`;
+          }, 500);
+        }
+      }
+      else{
+        if(slideIndex < (slideCount))
+        {
+          slideIndex++;
+          slide();
+        }
+      }
   };
 
   const startAutoSlide = (delay) => {
@@ -107,13 +139,15 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('slider-settings-form').addEventListener('submit', (e) => {
     e.preventDefault();
   
-    const loop = document.getElementById('loop').checked;
+    const loopAvailable = document.getElementById('loop').checked;
     const navs = document.getElementById('navs').checked;
     const pags = document.getElementById('pags').checked;
     const isAuto = document.getElementById('auto').checked;
     const stopOnHover = document.getElementById('stopMouseHover').checked;
     const delayValue = document.getElementById('delay').value;
     const delay = delayValue && !isNaN(delayValue) ? parseInt(delayValue) * 1000 : 5000;
+
+    loop = loopAvailable
 
     if (navs) {
       enableButtons();
