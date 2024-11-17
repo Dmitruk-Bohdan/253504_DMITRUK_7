@@ -1,5 +1,3 @@
-//бесконечная прокрутка за счет того что дублированы первый и последний слайды и сначала выполняется плавный переход на наих а потом мгновенный на оригинальный слайд
-
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Скрипт начал выполнение');
   const slider = document.querySelector('.slider');
@@ -40,20 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let displayIndex = (slideIndex - 1 + slideCount) % slideCount + 1;
     slideCounter.textContent = `${displayIndex}/${slideCount}`;
-
-    const currentSlide = slides[slideIndex];
+    
+    const currentSlide = slides[displayIndex - 1];
     const text = currentSlide.getAttribute('data-text');
     slideText.textContent = text;
   };
-
-  slides.forEach(slide => {
-    slide.addEventListener('click', () => {
-      const href = slide.getAttribute('data-href');
-      if (href) {
-        window.location.href = href; // Переход на URL
-      }
-    });
-  });
 
   // Слушатели событий для кнопок
   prevButton.addEventListener('click', () => {
