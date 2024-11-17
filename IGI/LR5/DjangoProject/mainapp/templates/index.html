@@ -17,15 +17,24 @@
 
 <section>
   <div class="slider-container">
+    <div class="slide-counter">1/5</div>
+    <div class="slide-text"></div>
     <div class="slider">
-      <img src="../static/images/slider_images/sl-img-1.jpg" width="600" height="400" class="slide">
-      <img src="../static/images/slider_images/sl-img-2.jpg" width="600" height="400" class="slide">
-      <img src="../static/images/slider_images/sl-img-3.jpg" width="600" height="400" class="slide">
-      <img src="../static/images/slider_images/sl-img-4.jpg" width="600" height="400" class="slide">
-      <img src="../static/images/slider_images/sl-img-5.jpg" width="600" height="400" class="slide">
+      <img src="../static/images/slider_images/sl-img-1.jpg" width="600" height="400" class="slide" data-text="текст для 1 слайда" data-href="https://example.com/page1" alt="altertext">
+      <img src="../static/images/slider_images/sl-img-2.jpg" width="600" height="400" class="slide" data-text="текст для 2 слайда" data-href="https://example.com/page2" alt="altertext">
+      <img src="../static/images/slider_images/sl-img-3.jpg" width="600" height="400" class="slide" data-text="текст для 3 слайда" data-href="https://example.com/page3" alt="altertext">
+      <img src="../static/images/slider_images/sl-img-4.jpg" width="600" height="400" class="slide" data-text="текст для 4 слайда" data-href="https://example.com/page4" alt="altertext">
+      <img src="../static/images/slider_images/sl-img-5.jpg" width="600" height="400" class="slide" data-text="текст для 5 слайда" data-href="https://example.com/page5" alt="altertext"> 
     </div>
     <button class="prev-button" type="button" aria-label="Посмотреть предыдущий слайд">&lt;</button>
     <button class="next-button" type="button" aria-label="Посмотреть следующий слайд">&gt;</button>
+    <div class="indicators">
+      <span class="indicator"></span>
+      <span class="indicator"></span>
+      <span class="indicator"></span>
+      <span class="indicator"></span>
+      <span class="indicator"></span>
+    </div>
   </div>
 </section>
 <h1 class="welcome">Welcome to our Auto Parts Store!</h1>
