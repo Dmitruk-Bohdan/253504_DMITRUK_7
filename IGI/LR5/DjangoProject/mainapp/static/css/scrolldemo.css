@@ -1,0 +1,77 @@
+/* Общие стили */
+body {
+  font-family: 'Arial', sans-serif;
+  background-image: url('../images/scrolldemo/bg.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  overflow-x: hidden; /* Ограничиваем горизонтальный скролл */
+  height: 100%; /* Задаём высоту для body */
+}
+
+/* Секция с деталями (теперь она не перекрывает остальные блоки) */
+#top {
+  position: relative;
+  text-align: center;
+  padding: 50px 0;
+  z-index: -1; /* Фон будет за всеми элементами */
+}
+
+#top img {
+  width: 100%; /* Фон растягивается на весь экран */
+  height: auto;
+}
+
+/* Секция контента */
+#content {
+  text-align: center;
+  padding: 50px;
+  z-index: 1; /* Содержимое будет поверх картинок */
+  position: relative;
+}
+
+/* Стили для картинок, которые будут двигаться */
+#top img,
+#content img {
+  position: absolute; /* Картинки могут быть свободно расположены */
+  z-index: 1000; /* Картинки всегда будут поверх других элементов */
+  width: 100px; /* Размер картинок */
+  height: 100px;
+  pointer-events: none; /* Чтобы не блокировать взаимодействие с другими элементами */
+}
+
+#bg-part1, #bg-part2, #bg-part3, #bg-part4 {
+  position: fixed; /* Зафиксированные картинки на фоне */
+  z-index: -1; /* Картинки должны быть позади всех блоков */
+  width: 200px; /* Размер картинок */
+  height: 200px;
+  opacity: 0.6;
+}
+
+#bg-part1 {
+  left: -200px; /* Изображение слева */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#bg-part2 {
+  right: -200px; /* Изображение справа */
+  top: 30%;
+  transform: translateY(-50%);
+}
+
+#bg-part3 {
+  left: -200px; /* Изображение слева */
+  top: 70%;
+  transform: translateY(-50%);
+}
+
+#bg-part4 {
+  right: -200px; /* Изображение справа */
+  top: 80%;
+  transform: translateY(-50%);
+}

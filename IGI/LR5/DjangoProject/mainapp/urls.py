@@ -54,4 +54,5 @@ urlpatterns = [
     
     path('profile/', views.UserProfileView.as_view(), name='profile'),
     path('demo/', views.demo_view, name='demo'),
+    path('scrolldemo/', views.scrolldemo_view, name='scrolldemo'),
 ]

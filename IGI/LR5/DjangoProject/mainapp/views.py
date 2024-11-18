@@ -941,3 +941,6 @@ def order_confirm(request, order_id):
 
 def demo_view(request):
     return render(request, "demonstration_page.html")
+
+def scrolldemo_view(request):
+    return render(request, "scrolldemo.html")
