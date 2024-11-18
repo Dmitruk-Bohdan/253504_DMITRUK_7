@@ -163,4 +163,91 @@ th {
   #search-button:hover {
     background-color: #0056b3;
   }
-  
+
+  /* Основной контейнер для формы добавления сотрудников */
+.add-employee-container {
+    text-align: center; /* Центрируем содержимое */
+    margin: 20px; /* Отступы вокруг контейнера */
+}
+
+/* Стили для кнопки "Добавить сотрудника" */
+#add-employee-btn {
+    background-color: #007bff; /* Синий фон */
+    color: #fff; /* Белый текст */
+    border: none; /* Убираем границы */
+    border-radius: 5px; /* Скругленные углы */
+    padding: 10px 20px; /* Внутренние отступы */
+    font-size: 16px; /* Размер шрифта */
+    cursor: pointer; /* Указатель при наведении */
+    transition: background-color 0.3s; /* Плавное изменение фона */
+}
+
+#add-employee-btn:hover {
+    background-color: #0056b3; /* Более тёмный синий при наведении */
+}
+
+/* Стили для формы добавления сотрудника */
+#add-employee-form {
+    display: none; /* По умолчанию форма скрыта */
+    background-color: #f8f9fa; /* Светлый фон формы */
+    border: 1px solid #ddd; /* Тонкая граница */
+    border-radius: 10px; /* Скругленные углы */
+    padding: 20px; /* Внутренние отступы */
+    max-width: 400px; /* Ограничиваем ширину формы */
+    margin: 20px auto; /* Центрируем форму */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Лёгкая тень */
+}
+
+/* Стили заголовка формы */
+#add-employee-form h3 {
+    margin-bottom: 20px; /* Отступ снизу */
+    font-size: 20px; /* Размер шрифта */
+    color: #333; /* Цвет текста */
+}
+
+/* Стили для полей ввода и меток */
+#employee-form label {
+    display: block; /* Каждая метка на отдельной строке */
+    margin-bottom: 5px; /* Отступ снизу у метки */
+    font-weight: bold; /* Жирный шрифт */
+    color: #555; /* Цвет текста метки */
+}
+
+#employee-form input {
+    width: 100%; /* Полная ширина */
+    padding: 10px; /* Внутренние отступы */
+    margin-bottom: 15px; /* Отступ снизу */
+    border: 1px solid #ccc; /* Серые границы */
+    border-radius: 4px; /* Скругленные углы */
+    box-sizing: border-box; /* Учитываем отступы в ширине */
+    font-size: 14px; /* Размер текста */
+}
+
+#employee-form input:focus {
+    border-color: #007bff; /* Синий цвет границы при фокусе */
+    outline: none; /* Убираем стандартное обводку */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Тень при фокусе */
+}
+
+/* Стили для кнопки отправки */
+#employee-form button {
+    background-color: #28a745; /* Зелёный фон */
+    color: #fff; /* Белый текст */
+    border: none; /* Убираем границы */
+    border-radius: 5px; /* Скругленные углы */
+    padding: 10px 20px; /* Внутренние отступы */
+    font-size: 14px; /* Размер текста */
+    cursor: pointer; /* Указатель при наведении */
+    transition: background-color 0.3s; /* Плавное изменение фона */
+}
+
+#employee-form button:hover {
+    background-color: #218838; /* Более тёмный зелёный при наведении */
+}
+
+/* Стили для сообщения об ошибке */
+#validation-message {
+    color: #dc3545; /* Красный цвет для сообщений об ошибках */
+    font-size: 14px; /* Размер текста */
+    margin-top: 10px; /* Отступ сверху */
+}

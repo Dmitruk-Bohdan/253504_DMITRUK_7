@@ -63,103 +63,34 @@
   </div>
 </section>
 
+<section class="add-employee-container">
+  <button id="add-employee-btn">Добавить сотрудника</button>
+  <div id="add-employee-form" style="display: none;">
+    <h3>Добавить сотрудника</h3>
+    <form id="employee-form">
+      <label for="full-name">ФИО:</label>
+      <input type="text" id="full-name" required><br>
 
-  <button id="add-employee-btn" class="btn">Добавить сотрудника</button>
+      <label for="job-desc">Описание работы:</label>
+      <input type="text" id="job-desc" required><br>
 
-  <div id="add-employee-modal" class="modal">
-    <div class="modal-content">
-      <span class="modal-close" id="modal-close">&times;</span>
-      <h3>Добавить нового сотрудника</h3>
-      <form id="add-employee-form" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="form-group">
-          <label for="full_name">ФИО</label>
-          <input type="text" id="full_name" name="full_name" required />
-        </div>
-        <div class="form-group">
-          <label for="photo_url">Ссылка на фото</label>
-          <input type="url" id="photo_url" name="photo_url" />
-          <small class="input-error" id="photo_url_error"></small>
-        </div>
-        <div class="form-group">
-          <label for="job_description">Описание работ</label>
-          <input type="text" id="job_description" name="job_description" required />
-        </div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" required><br>
 
-        <div class="form-group">
-          <label for="phone">Телефон</label>
-          <input type="text" id="phone" name="phone" required />
-          <small class="input-error" id="phone_error"></small>
-        </div>
-        <div class="form-group">
-          <label for="email">Почта</label>
-          <input type="email" id="email" name="email" required />
-        </div>
-        <button type="submit" class="btn" id="submit-employee-btn" disabled>Добавить</button>
-        <div id="form-result" class="form-result"></div>
-      </form>
-    </div>
+      <label for="phone">Телефон:</label>
+      <input type="text" id="phone" required><br>
+
+      <label for="url">URL:</label>
+      <input type="text" id="url" required><br>
+
+      <label for="photo">Фото:</label>
+      <input type="file" id="photo" accept="image/*" required><br>
+
+      <button type="submit">Добавить в таблицу</button>
+    </form>
+    <p id="validation-message"></p>
   </div>
+</section>
 
-  <!-- Фильтрация -->
-  <div class="filter-section">
-    <input type="text" id="filter-input" placeholder="Введите для фильтрации..." />
-    <button id="filter-btn" class="btn">Найти</button>
-  </div>
-
-  <!-- Таблица сотрудников -->
-  <table id="employee-table">
-    <thead>
-      <tr>
-        <th data-column="full_name">
-          ФИО
-          <span class="sort-indicator"></span>
-        </th>
-        <th data-column="photo_url">
-          Фото
-          <span class="sort-indicator"></span>
-        </th>
-        <th data-column="job_description">
-          Описание работ
-          <span class="sort-indicator"></span>
-        </th>
-        <th data-column="phone">
-          Телефон
-          <span class="sort-indicator"></span>
-        </th>
-        <th data-column="email">
-          Почта
-          <span class="sort-indicator"></span>
-        </th>
-        <th>Выбрать</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Данные будут загружены через JavaScript -->
-    </tbody>
-  </table>
-
-  <!-- Пагинация -->
-  <div class="pagination">
-    <button id="prev-page" class="btn">Предыдущая</button>
-    <span id="current-page">1</span>
-    /
-    <span id="total-pages">1</span>
-    <button id="next-page" class="btn">Следующая</button>
-  </div>
-
-  <!-- Дополнительный блок для отображения деталей выбранного сотрудника -->
-  <div id="employee-details" class="employee-details">
-    <!-- Детали будут отображаться здесь -->
-  </div>
-
-  <!-- Кнопка для премирования выбранных сотрудников -->
-  <button id="award-btn" class="btn">Премировать</button>
-
-  <!-- Блок для отображения текста премирования -->
-  <div id="award-text" class="award-text">
-    <!-- Текст премирования будет отображаться здесь -->
-  </div>
-</div>
 
 {% endblock %}

@@ -98,7 +98,95 @@ document.addEventListener("DOMContentLoaded", function() {
     // Изначально показываем первую страницу
     showPage(currentPage);
     updatePagination();
+
+
+    const addEmployeeBtn = document.getElementById("add-employee-btn");
+    const addEmployeeForm = document.getElementById("add-employee-form");
+    const employeeForm = document.getElementById("employee-form");
+    const validationMessage = document.getElementById("validation-message");
+
+      // Показать или скрыть форму добавления
+  addEmployeeBtn.addEventListener("click", function () {
+    addEmployeeForm.style.display = addEmployeeForm.style.display === "none" ? "block" : "none";
+  });
+
+  // Функция для валидации URL
+  function validateURL(url) {
+    const regex = /^(http:\/\/|https:\/\/).*\.(php|html)$/;
+    return regex.test(url);
+  }
+
+  // Функция для валидации телефона
+  function validatePhone(phone) {
+    const regex = /^(\+375|8)\s*\(?\d{2}\)?\s*\d{3}[- ]?\d{2}[- ]?\d{2}$/;
+    return regex.test(phone);
+  }
+
+  // Обработчик отправки формы
+  employeeForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // Получаем значения полей
+    const fullName = document.getElementById("full-name").value;
+    const jobDesc = document.getElementById("job-desc").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+    const url = document.getElementById("url").value;
+    const photo = document.getElementById("photo").files[0];
+
+    // Выполняем валидацию
+    if (!validateURL(url)) {
+      validationMessage.textContent = "Неверный формат URL.";
+      document.getElementById("url").style.border = "2px solid red";
+      document.getElementById("url").style.backgroundColor = "pink";
+      return;
+    }
+
+    if (!validatePhone(phone)) {
+      validationMessage.textContent = "Неверный формат номера телефона.";
+      document.getElementById("phone").style.border = "2px solid red";
+      document.getElementById("phone").style.backgroundColor = "pink";
+      return;
+    }
+
+    // Если валидация пройдена
+    validationMessage.textContent = "";
+    document.getElementById("url").style.border = "";
+    document.getElementById("url").style.backgroundColor = "";
+    document.getElementById("phone").style.border = "";
+    document.getElementById("phone").style.backgroundColor = "";
+
+    // Создаем новую строку для таблицы
+    const newRow = document.createElement("tr");
+    newRow.classList.add("employee-row");
+    newRow.setAttribute("data-included", "on");
+
+    // Добавляем ячейки с данными
+    newRow.innerHTML = `
+      <td><img src="${URL.createObjectURL(photo)}" alt="Photo" class="employee-img" style="width: 50px; height: 50px;"/></td>
+      <td>${fullName}</td>
+      <td>${jobDesc}</td>
+      <td>${email}</td>
+      <td>${phone}</td>
+      <td>${url}</td>
+      <td><input type="checkbox" name="employee_select"></td>
+    `;
+
+    // Добавляем новую строку в таблицу
+    document.querySelector(".employee-table tbody").appendChild(newRow);
+
+    // Сбрасываем форму и скрываем её
+    employeeForm.reset();
+    addEmployeeForm.style.display = "none";
+
+    // Обновляем пагинацию и показываем первую страницу
+    rows = Array.from(document.querySelectorAll(".employee-row")); // Обновляем массив строк
+    currentPage = 1;
+    showPage(currentPage);
+    updatePagination();
+  });
 });
+
 
 
 // Функция для сортировки таблицы
