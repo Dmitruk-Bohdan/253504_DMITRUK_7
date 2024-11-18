@@ -2,8 +2,12 @@
 {% load static %}
 {%block extraheader%}
 <link rel="stylesheet" href="{% static 'css/demo.css' %} {{ now|date:'U' }}" />
+
 <link rel="stylesheet" href="{% static 'css/timer.css' %} {{ now|date:'U' }}" />
 <script src="{% static 'scripts/timer.js' %} {{ now|date:'U' }}"></script>
+
+<script src="{% static 'scripts/text-formatter.js' %} {{ now|date:'U' }}"></script>
+<link rel="stylesheet" href="{% static 'css/text-formatter.css' %} {{ now|date:'U' }}" />
 {%endblock%} 
 {% block content %}
 
@@ -17,9 +21,50 @@
   </div>
 </section>
 
-<section>
-  
+<section id="customizable-section" class="content-section">
+  <!-- Чекбокс для отображения формы настройки -->
+  <div class="settings-container">
+    <label for="toggle-settings">
+      <input type="checkbox" id="toggle-settings"> Настроить отображение
+    </label>
+  </div>
+
+  <!-- Форма настройки (скрыта по умолчанию) -->
+  <form id="style-form" class="style-form" style="display: none;">
+    <label for="font-size">Размер шрифта:</label>
+    <input type="number" id="font-size" min="10" max="50" step="1" value="16">
+
+    <label for="text-color">Цвет текста:</label>
+    <input type="color" id="text-color" value="#000000">
+
+    <label for="background-color">Цвет фона:</label>
+    <input type="color" id="background-color" value="#ffffff">
+
+    <button type="button" id="apply-styles">Применить</button>
+  </form>
+
+  <!-- Блок с текстом и изображениями -->
+  <div class="text-section-content">
+    <div class="text-block">
+      <h2>Заголовок 1</h2>
+      <p>Это первый блок текста с описанием, который можно настроить.</p>
+      <img src="{% static 'images/img1.jpg' %}" alt="Изображение 1">
+    </div>
+    
+    <div class="text-block">
+      <h2>Заголовок 2</h2>
+      <p>Это второй блок текста с описанием, который можно настроить.</p>
+      <img src="{% static 'images/img2.jpg' %}" alt="Изображение 2">
+    </div>
+    
+    <div class="text-block">
+      <h2>Заголовок 3</h2>
+      <p>Это третий блок текста с описанием, который можно настроить.</p>
+      <img src="{% static 'images/img3.jpg' %}" alt="Изображение 3">
+    </div>
+  </div>
 </section>
+
 <section>
   
 </section>

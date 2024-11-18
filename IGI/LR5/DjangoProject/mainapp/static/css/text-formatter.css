@@ -1,0 +1,52 @@
+/* Основной стиль секции */
+.content-section {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .settings-container {
+    margin-bottom: 15px;
+  }
+  
+  .style-form {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .style-form label {
+    margin-right: 5px;
+  }
+  
+  /* Стили для блока с текстом и изображениями */
+  .text-section-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between; /* Равномерное распределение блоков */
+  }
+  
+  .text-block {
+    position: relative;
+    width: 100%;
+    flex: 1 1 calc(33.333% - 20px); /* Три блока в ряд */
+    box-sizing: border-box;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center; /* Центрирование текста */
+    align-items: center;
+  }
+  
+  .text-block img {
+    top: 10px;
+    left: 50%;
+    width: auto; /* Масштабируем изображение по ширине блока */
+    height: 300px;
+    margin: 10px;
+  }
+  
