@@ -1,0 +1,35 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{%block extraheader%}
+  <link rel="stylesheet" href="{% static 'css/product_list.css' %} {{ now|date:'U' }}"/>
+  <link rel="stylesheet" href="{% static 'css/news.css' %} {{ now|date:'U' }}"/>
+{%endblock%} 
+{% block content %}
+  <section class="search-bar">
+    <h1>
+      News
+    </h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="nav-button">Search</button>
+    </form>
+  </section>
+  <section class="article-container">
+    <div class="article-container-body">
+      {% if news_articles %}
+        {% for article in news_articles %}
+          <div class="article-card">
+            <h4 class="article-card-header">{{ article.title }}</h4>
+            <img src="{{ article.photo.url}}" alt="here must be photo"/>
+            <p>{{ article.text|truncatechars:300 }}</p>
+            <a href="{{ article.get_absolute_url}}">Read source</a>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>There is no news</p>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}
+

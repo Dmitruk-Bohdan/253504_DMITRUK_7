@@ -1,0 +1,80 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+  }
+  
+  .review-container {
+    padding: 0 1.5rem;
+    border-radius: 0.8rem;
+  }
+  
+  .review-admin-bar {
+    display: flex;
+    justify-content: flex-start;
+    margin: 3rem 0;
+    background-color: #555;
+    padding: 1.5rem;
+    border-radius: 6px;
+  }
+
+  .review-admin-bar button{
+    font-size: 1rem;
+  }
+  
+  .btn-create-review {
+    background-color: #CC0000; /* Red color for the button */
+    color: #fff; /* White text color */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-create-review:hover {
+    background-color: #ff3333; /* Lighter red on hover */
+  }
+  
+  .review-container-body {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between review cards */
+  }
+  
+  .review-card {
+    border: 2px solid #CC0000 ;
+    background-color: #fff; /* Light grey for review card */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .review-card-header {
+    border-bottom: 2px solid #CC0000; /* Red underline for header */
+    margin-bottom: 10px;
+  }
+  
+  .review-card-title {
+    font-family: 'Euclid', sans-serif;
+    color: #CC0000; /* Red title color */
+    font-size: 1.25rem;
+    margin: 0; /* Remove default margin */
+  }
+  
+  .review-card-body {
+    font-family: 'Open Sans', sans-serif;
+    color: #822003; /* White text for the card body */
+  }
+  
+  .review-card-author,
+  .review-card-rating,
+  .review-card-text,
+  .review-card-created-at {
+    margin: 5px 0; /* Space between text lines */
+  }
+  
+  .no-reviews {
+    color: #ff3333; /* Red for no reviews message */
+    font-weight: bold;
+  }
+  

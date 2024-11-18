@@ -1,0 +1,44 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{%block extraheader%}
+  <link rel="stylesheet" href="{% static 'css/searchbar.css' %} {{ now|date:'U' }}"/>
+{%endblock%} 
+{% block content %}
+  <section class="search-bar">
+    <h1>
+      Cart
+    </h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="nav-button">Search</button>
+    </form>    
+  </section>
+  <section class="order-container">
+      <div class="order-container-body">
+        {% if orders %}
+          {% for order in orders %}
+          <div class="order-card">
+            <a href="{{ order.get_absolute_url }}">
+                <img src="{{ order.product.image.url }}" alt="{{ order.product.name }}">
+                <h3>{{ order.product.name }}</h3>
+                <p>Price: "{{ order.total_price }}"</p>
+                <p>Amount: {{ order.quantity }}</p>
+                <form method="get" action="{% url 'order_edit' order.id%}">
+                  {% csrf_token %}
+                  <button type="submit">Edit</button>
+                </form>
+                <form method="post" action="{% url 'order_delete' order.id %}">
+                  {% csrf_token %}
+                  <button type="submit">Delete</button>
+                </form>
+                <a href="{% url 'order_confirm' order.id%}">Confirm</a>
+            </a>
+          </div>
+          {% endfor %}
+        {% else %}
+          <p>There are no orders.</p>
+        {% endif %}
+    </div>
+  </section>
+{% endblock %}

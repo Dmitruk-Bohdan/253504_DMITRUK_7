@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Manufacturer Details</h1>
+<h2>{{ manufacturer.name }}</h2>
+<p><strong>Address: {{ manufacturer.address }}</strong></p>
+<p><strong>Phone: {{ manufacturer.phone }}</strong></p>
+
+<div style="margin-left:20px;margin-top:20px">
+    <p><strong>Products: </strong></p>
+    <ul>
+    {% for product in manufacturer.products.all %}
+    <li>
+        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+    </li>
+    {% endfor %}
+    </ul>
+</div>
+  
+
+{% endblock %}

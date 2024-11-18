@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>{{ supplier.name }}</h1>
+<p><strong>Address:</strong> {{ supplier.address }}</p>
+<p><strong>Phone:</strong> {{ supplier.phone }}</p>
+
+<h3>Manufacturers:</h3>
+<ul>
+  {% for manufacturer in supplier.manufacturers.all %}
+    <li>
+      <a href="{{ manufacturer.get_absolute_url }}">{{ manufacturer.name }}</a>
+    </li>
+  {% empty %}
+    <li>No manufacturers associated</li>
+  {% endfor %}
+</ul>
+
+<h3>Products:</h3>
+<ul>
+  {% for product in supplier.products.all %}
+    <li>
+      <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+    </li>
+  {% empty %}
+    <li>No products associated</li>
+  {% endfor %}
+</ul>
+{% endblock %}

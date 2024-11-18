@@ -1,0 +1,39 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{%block extraheader%}
+  <link rel="stylesheet" href="{% static 'css/searchbar.css' %} {{ now|date:'U' }}"/>
+  <link rel="stylesheet" href="{% static 'css/suppliers.css' %} {{ now|date:'U' }}"/>
+{%endblock%} 
+{% block content %}
+  <section class="search-bar">
+    <h1>
+      Suppliers
+    </h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="nav-button">Search</button>
+    </form>
+  </section>
+  <section class="supplier-container">
+    <div class="supplier-container-body">
+      {% if suppliers %}
+        {% for supplier in suppliers %}
+        <div class="supplier-card">
+          <div class="supplier-card-header">
+            <h4 class="supplier-card-title">{{ supplier.name }}</h4>
+          </div>
+          <div class="supplier-card-body">
+            <p class="supplier-card-address"><strong>Address :</strong> {{ supplier.address }}</p>
+            <p class="supplier-card-phone"><strong>Phone: </strong>{{ supplier.phone }}</p>
+            <p class="supplier-card-created-at">{{ supplier.created_at }}</p>
+            <a href="{{supplier.get_absolute_url}}" class="supplier-details-link">Further details</a>
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+        <p>There are no manufacturers.</p>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}

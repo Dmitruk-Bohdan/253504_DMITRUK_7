@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Dekko&display=swap');
+
+
+p {
+  font-family: 'Dekko', 'Comic Sans', cursive, sans-serif;
+}
+
+
+input.selectorex[data-info^="example"] {
+    background-color: #e0f7fa;
+}
+
+input.selectorex[data-desc$="info"] {
+    background-color: #ffe0b2;
+}
+
+input.selectorex[data-note*="part"] {
+    background-color: #d1c4e9;
+}
+
+input.selectorex[data-value="exactMatch"] {
+    background-color: #c8e6c9;
+}
+
+.highlight-box {
+    border: 2px solid #4caf50;
+    padding: 10px;
+    background-color: #f1f8e9;
+}
+
+#frst, #scnd{
+  text-decoration: underline;
+}
+
+.parent {
+    color: #1e88e5;
+    font-style: italic;
+}
+
+.parent > .child {
+    color: #ff5722;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 1.25rem;
+}
+
+/* 1. Dynamic link states */
+.dynamic-link:link {
+    color: blue;
+  }
+  .dynamic-link:visited {
+    color: purple;
+  }
+  .dynamic-link:focus {
+    color: orange;
+    outline: 2px solid black;
+  }
+  
+  .dynamic-link:hover{
+    color: red;
+  }
+  
+  ul{
+    list-style-type: lower-greek;
+    li:first-child {
+      color: #1e88e5;
+    }
+    li:last-child {
+      color: #4caf50;
+    }
+    li:nth-child(2) {
+      color: pink;
+    }
+    li:nth-last-child(3) {
+      color: aquamarine;
+    }
+    li:nth-child(3n){
+      color: blueviolet;
+    }
+  }
+  /* 2. Form field states */
+  input:enabled {
+    background-color: #e0f7fa;
+  }
+  input:required {
+    border: 2px solid red;
+  }
+  input:disabled {
+    background-color: #e0e0e0;
+    color: #9e9e9e;
+  }
+  
+  /* 3. Elements with specific states */
+  input:out-of-range {
+    border: 2px solid orange;
+  }
+  input[type="checkbox"]:checked,
+  input[type="radio"]:checked {
+    outline: 2px solid green;
+  }
+  
+  /* 4. Quotes based on language */
+  blockquote[lang="en"] {
+    quotes: '"' '"';
+  }
+  blockquote[lang="fr"] {
+    quotes: '«' '»';
+  }
+  blockquote:before {
+    content: open-quote;
+  }
+  blockquote:after {
+    content: close-quote;
+  }
+  
+  /* 5. Context added before and after text */
+  .context::before {
+    content: "[Start]"; /* Текст, добавляемый перед содержимым */
+    font-weight: bold;
+    color: gray;
+  }
+  
+  .context::after {
+    content: "[End]"; /* Текст, добавляемый после содержимого */
+    font-weight: bold;
+    color: gray;
+  }
+  
+  /* 6. Responsive design with media queries */
+  @media (max-width: 600px) {
+    .media-box {
+      background-color: lightcoral;
+      padding: 20px;
+    }
+  }
+  @media (min-width: 601px) and (max-width: 1000px) {
+    .media-box {
+      background-color: lightblue;
+      padding: 20px;
+    }
+  }
+  
+  /* 7. Custom cursor */
+  button.custom-cursor:hover {
+    cursor: url('../pointer/ut_heart_normal.cur'), auto;
+  }
+  
+  /* 8. Word spacing and hyphenation */
+  .line-height{
+    line-height: 1.5;
+  }
+
+
+
+  .word-spacing {
+    word-spacing: 0.5em;
+    
+    font-variant-caps: small-caps
+  }
+  .hyphenation {
+    hyphens:auto;
+    width: 200px;
+    border: 1px solid #ccc;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .multi-column {
+    columns: 3;
+    column-gap: 20px;
+    p {
+      margin:0
+    }
+  }
+  
+.table-demo-section {
+  margin: 20px;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+  -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse; /*убрать границы*/
+}
+
+.styled-table caption {
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.styled-table th{
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.styled-table td{
+  text-align: center; /* Горизонтальное выравнивание */
+  vertical-align: middle; 
+}
+
+.styled-table tbody tr:nth-child(even) {
+  background-color: #00ff4c70; 
+}
+
+.styled-table tbody td:nth-child(3) {
+  font-style: italic; 
+}
+
+.styled-table tbody td:empty {
+  background-color: #ffe6e6;
+}
+
+.styled-table tbody tr:hover {
+  background-color: #e0f7fa;
+  -webkit-transition: background-color 0.3s;
+  -moz-transition: background-color 0.3s; 
+  transition: background-color 0.3s; 
+}
+
+  

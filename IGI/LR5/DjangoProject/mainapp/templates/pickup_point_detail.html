@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Pickup point: {{ pickup_point.name }}</h1>
+
+  <p><strong>Address:</strong> {{ pickup_point.address }}</p> 
+  <p><strong>Phone number:</strong> {{ pickup_point.phone_number }}</p> 
+
+  {% if user.is_authenticated %}
+  <div style="margin-top:3%;margin-bottom:3%">
+
+    <p><a href="{% url 'pickup_point_update' pk=pickup_point.id %}" class="button">Edit pickup point</a></p>
+
+    <form action="{% url 'pickup_point_delete' pickup_point.id %}" method="post">
+      {% csrf_token %}
+      <p><button type="submit">Remove pickup point</button></p>
+    </form>
+
+  </div>
+  {% endif %}
+
+{% endblock %}

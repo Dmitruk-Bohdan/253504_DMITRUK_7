@@ -1,0 +1,49 @@
+div.article-card {
+    margin: 2%;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 2%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+h4.article-card-header {
+    font-family: 'euclid';
+    margin: 0 0 1rem 0.2rem !important;
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+.article-card img{
+    border-radius: 10px;
+    float: left;
+    margin-right: 1rem;
+    max-width: 25%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.article-card a{
+    position: relative;
+    color: #ff3333;
+    font-family: 'euclid';
+    margin-left: 2.5%;
+    font-size: 1.2rem;
+    background-image: linear-gradient(90deg, red, #822003);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    transition: background-size .3s;
+}
+
+.article-card a:hover {
+    background-size: 100% 2px;
+  }
+
+.article-card p{
+    font-family: 'open-sans';
+    text-indent: 2.5%;
+    margin: 0.5%;
+    margin-bottom: 1%;
+    font-size: 1.15rem;
+    overflow: hidden;
+}

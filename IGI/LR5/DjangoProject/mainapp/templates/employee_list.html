@@ -1,0 +1,42 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{%block extraheader%}
+  <link rel="stylesheet" href="{% static 'css/searchbar.css' %} {{ now|date:'U' }}"/>
+  <link rel="stylesheet" href="{% static 'css/employees.css' %} {{ now|date:'U' }}"/>
+{%endblock%} 
+{% block content %}
+    <section class="search-bar">
+      <h1>
+        Employees
+      </h1>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="nav-button">Search</button>
+      </form>
+    </section>
+    <section class="employee-container">
+      <div class="employee-container-body">
+      {% if employees %}
+        {% for employee in employees %}
+          <div class="employee-card">
+            <img src="{{ employee.profile.photo.url }}" alt="Photo" class="employee-img"/>
+            <div class="employee-card-body">
+              <h5 class="employee-card-title">{{ employee.first_name }} {{ employee.last_name }}</h5>
+              <p class="employee-card-text"><strong>Job description: </strong> {{employee.profile.job_description}}</p>  
+              <p class="employee-card-text"><strong>Email: </strong> {{employee.email}}</p> 
+              <p class="employee-card-text"><strong>Phone: </strong> {{employee.profile.phone_number}}</p> 
+            {% if user.is_staff %}
+              <a href="{{employee.get_absolute_url}}">
+                <p class="employee-details-link">Further details</p>
+              </a>
+            {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        {% else %}
+          <p>There are no employees.</p>
+        {% endif %}
+          </div>
+    </section>
+{% endblock %}

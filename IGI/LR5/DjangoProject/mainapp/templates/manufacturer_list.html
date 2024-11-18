@@ -1,0 +1,30 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{%block extraheader%}
+  <link rel="stylesheet" href="{% static 'css/searchbar.css' %} {{ now|date:'U' }}"/>
+{%endblock%} 
+{% block content %}
+  <section class="search-bar">
+    <h1>
+      Manufacturers
+    </h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="nav-button">Search</button>
+    </form>
+  </section>
+  <section class="manufacturer-container">
+    <div class="manufacturer-container-body">
+      {% if manufacturers %}
+        {% for manufacturer in manufacturers %}
+          <div class="manufacturer-card">
+            <a href="{{ manufacturer.get_absolute_url }}">{{ manufacturer.name }} </a> ({{manufacturer.phone}})
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>There are no manufacturers.</p>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}

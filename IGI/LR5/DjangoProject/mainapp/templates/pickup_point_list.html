@@ -1,0 +1,43 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{%block extraheader%}
+  <link rel="stylesheet" href="{% static 'css/searchbar.css' %} {{ now|date:'U' }}"/>
+{%endblock%} 
+{% block content %}
+  <section class="search-bar">
+    <h1>
+      Pickup points
+    </h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="nav-button">Search</button>
+    </form>
+  </section>
+  <section class="pickup_point-container">
+    {% if user.is_authenticated %}
+      <div class="pickup_point-admin-bar">
+        <form action="{% url 'pickup_point_create' %}" method="get">
+          {% csrf_token %}
+          <button type="submit">Create pickup point</button>
+        </form>
+      </div>
+    {% endif %}
+    <div class="pickup_point-container-body">
+      {% if pickup_points %}
+        {% for pickup_point in pickup_points %}
+        <div class="pickup_point-card">
+          <a href="{{ pickup_point.get_absolute_url }}">{{ pickup_point.name }} </a> ({{pickup_point.phone_number}})
+        </div>
+        {% endfor %}
+      {% else %}
+        <p>There are no pickup points.</p>
+      {% endif %}
+    </div>
+  </section>
+   
+
+ 
+
+
+{% endblock %}

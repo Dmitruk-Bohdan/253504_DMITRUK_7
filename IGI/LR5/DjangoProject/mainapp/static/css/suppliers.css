@@ -1,0 +1,49 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+  }
+
+.supplier-container{
+    padding: 0 1.5rem;
+    border-radius: 0.8rem;
+}
+
+.supplier-container-body {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+.supplier-card {
+    border: 2px solid #CC0000 ;
+    background-color: #fff; 
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .supplier-card-header {
+    border-bottom: 2px solid #CC0000;
+    margin-bottom: 10px;
+  }
+  
+  .supplier-card-title {
+    font-family: 'Euclid', sans-serif;
+    color: #CC0000;
+    font-size: 1.25rem;
+    margin: 0; 
+  }
+
+.supplier-details-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: #fff;
+    background-color: #822003;
+    padding: 8px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.supplier-details-link:hover {
+    background-color: #ff3333;
+}
