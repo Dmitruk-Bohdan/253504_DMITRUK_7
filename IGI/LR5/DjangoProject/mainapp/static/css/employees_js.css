@@ -251,3 +251,78 @@ th {
     font-size: 14px; /* Размер текста */
     margin-top: 10px; /* Отступ сверху */
 }
+
+
+.loader {
+    color: #822003;
+    font-size: 20px;
+    margin: 100px auto;
+    width: 1em;
+    height: 1em;
+    
+    position: relative;
+    text-indent: -9999em;
+    animation: load4 1.3s infinite linear;
+    transform: translateZ(0);
+  }
+  @keyframes load4 {
+    0%,
+    100% {
+        box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
+      }
+    12.5% {
+      box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+    }
+    25% {
+      box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+    }
+    37.5% {
+      box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+    }
+    50% {
+      box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+    }
+    62.5% {
+      box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+    }
+    75% {
+      box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+    }
+    87.5% {
+      box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+    }
+  }
+  
+  
+/* Контейнер премирования */
+#premium-container {
+    text-align: center; /* Центрируем содержимое */
+    margin-top: 20px; /* Отступ сверху */
+}
+
+/* Стили для кнопки "Премировать" */
+#premium-button {
+    background-color: #ffc107; /* Желтый фон */
+    color: #fff; /* Белый текст */
+    border: none; /* Убираем границы */
+    border-radius: 5px; /* Скругленные углы */
+    padding: 10px 20px; /* Внутренние отступы */
+    font-size: 16px; /* Размер шрифта */
+    cursor: pointer; /* Указатель при наведении */
+    transition: background-color 0.3s; /* Плавное изменение фона */
+}
+
+#premium-button:hover {
+    background-color: #e0a800; /* Более тёмный желтый при наведении */
+}
+
+/* Стили для текста премирования */
+#premium-body {
+    margin-top: 20px; /* Отступ сверху */
+}
+
+.premium-text {
+    font-size: 18px; /* Размер текста */
+    color: #28a745; /* Зелёный цвет текста */
+    font-weight: bold; /* Жирный текст */
+}

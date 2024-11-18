@@ -185,6 +185,36 @@ document.addEventListener("DOMContentLoaded", function() {
     showPage(currentPage);
     updatePagination();
   });
+
+  document.getElementById('premium-button').addEventListener('click', function() {
+    console.log('ступапупа')
+    // Отображаем прелоадер
+    const loader = document.querySelector('.loader');
+    const premiumBody = document.getElementById('premium-body');
+    loader.style.display = 'block';
+    premiumBody.innerHTML = ''; // Очищаем содержимое
+
+    // Собираем имена выбранных сотрудников
+    const selectedEmployees = document.querySelectorAll('.employee-row input[type="checkbox"]:checked');
+    const employeeNames = Array.from(selectedEmployees).map(checkbox => {
+      const row = checkbox.closest('.employee-row');
+      const fullName = row.children[1].textContent; // Получаем имя и фамилию
+      return fullName;
+    });
+
+    // Задержка в 3 секунды перед выводом текста премирования
+    setTimeout(() => {
+      loader.style.display = 'none'; // Скрываем прелоадер
+      if (employeeNames.length > 0) {
+        // Формируем текст премирования
+        const text = `Сотрудники ${employeeNames.join(', ')} были премированы за выдающиеся успехи и вклад в компанию.`;
+        premiumBody.innerHTML = `<p class="premium-text">${text}</p>`;
+      } else {
+        // Если никто не выбран
+        premiumBody.innerHTML = '<p class="premium-text">Не выбраны сотрудники для премирования.</p>';
+      }
+    }, 3000);
+  });
 });
 
 
@@ -257,3 +287,4 @@ function sortTable(columnIndex) {
         detailsDiv.style.display = 'block';
     }
 }
+
