@@ -167,6 +167,7 @@ class Profile(models.Model):
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     photo = models.ImageField(upload_to='images/employees/', default='images/employees/default_employee.png')
     job_description = models.TextField(null=True)
+    url = models.URLField(blank=True, null=True) 
     non_secretive = models.BooleanField(default=False)
     
     @property

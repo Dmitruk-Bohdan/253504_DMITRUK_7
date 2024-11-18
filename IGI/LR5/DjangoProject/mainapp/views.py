@@ -89,6 +89,7 @@ def register_view(request):
             logger.info(f"User {user.username} profile signed up successfully")
 
             user.email = form.cleaned_data.get('email')
+            user.url = form.cleaned_data.get('url')
 
             user.save()
             logger.info(f"User {user.username} created successfully")

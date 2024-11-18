@@ -35,6 +35,7 @@ class OrderForm(forms.ModelForm):
 class RegistrationForm(UserCreationForm):
     phone_number = forms.CharField(label='Phone number ', max_length=17, help_text='Format: +375(29)XXX-XX-XX')
     birth_date = forms.DateField(label='Birthdate', help_text='Format: YYYY-MM-DD')
+    url = forms.CharField(label='URL ', max_length=255)
 
     def clean_phone_number(self):
         phone_number = self.cleaned_data['phone_number']

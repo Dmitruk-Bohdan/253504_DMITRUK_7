@@ -26,6 +26,7 @@
             <th onclick="sortTable(1)">Job Description</th>
             <th onclick="sortTable(2)">Email</th>
             <th onclick="sortTable(3)">Phone</th>
+            <th onclick="sortTable(4)">URL</th>
             <th>Select</th>
           </tr>
         </thead>
@@ -37,6 +38,7 @@
               <td>{{ employee.profile.job_description }}</td>
               <td>{{ employee.email }}</td>
               <td>{{ employee.profile.phone_number }}</td>
+              <td>{{ employee.profile.url }}</td>
               <td><input type="checkbox" name="employee_select" value="{{ employee.id }}"></td>
             </tr>
           {% endfor %}
