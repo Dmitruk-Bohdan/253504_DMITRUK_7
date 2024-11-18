@@ -137,3 +137,35 @@ function sortTable(columnIndex) {
     rows.forEach(row => table.querySelector('tbody').appendChild(row));
   }
   
+  function toggleDetails(row) {
+    // Находим блок с деталями сотрудника
+    var detailsDiv = document.getElementById('employee-details');
+    
+    // Проверяем, отображается ли блок
+    if (detailsDiv.style.display === 'block') {
+        // Если блок уже отображается, скрываем его
+        detailsDiv.style.display = 'none';
+    } else {
+        // Если блок не отображается, показываем его и обновляем содержимое
+        var cells = row.getElementsByTagName('td');
+        
+        var photo = cells[0].querySelector('img').src;  // Фото
+        var name = cells[1].innerText;  // Имя (first_name + last_name)
+        var jobDescription = cells[2].innerText;  // Описание работы
+        var email = cells[3].innerText;  // Email
+        var phoneNumber = cells[4].innerText;  // Номер телефона
+        var profileUrl = cells[5].innerText;  // URL профиля
+
+        detailsDiv.innerHTML = `
+            <h3>Детали сотрудника</h3>
+            <p>Фото: <img src="${photo}" alt="Employee Photo" style="width: 100px; height: 100px;"></p>
+            <p>Имя: ${name}</p>
+            <p>Описание работы: ${jobDescription}</p>
+            <p>Email: ${email}</p>
+            <p>Номер телефона: ${phoneNumber}</p>
+            <p>URL профиля: ${profileUrl}</p>
+        `;
+
+        detailsDiv.style.display = 'block';
+    }
+}
