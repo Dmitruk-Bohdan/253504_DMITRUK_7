@@ -8,6 +8,9 @@
 
 <script src="{% static 'scripts/text-formatter.js' %} {{ now|date:'U' }}"></script>
 <link rel="stylesheet" href="{% static 'css/text-formatter.css' %} {{ now|date:'U' }}" />
+
+<script src="{% static 'scripts/confirmation-forms.js' %} {{ now|date:'U' }}"></script>
+<link rel="stylesheet" href="{% static 'css/confirmation-forms.css' %} {{ now|date:'U' }}" />
 {%endblock%} 
 {% block content %}
 
@@ -66,8 +69,18 @@
 </section>
 
 <section>
-  
+  <div class="confirmation-form-container">
+    <h1 class="confirmation-form-header" >Проверьте ваш возраст</h1>
+    <div class="confirmation-form-group">
+        <label for="dob">Введите вашу дату рождения:</label>
+        <input type="date" id="dob" name="dob">
+    </div>
+    <button onclick="checkAge()">Проверить возраст</button>
+
+    <div id="confirmation-result" class="confirmation-result"></div>
+</div>
 </section>
+
 <section>
   
 </section>

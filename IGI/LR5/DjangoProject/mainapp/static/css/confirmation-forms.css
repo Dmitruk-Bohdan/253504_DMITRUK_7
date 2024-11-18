@@ -1,0 +1,87 @@
+/* Контейнер для формы */
+.confirmation-form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Заголовок формы */
+.confirmation-form-header {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Стили для группы формы */
+.confirmation-form-group {
+    margin-bottom: 20px;
+}
+
+/* Стили для метки */
+.confirmation-form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 1rem;
+}
+
+/* Стили для поля ввода даты */
+input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Учитывает паддинги в ширине */
+}
+
+/* Кнопка для проверки возраста */
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: #fff;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Стили для кнопки на hover */
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Результат проверки */
+.confirmation-result {
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+
+/* Стили для предупреждений */
+.alert {
+    padding: 15px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    margin-top: 20px;
+}
+
+/* Стили для нормальных сообщений */
+.success {
+    padding: 15px;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    font-size: 1.1rem;
+}
