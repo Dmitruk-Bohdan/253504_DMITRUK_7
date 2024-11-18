@@ -2,120 +2,30 @@
 {% load static %}
 {%block extraheader%}
 <link rel="stylesheet" href="{% static 'css/demo.css' %} {{ now|date:'U' }}" />
+<link rel="stylesheet" href="{% static 'css/timer.css' %} {{ now|date:'U' }}" />
+<script src="{% static 'scripts/timer.js' %} {{ now|date:'U' }}"></script>
 {%endblock%} 
 {% block content %}
 
-
 <section>
-
-<input type="text" placeholder="Begins with 'data'" data-info="exampleStart" class="selectorex"/>
-<input type="text" placeholder="Ends with 'info'" data-desc="text-info" class="selectorex"/>
-<input type="text" placeholder="Contains 'part'" data-note="some_part" class="selectorex"/>
-<input type="text" placeholder="Certain value" data-value="exactMatch" class="selectorex"/>
-
-<p id="frst">
-  first text
-</p>
-<p id="scnd">
-  second text
-</p>
-
-<div class="parent">
-  <p class="descendant">div descendant with 'parent' class</p>
-  <div class="child">direct child element div with class 'parent'</div>
-</div>
-</section>
-<section>
-
-    <h2>1. Dynamic Link States</h2>
-    <a href="#link1" class="dynamic-link">Unvisited Link</a>
-    <a href="#link2" class="dynamic-link">Visited Link</a>
-
-    <ul>
-      <li>Первый элемент</li>
-      <li>Второй элемент</li>
-      <li>Третий элемент</li>
-      <li>Четвёртый элемент</li>
-      <li>Пятый элемент</li>
-      <li>Шестой элемент</li>
-      <li>Седьмой элемент</li>
-      <li>Восьмой элемент</li>
-      <li>Девятый элемент</li>
-      <li>Десятый элемент</li>      
-    </ul>
-  
-    <h2>2. Form Field States</h2>
-    <form>
-      <input type="text" placeholder="Available field" />
-      <input type="text" placeholder="Required field" required />
-      <input type="text" placeholder="Disabled field" disabled />
-    </form>
-  
-    <h2>3. Form Elements with Specific States</h2>
-    <form>
-      <input type="number" min="1" max="10" value="15" />
-      <input type="checkbox" checked /> Checked Checkbox
-      <input type="radio" name="example"/> Checked Radio Button
-    </form>
-  
-    <h2>4. Quotes with Language-Dependent Styling</h2>
-    <blockquote lang="en">Quote in English</blockquote>
-    <blockquote lang="fr">Citation in French</blockquote>
-  
-    <h2>5. Text with Context Before and After</h2>
-    <p class="context">
-      This is a sample text with context added before and after.
-    </p>
-  
-    <h2>6. Media Queries for Responsive Design</h2>
-    <div class="media-box">Responsive Block</div>
-  
-    <h2>7. Cursor Change on Buttons</h2>
-    <button class="custom-cursor">Hover over me</button>
-  
-    <h2>8. Word Spacing and Hyphenation</h2>
-    <p class="line-height">How did Comic Sans come into existence? 1995 saw the release of Microsoft Bob, software that acted as a user-friendly interface to introduce younger users to the Microsoft operating systems of the time. The virtual guide for using the OS was a dog named Rover, who gave advice via dismissable speech bubbles, just like Microsoft’s anthropomorphic paper clip — remember him?Well, Connare was surprised to see that in beta versions of Microsoft Bob, Rover ‘talked’ in the formal Times New Roman: “I thought, ‘That’s silly. Dogs don’t talk like that.’ So I said it would look better if it looked like a comic book.Drawing on the lettering style of comic books including The Dark Knight and Watchmen, Connare drafted a typeface without anti-aliasing for PC screens. It had personality, unusual letter spacing and unequal visual weight. And it communicated a playful, friendly and informal aspect to whatever Rover explained to you.</p>
-    <p class="word-spacing">This is an example of text with custom word spacing.</p>
-    <p class="hyphenation" lang="de">Dies ist ein sehrlangeswortdasaufeinmalaufgeteiltwerdenkann.</p>
-    
-    <h2>Multi-column</h2>
-    <div class="multi-column">
-      <p>Content goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      <p>More content. Vestibulum ac diam sit amet quam vehicula elementum. Duis at consectetur lorem donec massa sapien faucibus et molestie ac feugiat.</p>
-      <p>More content. Etiam erat velit scelerisque in dictum non consectetur a erat. At elementum eu facilisis sed. Nulla at volutpat diam ut venenatis tellus in.</p>
+  <div class="timer-container">
+    <div class="timer">
+      <span class="time" id="hours">00</span>ч
+      <span class="time" id="minutes">00</span>м
+      <span class="time" id="seconds">00</span>с
     </div>
-
-  </section>
-
-<h2>Table and Vendor Prefix</h2>
-<section class="table-demo-section">
-  <table class="styled-table">
-    <caption>Sales Report</caption>
-    <thead>
-      <tr>
-        <th>Product</th>
-        <th>Price</th>
-        <th>Stock</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Apples</td>
-        <td>$1.00</td>
-        <td>50</td>
-      </tr>
-      <tr>
-        <td>Bananas</td>
-        <td>$0.50</td>
-        <td>80</td>
-      </tr>
-      <tr>
-        <td>Cherries</td>
-        <td>$2.00</td>
-        <td></td> 
-      </tr>
-    </tbody>
-  </table>
+  </div>
 </section>
-
+<section>
+  
+</section>
+<section>
+  
+</section>
+<section>
+  
+</section>
+<section>
+  
+</section>
 {%endblock%}
