@@ -2,6 +2,7 @@
 {% load static %}
 {%block extraheader%}
 <link rel="stylesheet" href="{% static 'css/demo.css' %} {{ now|date:'U' }}" />
+<link rel="stylesheet" href="{% static 'css/books-demo.css' %} {{ now|date:'U' }}" />
 
 <link rel="stylesheet" href="{% static 'css/timer.css' %} {{ now|date:'U' }}" />
 <script src="{% static 'scripts/timer.js' %} {{ now|date:'U' }}"></script>
@@ -11,6 +12,9 @@
 
 <script src="{% static 'scripts/confirmation-forms.js' %} {{ now|date:'U' }}"></script>
 <link rel="stylesheet" href="{% static 'css/confirmation-forms.css' %} {{ now|date:'U' }}" />
+
+<script src="{% static 'scripts/book-prototype.js' %} {{ now|date:'U' }}"></script>
+<script src="{% static 'scripts/book-class.js' %} {{ now|date:'U' }}"></script>
 {%endblock%} 
 {% block content %}
 
@@ -81,10 +85,51 @@
 </div>
 </section>
 
+
 <section>
-  
+<h3>Book prototype demo</h3>
+<form id="book-form">
+  <label for="name">Название:</label><input type="text" id="name">
+  <label for="author">Автор:</label><input type="text" id="author">
+  <label for="year">Год:</label><input type="number" id="year">
+  <label for="style">Культурное направление:</label><input type="text" id="style">
+  <label for="pages">Количество страниц:</label><input type="number" id="pages">
+  <label for="publisher">Издательство:</label><input type="text" id="publisher">
+  <label for="language">Язык:</label><input type="text" id="language">
+  <button type="button" onclick="addBookFromForm()">Добавить книгу</button>
+</form>
+
+<h4>Books prototype output</h4>
+<div id="books-output"></div>
+
+<h4>By author after 1980  filtrated prototype:</h4>
+<select id="author-select" onchange="filterBooksByAuthor()"></select>
+
+<h4>Filtred books output</h4>
+<div id="filter-output"></div>
 </section>
+
+
 <section>
-  
+  <h3>Book class demo</h3>
+  <form id="book-form-class">
+      <label for="name-class">Название:</label><input type="text" id="name-class">
+      <label for="author-class">Автор:</label><input type="text" id="author-class">
+      <label for="year-class">Год:</label><input type="number" id="year-class">
+      <label for="style-class">Культурное направление:</label><input type="text" id="style-class">
+      <label for="pages-class">Количество страниц:</label><input type="number" id="pages-class">
+      <label for="publisher-class">Издательство:</label><input type="text" id="publisher-class">
+      <label for="language-class">Язык:</label><input type="text" id="language-class">
+      <button type="button" onclick="addBookFromFormClass()">Добавить книгу</button>
+  </form>
+
+  <h4>Books class output</h4>
+  <div id="books-output-class"></div>
+
+  <h4>By author after 1980 filtrated class:</h4>
+  <select id="author-select-class" onchange="filterBooksByAuthorClass()"></select>
+
+  <h4>Filtred books output</h4>
+  <div id="filter-output-class"></div>
 </section>
 {%endblock%}
