@@ -1,7 +1,10 @@
 {% extends "base_generic.html" %}
 {% load static %}
 {%block extraheader%}
-  <link rel="stylesheet" href="{% static 'css/product_list.css' %} {{ now|date:'U' }}"/>
+  <link rel="stylesheet" href="{% static 'css/product_list_js.css' %} {{ now|date:'U' }}"/>
+
+  <script src="{% static 'scripts/product_list.js' %} {{ now|date:'U' }}"></script>
+  <link rel="stylesheet" href="{% static 'css/pagination.css' %} {{ now|date:'U' }}" />
 {%endblock%} 
 {% block content %}
   <section class="search-bar">
@@ -17,25 +20,32 @@
   <section class="product-container">
     <div class="product-container-body">
       {% if products %}
-        {% for product in products %}
-          <div itemscope itemtype="https://schema.org/Product">
-            <div class="product-card">
-              <a href="{{product.get_absolute_url}}">
-                <div class="product-card-image-container">
-                  <img itemprop="image" src="{{product.image.url}}" class="product-img" alt="..."/>
-                </div>
-
-                <h5  itemprop="name" class="product-card-title">{{product.name}}</h5>
-
-                <div class="product-card-body">
-                  <p itemprop="description" class="product-card-text">{{product.description}}</p>
-                </div>
-              </a>
+        <div class="product-list">
+          {% for product in products %}
+            <div class="product-card-wrapper">
+              <div itemscope itemtype="https://schema.org/Product" class="product-card">
+                <a href="{{ product.get_absolute_url }}">
+                  <div class="product-card-image-container">
+                    <img itemprop="image" src="{{ product.image.url }}" class="product-img" alt="..." />
+                  </div>
+                  <h5 itemprop="name" class="product-card-title">{{ product.name }}</h5>
+                  <div class="product-card-body">
+                    <p itemprop="description" class="product-card-text">{{ product.description }}</p>
+                  </div>
+                </a>
+              </div>
             </div>
-          </div>  
-        {% endfor %}
+          {% endfor %}
+        </div>
       {% else %}
         <p>No products</p>
       {% endif %}
+    </div>
+  </section>
+  <section>
+    <div class="pagination-container">
+      <button class="pagination-btn" id="prev-btn">Предыдущая</button>
+      <button class="pagination-btn" id="next-btn">Следующая</button>
+    </div>
   </section>
 {% endblock %}
