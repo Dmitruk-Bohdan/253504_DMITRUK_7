@@ -2,41 +2,149 @@
 {% load static %}
 {%block extraheader%}
   <link rel="stylesheet" href="{% static 'css/searchbar.css' %} {{ now|date:'U' }}"/>
-  <link rel="stylesheet" href="{% static 'css/employees.css' %} {{ now|date:'U' }}"/>
+  <link rel="stylesheet" href="{% static 'css/employees_js.css' %} {{ now|date:'U' }}"/>
+  <script src="{% static 'scripts/employees.js' %}"></script>
 {%endblock%} 
 {% block content %}
-    <section class="search-bar">
-      <h1>
-        Employees
-      </h1>
-      <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="nav-button">Search</button>
-      </form>
-    </section>
-    <section class="employee-container">
-      <div class="employee-container-body">
-      {% if employees %}
-        {% for employee in employees %}
-          <div class="employee-card">
-            <img src="{{ employee.profile.photo.url }}" alt="Photo" class="employee-img"/>
-            <div class="employee-card-body">
-              <h5 class="employee-card-title">{{ employee.first_name }} {{ employee.last_name }}</h5>
-              <p class="employee-card-text"><strong>Job description: </strong> {{employee.profile.job_description}}</p>  
-              <p class="employee-card-text"><strong>Email: </strong> {{employee.email}}</p> 
-              <p class="employee-card-text"><strong>Phone: </strong> {{employee.profile.phone_number}}</p> 
-            {% if user.is_staff %}
-              <a href="{{employee.get_absolute_url}}">
-                <p class="employee-details-link">Further details</p>
-              </a>
-            {% endif %}
-            </div>
-          </div>
+<section class="search-bar">
+  <h1>Employees</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="nav-button">Search</button>
+  </form>
+</section>
+
+<section class="employee-container">
+  <div class="employee-container-body">
+    {% if employees %}
+      <table class="employee-table">
+        <thead>
+          <tr>
+            <th>Photo</th>
+            <th onclick="sortTable(0)">Full Name</th>
+            <th onclick="sortTable(1)">Job Description</th>
+            <th onclick="sortTable(2)">Email</th>
+            <th onclick="sortTable(3)">Phone</th>
+            <th>Select</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for employee in employees %}
+            <tr data-employee-id="{{ employee.id }}">
+              <td><img src="{{ employee.profile.photo.url }}" alt="Photo" class="employee-img" style="width: 50px; height: 50px;"/></td>
+              <td>{{ employee.first_name }} {{ employee.last_name }}</td>
+              <td>{{ employee.profile.job_description }}</td>
+              <td>{{ employee.email }}</td>
+              <td>{{ employee.profile.phone_number }}</td>
+              <td><input type="checkbox" name="employee_select" value="{{ employee.id }}"></td>
+            </tr>
           {% endfor %}
-        {% else %}
-          <p>There are no employees.</p>
-        {% endif %}
-          </div>
-    </section>
+        </tbody>
+      </table>
+    {% else %}
+      <p>There are no employees.</p>
+    {% endif %}
+  </div>
+</section>
+
+
+  <button id="add-employee-btn" class="btn">Добавить сотрудника</button>
+
+  <div id="add-employee-modal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" id="modal-close">&times;</span>
+      <h3>Добавить нового сотрудника</h3>
+      <form id="add-employee-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="full_name">ФИО</label>
+          <input type="text" id="full_name" name="full_name" required />
+        </div>
+        <div class="form-group">
+          <label for="photo_url">Ссылка на фото</label>
+          <input type="url" id="photo_url" name="photo_url" />
+          <small class="input-error" id="photo_url_error"></small>
+        </div>
+        <div class="form-group">
+          <label for="job_description">Описание работ</label>
+          <input type="text" id="job_description" name="job_description" required />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Телефон</label>
+          <input type="text" id="phone" name="phone" required />
+          <small class="input-error" id="phone_error"></small>
+        </div>
+        <div class="form-group">
+          <label for="email">Почта</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <button type="submit" class="btn" id="submit-employee-btn" disabled>Добавить</button>
+        <div id="form-result" class="form-result"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Фильтрация -->
+  <div class="filter-section">
+    <input type="text" id="filter-input" placeholder="Введите для фильтрации..." />
+    <button id="filter-btn" class="btn">Найти</button>
+  </div>
+
+  <!-- Таблица сотрудников -->
+  <table id="employee-table">
+    <thead>
+      <tr>
+        <th data-column="full_name">
+          ФИО
+          <span class="sort-indicator"></span>
+        </th>
+        <th data-column="photo_url">
+          Фото
+          <span class="sort-indicator"></span>
+        </th>
+        <th data-column="job_description">
+          Описание работ
+          <span class="sort-indicator"></span>
+        </th>
+        <th data-column="phone">
+          Телефон
+          <span class="sort-indicator"></span>
+        </th>
+        <th data-column="email">
+          Почта
+          <span class="sort-indicator"></span>
+        </th>
+        <th>Выбрать</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Данные будут загружены через JavaScript -->
+    </tbody>
+  </table>
+
+  <!-- Пагинация -->
+  <div class="pagination">
+    <button id="prev-page" class="btn">Предыдущая</button>
+    <span id="current-page">1</span>
+    /
+    <span id="total-pages">1</span>
+    <button id="next-page" class="btn">Следующая</button>
+  </div>
+
+  <!-- Дополнительный блок для отображения деталей выбранного сотрудника -->
+  <div id="employee-details" class="employee-details">
+    <!-- Детали будут отображаться здесь -->
+  </div>
+
+  <!-- Кнопка для премирования выбранных сотрудников -->
+  <button id="award-btn" class="btn">Премировать</button>
+
+  <!-- Блок для отображения текста премирования -->
+  <div id="award-text" class="award-text">
+    <!-- Текст премирования будет отображаться здесь -->
+  </div>
+</div>
+
 {% endblock %}
