@@ -22,17 +22,17 @@
         <thead>
           <tr>
             <th>Photo</th>
-            <th onclick="sortTable(0)">Full Name</th>
-            <th onclick="sortTable(1)">Job Description</th>
-            <th onclick="sortTable(2)">Email</th>
-            <th onclick="sortTable(3)">Phone</th>
-            <th onclick="sortTable(4)">URL</th>
+            <th onclick="sortTable(1)">Full Name</th>
+            <th onclick="sortTable(2)">Job Description</th>
+            <th onclick="sortTable(3)">Email</th>
+            <th onclick="sortTable(4)">Phone</th>
+            <th onclick="sortTable(5)">URL</th>
             <th>Select</th>
           </tr>
         </thead>
         <tbody>
           {% for employee in employees %}
-            <tr data-employee-id="{{ employee.id }}">
+            <tr data-employee-id="{{ employee.id }}" class="employee-row">
               <td><img src="{{ employee.profile.photo.url }}" alt="Photo" class="employee-img" style="width: 50px; height: 50px;"/></td>
               <td>{{ employee.first_name }} {{ employee.last_name }}</td>
               <td>{{ employee.profile.job_description }}</td>
@@ -44,6 +44,7 @@
           {% endfor %}
         </tbody>
       </table>
+      <div class="pagination" id="pagination"></div>
     {% else %}
       <p>There are no employees.</p>
     {% endif %}

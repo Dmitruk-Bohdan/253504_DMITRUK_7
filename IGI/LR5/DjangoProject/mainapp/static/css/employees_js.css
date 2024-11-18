@@ -86,3 +86,33 @@ th {
     color: gray;
   }
   
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    padding: 10px 20px;
+    margin: 0 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+  
+  .pagination button:hover {
+    background-color: #ddd;
+  }
+  
+  .pagination .active {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .pagination button:disabled {
+    background-color: #f1f1f1;
+    cursor: not-allowed;
+  }
+  
