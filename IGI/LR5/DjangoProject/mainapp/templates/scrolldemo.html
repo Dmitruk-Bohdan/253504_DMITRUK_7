@@ -6,6 +6,7 @@
   <title>Автомагазин - Анимация деталей</title>
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/scrolldemo.css' %}" />
+  <script async src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=&v=weekly"></script>
 </head>
 <body>
   <img src="{% static 'images/scrolldemo/img5.png' %}" id="bg-part1" alt="Деталь 5">
@@ -118,6 +119,8 @@ Fugiat aliqua cillum eu eiusmod quis ex laboris irure enim culpa. Dolor eu quis 
 
 Id quis esse labore ex. Anim consequat anim officia quis ex veniam non eu cillum eu. Qui id ea cupidatat in adipisicing dolore consectetur aliquip aliqua esse ex ad amet. Consectetur consequat commodo mollit commodo. Quis culpa qui dolor aliqua cillum aute dolor aliquip ullamco voluptate. Non consequat in quis nostrud minim ullamco id nisi sit nisi consectetur quis. Non fugiat do enim labore quis officia ut magna veniam exercitation reprehenderit ullamco incididunt consequat.
   </section>
+  <h2>Наша карта</h2>
+  <div id="map"></div>
   <script src="{% static 'scripts/scrolldemo.js' %}"></script>
 </body>
 </html>

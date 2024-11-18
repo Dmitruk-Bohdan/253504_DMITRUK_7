@@ -67,3 +67,18 @@ window.addEventListener('scroll', moveBackgroundImages);
   // Начинаем обновление
   updatePositions();
 });
+
+function initMap() {
+  const storeLocation = { lat: 55.7558, lng: 37.6173 };
+
+  const map = new google.maps.Map(document.getElementById("map"), {
+    center: storeLocation,
+    zoom: 12,
+  });
+
+  const marker = new google.maps.marker.AdvancedMarkerElement({
+    position: storeLocation,
+    map: map,
+    title: "Наш магазин",
+  });
+}
