@@ -1,3 +1,70 @@
+document.addEventListener("DOMContentLoaded", function() {
+    const rowsPerPage = 3;  // Количество строк на одной странице
+    const rows = document.querySelectorAll('.employee-row'); // Все строки сотрудников
+    const totalRows = rows.length;
+    const totalPages = Math.ceil(totalRows / rowsPerPage);  // Количество страниц
+    let currentPage = 1;  // Текущая страница
+
+    // Функция для показа только тех строк, которые относятся к текущей странице
+    function showPage(page) {
+        // Скрываем все строки
+        rows.forEach((row, index) => {
+            row.style.display = (index >= (page - 1) * rowsPerPage && index < page * rowsPerPage) ? '' : 'none';
+        });
+    }
+
+    // Функция для обновления кнопок пагинации
+    function updatePagination() {
+        const paginationElement = document.getElementById('pagination');
+        paginationElement.innerHTML = '';  // Очищаем пагинацию
+
+        // Кнопка "Назад"
+        const prevButton = document.createElement('button');
+        prevButton.textContent = 'Назад';
+        prevButton.disabled = currentPage === 1;
+        prevButton.onclick = function() {
+            if (currentPage > 1) {
+                currentPage--;
+                showPage(currentPage);
+                updatePagination();
+            }
+        };
+        paginationElement.appendChild(prevButton);
+
+        // Кнопки с номерами страниц
+        for (let i = 1; i <= totalPages; i++) {
+            const pageButton = document.createElement('button');
+            pageButton.textContent = i;
+            pageButton.classList.toggle('active', i === currentPage);
+            pageButton.onclick = function() {
+                currentPage = i;
+                showPage(currentPage);
+                updatePagination();
+            };
+            paginationElement.appendChild(pageButton);
+        }
+
+        // Кнопка "Вперед"
+        const nextButton = document.createElement('button');
+        nextButton.textContent = 'Вперед';
+        nextButton.disabled = currentPage === totalPages;
+        nextButton.onclick = function() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                showPage(currentPage);
+                updatePagination();
+            }
+        };
+        paginationElement.appendChild(nextButton);
+    }
+
+    // Изначально показываем первую страницу
+    showPage(currentPage);
+    updatePagination();
+});
+
+
+
 // Функция для сортировки таблицы
 function sortTable(columnIndex) {
     // Получаем таблицу и строки таблицы
