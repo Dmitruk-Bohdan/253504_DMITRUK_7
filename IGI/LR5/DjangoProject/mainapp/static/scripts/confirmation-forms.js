@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Глобальная функция checkAge
     window.checkAge = function() {
         const dobInput = document.getElementById('dob').value;
         const resultDiv = document.getElementById('confirmation-result');
@@ -20,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const daysOfWeek = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
         const dayOfWeek = daysOfWeek[dob.getDay()];
 
-        // Формируем сообщение
         const ageMessage = age >= 18 
             ? `<div class='success'>Вам ${age} лет. День вашего рождения — ${dayOfWeek}.</div>`
             : `<div class='alert'>Вам ${age} лет. Вы несовершеннолетний. Для использования сайта вам необходимо разрешение родителей.</div>`;

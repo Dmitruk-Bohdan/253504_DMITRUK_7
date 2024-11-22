@@ -4,33 +4,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const prevButton = document.querySelector('.prev-button');
   const nextButton = document.querySelector('.next-button');
   const slides = Array.from(slider.querySelectorAll('img'));
-  const indicators = Array.from(document.querySelectorAll('.indicator')); // Индикаторы
+  const indicators = Array.from(document.querySelectorAll('.indicator')); 
   const slideCount = slides.length;
   const slideCounter = document.querySelector('.slide-counter');
-  const slideText = document.querySelector('.slide-text'); // Элемент для текста
-  let slideIndex = 1; // Начинаем с 1, чтобы учесть клонированный слайд
+  const slideText = document.querySelector('.slide-text'); 
+  let slideIndex = 1; 
   let slideInterval;
   let delay = 3000;
   let loop = true;
 
-  // Клонируем первый и последний слайды
   const firstClone = slides[0].cloneNode(true);
   const lastClone = slides[slideCount - 1].cloneNode(true);
 
-  // Добавляем клоны в DOM
   slider.appendChild(firstClone);
   slider.insertBefore(lastClone, slides[0]);
 
   const imageWidth = slider.clientWidth;
   slider.style.transform = `translateX(${-imageWidth}px)`;
 
-  // Функция для смены слайда
   const slide = () => {
     slider.style.transition = 'transform 0.5s ease-in-out';
     const slideOffset = -slideIndex * imageWidth;
     slider.style.transform = `translateX(${slideOffset}px)`;
 
-    // Обновление активного индикатора
     indicators.forEach((indicator, index) => {
       if (index === (slideIndex - 1 + slideCount) % slideCount) {
         indicator.classList.add('active');
@@ -47,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
     slideText.textContent = text;
   };
 
-  // Слушатели событий для кнопок
   prevButton.addEventListener('click', () => {
     if(loop)
     {
@@ -56,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (slideIndex < 1) {
         setTimeout(() => {
           slider.style.transition = 'none';
-          slideIndex = slideCount; // Переход к последнему реальному слайду
+          slideIndex = slideCount; 
           slider.style.transform = `translateX(${-slideIndex * imageWidth}px)`;
         }, 500);
       }
@@ -79,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (slideIndex > slideCount) {
         setTimeout(() => {
           slider.style.transition = 'none';
-          slideIndex = 1; // Переход к первому реальному слайду
+          slideIndex = 1; 
           slider.style.transform = `translateX(${-imageWidth}px)`;
         }, 500);
       }
@@ -93,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Автоматическая прокрутка слайдов
   const autoSlide = () => {
     if(loop)
       {
@@ -102,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (slideIndex > slideCount) {
           setTimeout(() => {
             slider.style.transition = 'none';
-            slideIndex = 1; // Переход к первому реальному слайду
+            slideIndex = 1; 
             slider.style.transform = `translateX(${-imageWidth}px)`;
           }, 500);
         }
@@ -117,12 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const startAutoSlide = (delay) => {
-    // Остановить текущий интервал, если он был
+    
     if (slideInterval) {
       clearInterval(slideInterval);
     }
     
-    // Устанавливаем новый интервал
     slideInterval = setInterval(autoSlide, delay);
   };
 
@@ -130,7 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
     clearInterval(slideInterval);
   };
   
-  // Инициализация слайдера после загрузки
   window.addEventListener('load', () => {
     slide();
     startAutoSlide(delay); 
@@ -162,9 +154,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (isAuto) {
-      startAutoSlide(delay);  // Перезапуск с новым интервалом
+      startAutoSlide(delay); 
     } else {
-      stopAutoSlide();  // Остановка автопереключения
+      stopAutoSlide();  
     }
 
     if (stopOnHover) {
