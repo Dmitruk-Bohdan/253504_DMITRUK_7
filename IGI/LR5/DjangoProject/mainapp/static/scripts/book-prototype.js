@@ -1,4 +1,3 @@
-// Функция-конструктор для базового класса "Произведение"
 function WorkPrototype(name, author, year, style) {
     this.name = name;
     this.author = author;
@@ -6,7 +5,6 @@ function WorkPrototype(name, author, year, style) {
     this.style = style;
 }
 
-// Геттеры и сеттеры для базового класса "Произведение"
 WorkPrototype.prototype.getName = function() {
     return this.name;
 };
@@ -35,19 +33,16 @@ WorkPrototype.prototype.setStyle = function(style) {
     this.style = style;
 };
 
-// Функция-конструктор для производного класса "Книга"
 function BookPrototype(author, year, style, pages, publisher, language) {
-    WorkPrototype.call(this, author, year, style); // Наследуем от WorkPrototype
+    WorkPrototype.call(this, author, year, style);
     this.pages = pages;
     this.publisher = publisher;
     this.language = language;
 }
 
-// Наследуем методы от "WorkPrototype"
 BookPrototype.prototype = Object.create(WorkPrototype.prototype);
 BookPrototype.prototype.constructor = BookPrototype;
 
-// Геттеры и сеттеры для класса "Книга"
 BookPrototype.prototype.getPages = function() {
     return this.pages;
 };
@@ -69,13 +64,10 @@ BookPrototype.prototype.setLanguage = function(language) {
     this.language = language;
 };
 
-// Массив для хранения объектов книги
 let books = [];
 
-// Массив для хранения уникальных авторов
 let authors = [];
 
-// Метод добавления книги
 function addBookFromForm() {
   const name = document.getElementById('name').value;
   const author = document.getElementById('author').value;
@@ -88,7 +80,6 @@ function addBookFromForm() {
   const newBook = new BookPrototype(name, author, year, style, pages, publisher, language);
   books.push(newBook);
 
-  // Добавляем автора в список, если его еще нет
   if (!authors.includes(author)) {
     authors.push(author);
     updateAuthorSelect();
@@ -98,18 +89,15 @@ function addBookFromForm() {
   filterBooksByAuthor();
 }
 
-// Метод обновления содержимого селекта авторов
 function updateAuthorSelect() {
   const authorSelect = document.getElementById('author-select');
-  authorSelect.innerHTML = ''; // Очищаем текущие варианты
+  authorSelect.innerHTML = '';
 
-  // Добавляем вариант "Все авторы" для сброса фильтрации
   const allOption = document.createElement('option');
   allOption.value = '';
   allOption.textContent = 'Все авторы';
   authorSelect.appendChild(allOption);
 
-  // Добавляем каждого автора как вариант в селекте
   authors.forEach(author => {
     const option = document.createElement('option');
     option.value = author;
@@ -118,18 +106,15 @@ function updateAuthorSelect() {
   });
 }
 
-// Метод фильтрации книг по автору
 function filterBooksByAuthor() {
     const selectedAuthor = document.getElementById('author-select').value;
   
-    // Фильтруем книги по автору и году (1980 и позже)
     const filteredBooks = books.filter(book => {
       const isAuthorMatch = selectedAuthor ? book.getAuthor() === selectedAuthor : true;
       const isYearValid = book.getYear() >= 1980;
       return isAuthorMatch && isYearValid;
     });
   
-    // Отображаем отфильтрованные книги
     const outputDiv = document.getElementById('filter-output');
     outputDiv.innerHTML = '';
     filteredBooks.forEach(book => {
@@ -140,7 +125,6 @@ function filterBooksByAuthor() {
   }
   
 
-// Метод вывода всех книг на страницу
 function displayBooks() {
   const outputDiv = document.getElementById('books-output');
   outputDiv.innerHTML = '';

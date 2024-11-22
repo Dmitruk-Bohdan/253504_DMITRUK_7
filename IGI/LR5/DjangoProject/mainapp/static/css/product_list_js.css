@@ -71,11 +71,11 @@
 
   .product-card-wrapper {
     position: relative;
-    width: 100%; /* Ширина карточки будет определяться контейнером */
-    max-width: 280px; /* Максимальная ширина карточки */
-    height: 400px; /* Фиксированная высота карточки */
+    width: 100%; 
+    max-width: 280px;
+    height: 400px; 
     transition: transform 0.3s ease;
-    perspective: 500px; /* Перспектива для 3D-эффекта */
+    perspective: 500px;
   }
   
 
@@ -97,7 +97,7 @@
     overflow: hidden;
     background-color: #fff;
     display: flex;
-    flex-direction: column; /* Размещаем элементы сверху вниз */
+    flex-direction: column; 
     justify-content: space-between;
     align-items: center;
     text-align: center;
@@ -117,7 +117,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    aspect-ratio: 1 / 1; /* задает квадратное соотношение сторон */
+    aspect-ratio: 1 / 1; 
     overflow: hidden;
     height: 90%;
     padding: 5%;
@@ -134,10 +134,10 @@
 }
 
 .product-card-body {
-    height: 25%; /* Занимает оставшиеся 45% высоты карточки */
+    height: 25%; 
     display: flex;
     flex-direction: column;
-    justify-content: center ; /* Выравнивание текста по нижнему краю */
+    justify-content: center ;           
     padding: 15px;
 }
 

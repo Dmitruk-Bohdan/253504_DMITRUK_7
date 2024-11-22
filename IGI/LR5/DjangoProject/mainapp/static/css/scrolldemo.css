@@ -1,4 +1,3 @@
-/* Общие стили */
 body {
   font-family: 'Arial', sans-serif;
   background-image: url('../images/scrolldemo/bg.jpg');
@@ -9,69 +8,66 @@ body {
   margin: 0;
   padding: 0;
   color: #333;
-  overflow-x: hidden; /* Ограничиваем горизонтальный скролл */
-  height: 100%; /* Задаём высоту для body */
+  overflow-x: hidden;
+  height: 100%;
 }
 
-/* Секция с деталями (теперь она не перекрывает остальные блоки) */
 #top {
   position: relative;
   text-align: center;
   padding: 50px 0;
-  z-index: -1; /* Фон будет за всеми элементами */
+  z-index: -1; 
 }
 
 #top img {
-  width: 100%; /* Фон растягивается на весь экран */
+  width: 100%; 
   height: auto;
 }
 
-/* Секция контента */
 #content {
   text-align: center;
   padding: 50px;
-  z-index: 1; /* Содержимое будет поверх картинок */
+  z-index: 1;
   position: relative;
 }
 
-/* Стили для картинок, которые будут двигаться */
 #top img,
 #content img {
-  position: absolute; /* Картинки могут быть свободно расположены */
-  z-index: 1000; /* Картинки всегда будут поверх других элементов */
-  width: 100px; /* Размер картинок */
+  position: absolute;
+  z-index: 1000;
+  width: 100px; 
   height: 100px;
-  pointer-events: none; /* Чтобы не блокировать взаимодействие с другими элементами */
+  pointer-events: none;
 }
 
 #bg-part1, #bg-part2, #bg-part3, #bg-part4 {
-  position: fixed; /* Зафиксированные картинки на фоне */
-  z-index: -1; /* Картинки должны быть позади всех блоков */
-  width: 200px; /* Размер картинок */
+  position: fixed;
+  z-index: -1; 
+  width: 200px;
   height: 200px;
   opacity: 0.6;
 }
 
 #bg-part1 {
-  left: -200px; /* Изображение слева */
+  left: -200px; 
   top: 50%;
   transform: translateY(-50%);
 }
 
 #bg-part2 {
-  right: -200px; /* Изображение справа */
+  right: -200px;
   top: 30%;
   transform: translateY(-50%);
 }
 
 #bg-part3 {
-  left: -200px; /* Изображение слева */
+  left: -200px; 
   top: 70%;
   transform: translateY(-50%);
 }
 
 #bg-part4 {
-  right: -200px; /* Изображение справа */
+  right: -200px;
   top: 80%;
   transform: translateY(-50%);
 }

@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="{% static 'css/scrolldemo.css' %}" />
   <link rel="stylesheet" href="{% static 'css/row.css' %}" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="{% static 'scripts/row.js' %}"></script>
 </head>
 <body>
   <img src="{% static 'images/scrolldemo/img5.png' %}" id="bg-part1" alt="Деталь 5">
@@ -121,7 +122,6 @@ Fugiat aliqua cillum eu eiusmod quis ex laboris irure enim culpa. Dolor eu quis 
 Id quis esse labore ex. Anim consequat anim officia quis ex veniam non eu cillum eu. Qui id ea cupidatat in adipisicing dolore consectetur aliquip aliqua esse ex ad amet. Consectetur consequat commodo mollit commodo. Quis culpa qui dolor aliqua cillum aute dolor aliquip ullamco voluptate. Non consequat in quis nostrud minim ullamco id nisi sit nisi consectetur quis. Non fugiat do enim labore quis officia ut magna veniam exercitation reprehenderit ullamco incididunt consequat.
   </section>
   <div id="graph-container">
-    <form id="inputForm">
       <form id="inputForm">
         <label for="epsilon">Погрешность (ε): </label>
         <input type="number" id="epsilon" name="epsilon" value="0.0001" step="0.0001">
@@ -129,8 +129,8 @@ Id quis esse labore ex. Anim consequat anim officia quis ex veniam non eu cillum
     </form>
 
     <canvas style="margin: auto; width: 800px; height: 600px;" id="myChart"></canvas>
+
 </div>
   <script src="{% static 'scripts/scrolldemo.js' %}"></script>
-  <script src="{% static 'scripts/row.js' %}"></script>
 </body>
 </html>
