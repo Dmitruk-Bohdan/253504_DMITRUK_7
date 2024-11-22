@@ -1,0 +1,91 @@
+#graph-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px; /* Ограничиваем максимальную ширину контейнера */
+    margin: 0 auto; /* Центрируем контейнер по горизонтали */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+canvas {
+    width: 100%;
+    max-width: 800px; /* Максимальная ширина графика */
+    max-height: 400px; /* Фиксированная высота графика */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+form#inputForm {
+    margin: 20px 0;
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Метки (label) */
+form#inputForm label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    align-self: flex-start;
+}
+
+/* Поля ввода */
+form#inputForm input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+form#inputForm input:focus {
+    border-color: #007BFF;
+}
+
+/* Кнопка отправки */
+form#inputForm button {
+    padding: 10px 15px;
+    background: #007BFF;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+form#inputForm button:hover {
+    background: #0056b3;
+}
+
+form#inputForm button:active {
+    transform: scale(0.98);
+}
+
+/* Стиль графика */
+canvas#chart {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}

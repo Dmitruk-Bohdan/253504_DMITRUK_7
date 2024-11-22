@@ -75,3 +75,8 @@ body {
   top: 80%;
   transform: translateY(-50%);
 }
+
+#map {
+  height: 400px;
+  width: 100%;
+}

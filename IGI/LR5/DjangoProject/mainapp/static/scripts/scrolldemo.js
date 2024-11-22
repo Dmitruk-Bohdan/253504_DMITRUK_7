@@ -36,8 +36,8 @@ window.addEventListener('scroll', moveBackgroundImages);
       element: part,
       x: Math.random() * maxX, // Начальная позиция по оси X
       y: Math.random() * maxY, // Начальная позиция по оси Y
-      dx: (Math.random() - 0.5) * speed, // Скорость по оси X
-      dy: (Math.random() - 0.5) * speed, // Скорость по оси Y
+      dx: (Math.random()) * speed, // Скорость по оси X
+      dy: (Math.random()) * speed, // Скорость по оси Y
   }));
 
   // Функция обновления позиции
@@ -67,3 +67,4 @@ window.addEventListener('scroll', moveBackgroundImages);
   // Начинаем обновление
   updatePositions();
 });
+
