@@ -59,11 +59,8 @@ class Product(models.Model):
     article_number = models.CharField(max_length=20)
     description = models.TextField(max_length=100)
     price_per_unit = models.DecimalField(max_digits=10, decimal_places=2, default= 9.99)
-    suppliers = models.ManyToManyField(Supplier, related_name ='products')
     image = models.ImageField(upload_to='images/products/', default='images/products/default.png')
     category = models.ForeignKey(Category, related_name ='products', on_delete=models.DO_NOTHING)
-    pickup_points = models.ManyToManyField(PickupPoint, related_name ='products')
-    manufacturer = models.ForeignKey(Manufacturer, related_name='products', on_delete=models.SET_NULL, null=True)
     count = models.IntegerField(default=5)
     paginate_by = 10
 

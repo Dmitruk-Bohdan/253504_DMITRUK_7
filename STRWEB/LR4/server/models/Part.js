@@ -4,39 +4,20 @@ const partSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        trim: true
+        maxLength: 100
     },
-    category: {
+    articleNumber: {
         type: String,
         required: true,
-        enum: ['Engine', 'Transmission', 'Brake System', 'Suspension', 'Electrical', 'Body Parts', 'Interior', 'Other']
-    },
-    manufacturer: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    model: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    year: {
-        type: Number,
-        required: true,
-        min: 1900,
-        max: new Date().getFullYear() + 1
-    },
-    price: {
-        type: Number,
-        required: true,
-        min: 0
+        maxLength: 20,
+        unique: true
     },
     description: {
         type: String,
-        required: true
+        required: true,
+        maxLength: 1000
     },
-    stock: {
+    price: {
         type: Number,
         required: true,
         min: 0
@@ -45,24 +26,16 @@ const partSchema = new mongoose.Schema({
         type: String,
         required: true
     }],
-    specifications: {
-        type: Map,
-        of: String
+    category: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
+        required: true
     },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
-    updatedAt: {
-        type: Date,
-        default: Date.now
+    stock: {
+        type: Number,
+        default: 5,
+        min: 0
     }
-});
-
-// Обновление даты изменения перед сохранением
-partSchema.pre('save', function(next) {
-    this.updatedAt = new Date();
-    next();
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Part', partSchema);
