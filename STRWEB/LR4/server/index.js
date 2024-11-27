@@ -18,15 +18,18 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Initialize Passport
+require('./config/passport');
 app.use(passport.initialize());
 
 // Static files
 app.use('/uploads', express.static('uploads'));
 
 // Маршруты API
-// app.use('/api/upload', require('./routes/upload'));  
-// app.use('/api/auth', require('./routes/auth'));
-// app.use('/api/parts', require('./routes/parts'));
+app.use('/api/upload', require('./routes/upload'));  
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/parts', require('./routes/parts'));
 
 // Database connection
 console.log('Attempting to connect to MongoDB...');
